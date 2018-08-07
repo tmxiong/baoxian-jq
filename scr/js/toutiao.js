@@ -6,6 +6,7 @@ var loading = false;
 var lastArticleID = 0;
 var loadNone = false;
 var loadError = false;
+var currentTab = null;
 
 window.onload = function () {
     init();
@@ -14,7 +15,7 @@ window.onload = function () {
 
 
 function init() {
-    console.log(getDataFromLocal('articleToutiao'));
+    getCurrentTab();
 
     $(".infinite").infinite().on("infinite", function() {
         if(loading || loadNone) return;
@@ -30,18 +31,33 @@ function init() {
     getData(urls.articleList);
 }
 
+function getCurrentTab() {
+    var tabs = $(".weui-navbar__item");
+    for(var i = 0; i < tabs.length; i++) {
+        var tab = tabs.eq(i);
+        if(tab.attr("class").match("on")) {
+            currentTab = tab.attr("href");
+            break;
+        }
+    }
+    console.log(currentTab);
+}
+
+// 是否从详情页返回此页的
 function checkIsBackToThis() {
     var toutiaoData = getDataFromLocal('articleToutiao');
     var searchData = getDataFromLocal('articleSearch');
     var IsBackToThis = false;
     if(toutiaoData) {
-        setHtml(toutiaoData);
+        setData(toutiaoData);
+        var currentHeight = sessionStorage.getItem('currentHeight');
+        $(currentTab).scrollTop(currentHeight);
         IsBackToThis = true;
     }
     if(searchData) {
         IsBackToThis = true;
     }
-    console.log(IsBackToThis);
+    // console.log(IsBackToThis);
     return IsBackToThis;
 }
 
@@ -56,7 +72,6 @@ function getData(url) {
         console.log(e);
     })
 
-
 }
 
 function setData(data) {
@@ -68,7 +83,12 @@ function setData(data) {
         articleList = articleList.concat(list);
         saveDataToLocal(articleList);
         lastArticleID = data.last_article_id;
-        setHtml(articleList);
+        var listHtml = [];
+        for(let i = 0,len = list.length; i < len; i++) {
+            listHtml.push(listTemp(list[i]));
+        }
+        $("#content1").append(listHtml);
+        loader('tab1-loadmore',false);
 
     }else if(data.status === 0) { // 没有数据
         loadNone = true;
@@ -79,19 +99,15 @@ function setData(data) {
     }
 }
 
-function setHtml(list) {
-    var listHtml = [];
-    for(let i = 0,len = list.length; i < len; i++) {
-        listHtml.push(listTemp(list[i]));
-    }
-    $("#content1").append(listHtml);
-    loader('tab1-loadmore',false);
-}
 
 // 保存数据, 返回页面使用
-function saveDataToLocal(data) {
+function saveDataToLocal(list) {
     //头条页 搜索页articleSearch
-    sessionStorage.setItem('articleToutiao',JSON.stringify(data));
+    let obj = {};
+    obj.last_article_id = lastArticleID;
+    obj.article_list = list;
+    obj.status = 1;
+    sessionStorage.setItem('articleToutiao',JSON.stringify(obj));
 }
 
 function getDataFromLocal(key) {
@@ -114,9 +130,14 @@ function loader(id ,isShow, text = null) {
 
 }
 
+function onItemPress() {
+    var currentHeight = $(currentTab).scrollTop();
+    sessionStorage.setItem('currentHeight', currentHeight);
+}
+
 function listTemp(list) {
     return `
-            <a class="item-content" href="toutiaoDetail.html?articleID=${list.article_id}&articleTitle=${list.article_title}">
+            <a class="item-content" onclick="onItemPress()" href="toutiaoDetail.html?articleID=${list.article_id}&articleTitle=${list.article_title}">
                 <img class="item-img" alt="${list.article_title}" src="${list.article_pic_url}">
                 <div class="item-right">
                     <span class="item-title">${list.article_title}</span>
