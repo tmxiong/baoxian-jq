@@ -14,7 +14,8 @@ window.onload = function () {
 
 
 function init() {
-    getData(urls.articleList);
+    console.log(getDataFromLocal('articleToutiao'));
+
     $(".infinite").infinite().on("infinite", function() {
         if(loading || loadNone) return;
         loading = true;
@@ -22,12 +23,31 @@ function init() {
         var url = urls.articleList+'?last_article_id='+lastArticleID;
         getData(url);
     });
+
+    if(checkIsBackToThis()){
+        return;
+    }
+    getData(urls.articleList);
+}
+
+function checkIsBackToThis() {
+    var toutiaoData = getDataFromLocal('articleToutiao');
+    var searchData = getDataFromLocal('articleSearch');
+    var IsBackToThis = false;
+    if(toutiaoData) {
+        setHtml(toutiaoData);
+        IsBackToThis = true;
+    }
+    if(searchData) {
+        IsBackToThis = true;
+    }
+    console.log(IsBackToThis);
+    return IsBackToThis;
 }
 
 function getData(url) {
 
     $.get(url,function(data) {
-        console.log(data);
         setData(data);
     }).error(function(e){
         loading = false;
@@ -46,13 +66,10 @@ function setData(data) {
         loadNone = false;
         var list = data.article_list;
         articleList = articleList.concat(list);
+        saveDataToLocal(articleList);
         lastArticleID = data.last_article_id;
-        var listHtml = [];
-        for(let i = 0,len = list.length; i < len; i++) {
-            listHtml.push(listTemp(list[i]));
-        }
-        $("#content1").append(listHtml);
-        loader('tab1-loadmore',false);
+        setHtml(articleList);
+
     }else if(data.status === 0) { // 没有数据
         loadNone = true;
         loader('tab1-loadmore',false);
@@ -60,6 +77,25 @@ function setData(data) {
     }else {
         loadError = true;
     }
+}
+
+function setHtml(list) {
+    var listHtml = [];
+    for(let i = 0,len = list.length; i < len; i++) {
+        listHtml.push(listTemp(list[i]));
+    }
+    $("#content1").append(listHtml);
+    loader('tab1-loadmore',false);
+}
+
+// 保存数据, 返回页面使用
+function saveDataToLocal(data) {
+    //头条页 搜索页articleSearch
+    sessionStorage.setItem('articleToutiao',JSON.stringify(data));
+}
+
+function getDataFromLocal(key) {
+    return JSON.parse(sessionStorage.getItem(key))
 }
 
 function loader(id ,isShow, text = null) {

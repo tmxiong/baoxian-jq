@@ -26,22 +26,22 @@
       <file leaf-file-name="toutiao.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scr/css/toutiao.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="54" column="16" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
+            <state relative-caret-position="380">
+              <caret line="73" column="1" selection-start-line="73" selection-start-column="1" selection-end-line="73" selection-end-column="1" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="toutiao.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="toutiao.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scr/js/toutiao.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
+            <state relative-caret-position="-418">
+              <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
               <folding>
-                <marker date="1533543814718" expanded="true" signature="1975:2824" ph="..." />
-                <marker date="1533543814718" expanded="true" signature="2113:2807" ph="..." />
-                <marker date="1533543814718" expanded="true" signature="2233:2784" ph="..." />
+                <marker date="1533638246023" expanded="true" signature="2737:3586" ph="..." />
+                <marker date="1533638246023" expanded="true" signature="2875:3569" ph="..." />
+                <marker date="1533638246023" expanded="true" signature="2995:3546" ph="..." />
               </folding>
             </state>
           </provider>
@@ -59,37 +59,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="39" column="99" selection-start-line="39" selection-start-column="99" selection-end-line="39" selection-end-column="99" />
+            <state relative-caret-position="247">
+              <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jquery-weui.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dist/js/jquery-weui.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71934">
-              <caret line="3790" column="3" selection-start-line="3790" selection-start-column="3" selection-end-line="3790" selection-end-column="3" />
-              <folding>
-                <marker date="1533536851715" expanded="true" signature="116159:116365" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="116198:116347" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="148468:148654" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="148503:148640" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="148724:149307" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="148832:149273" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="148889:148942" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="148981:149255" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="149383:149970" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="149491:149936" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="149548:149601" ph="..." />
-                <marker date="1533536851715" expanded="true" signature="149640:149918" ph="..." />
               </folding>
             </state>
           </provider>
@@ -137,11 +114,11 @@
         <option value="$PROJECT_DIR$/scr/css/toutiao.css" />
         <option value="$PROJECT_DIR$/dist/js/jquery-weui.js" />
         <option value="$PROJECT_DIR$/scr/toutiao.html" />
-        <option value="$PROJECT_DIR$/scr/js/toutiao.js" />
         <option value="$PROJECT_DIR$/scr/js/utils.js" />
         <option value="$PROJECT_DIR$/scr/toutiaoDetail.html" />
         <option value="$PROJECT_DIR$/toutiaoDetail.html" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/scr/js/toutiao.js" />
       </list>
     </option>
   </component>
@@ -341,33 +318,33 @@
       <option name="presentableId" value="Default" />
       <updated>1533529393489</updated>
       <workItem from="1533529397930" duration="16932000" />
-      <workItem from="1533608638573" duration="1719000" />
+      <workItem from="1533608638573" duration="4318000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18651000" />
+    <option name="totallyTimeSpent" value="21250000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="69" y="18" width="1822" height="1039" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22701794" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28335172" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -407,9 +384,9 @@
         <state relative-caret-position="1558">
           <caret line="82" column="70" selection-start-line="82" selection-start-column="61" selection-end-line="82" selection-end-column="70" />
           <folding>
-            <marker date="1533543814718" expanded="true" signature="1975:2824" ph="..." />
-            <marker date="1533543814718" expanded="true" signature="2113:2807" ph="..." />
-            <marker date="1533543814718" expanded="true" signature="2233:2784" ph="..." />
+            <marker date="1533638246023" expanded="true" signature="2737:3586" ph="..." />
+            <marker date="1533638246023" expanded="true" signature="2875:3569" ph="..." />
+            <marker date="1533638246023" expanded="true" signature="2995:3546" ph="..." />
           </folding>
         </state>
       </provider>
@@ -531,27 +508,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/js/jquery-weui.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71934">
-          <caret line="3790" column="3" selection-start-line="3790" selection-start-column="3" selection-end-line="3790" selection-end-column="3" />
-          <folding>
-            <marker date="1533536851715" expanded="true" signature="116159:116365" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="116198:116347" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="148468:148654" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="148503:148640" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="148724:149307" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="148832:149273" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="148889:148942" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="148981:149255" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="149383:149970" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="149491:149936" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="149548:149601" ph="..." />
-            <marker date="1533536851715" expanded="true" signature="149640:149918" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scr/js/utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -570,26 +526,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scr/css/toutiao.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="54" column="16" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scr/js/toutiao.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-          <folding>
-            <marker date="1533543814718" expanded="true" signature="1975:2824" ph="..." />
-            <marker date="1533543814718" expanded="true" signature="2113:2807" ph="..." />
-            <marker date="1533543814718" expanded="true" signature="2233:2784" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/toutiaoDetail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -600,13 +536,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dist/js/jquery-weui.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="729">
+          <caret line="3790" column="3" selection-start-line="3790" selection-start-column="3" selection-end-line="3790" selection-end-column="3" />
+          <folding>
+            <marker date="1533536851715" expanded="true" signature="116159:116365" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="116198:116347" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="148468:148654" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="148503:148640" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="148724:149307" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="148832:149273" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="148889:148942" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="148981:149255" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="149383:149970" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="149491:149936" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="149548:149601" ph="..." />
+            <marker date="1533536851715" expanded="true" signature="149640:149918" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="39" column="99" selection-start-line="39" selection-start-column="99" selection-end-line="39" selection-end-column="99" />
+        <state relative-caret-position="247">
+          <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scr/css/toutiao.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="73" column="1" selection-start-line="73" selection-start-column="1" selection-end-line="73" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scr/js/toutiao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-418">
+          <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+          <folding>
+            <marker date="1533638246023" expanded="true" signature="2737:3586" ph="..." />
+            <marker date="1533638246023" expanded="true" signature="2875:3569" ph="..." />
+            <marker date="1533638246023" expanded="true" signature="2995:3546" ph="..." />
           </folding>
         </state>
       </provider>
