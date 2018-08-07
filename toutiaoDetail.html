@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>头条详情</title>
+    <style>
+        .article-container{
+            display:flex;
+            background-color:#fff;
+            flex:1;
+            flex-direction: column;
+            width:100%;
+        }
+        .content{
+            padding:10px
+        }
+    </style>
+    <script src="scr/js/utils.js"></script>
+    <script src="scr/config/urls.js"></script>
+    <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script>
+        window.onload = function () {
+            let articleID = queryParams('articleID');
+            let articleTitle = queryParams('articleTitle');
+            $("#article-title").text(decodeURIComponent(articleTitle));
+            getArticleContent(articleID)
+        };
+
+        function getArticleContent(id) {
+            let url = urls.articleDetail+'?article_id='+id;
+            $.get(url,function (data) {
+                console.log(data);
+                setArticleContent(data);
+            }).error((e)=>{console.log(e)})
+        }
+
+        function setArticleContent(data) {
+            if(data.status === 1) {
+                $("#article-content").html(data.article_detail.article_content);
+            }else {
+
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="article-container">
+        <h3 id="article-title" style="margin-left: 10px;margin-top: 10px"></h3>
+        <div id="article-content" class="content" v-html="articleContent"></div>
+    </div>
+</body>
+</html>
