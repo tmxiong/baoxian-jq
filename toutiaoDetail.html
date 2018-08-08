@@ -19,8 +19,10 @@
     <script src="src/js/utils.js"></script>
     <script src="src/config/urls.js"></script>
     <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="dist/js/jquery-weui.js"></script>
     <script>
         window.onload = function () {
+            $.showLoading();
             let articleID = queryParams('articleID');
             let articleTitle = queryParams('articleTitle');
             $("#article-title").text(decodeURIComponent(articleTitle));
@@ -41,6 +43,7 @@
             }else {
 
             }
+            $.hideLoading();
         }
     </script>
 </head>
@@ -50,5 +53,11 @@
         <h3 id="article-title" style="margin-left: 10px;margin-top: 10px"></h3>
         <div id="article-content" class="content" v-html="articleContent"></div>
     </div>
+    <script src="./dist/lib/fastclick.js"></script>
+    <script>
+        $(function() {
+            FastClick.attach(document.body);
+        });
+    </script>
 </body>
 </html>
