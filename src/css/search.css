@@ -120,16 +120,21 @@ footer a {
 .notice-item-container{
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
 
 }
 .notice-item{
-  width:80px;
-  height:45px;
+  min-width:80px;
+  height:40px;
   padding:0;
   text-align: center;
-  vertical-align: center;
-  color:#bbb;
+  line-height:40px;
+  color:#0f87eb;
   margin-top: 10px;
+  font-size: 15px;
+  margin-left:10px;
+  /*border-radius: 5px;*/
+  /*border:1px solid #0f87eb;*/
 }
 
 .swiper2 {

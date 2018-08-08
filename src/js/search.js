@@ -9,8 +9,8 @@ var loadError = false;
 var currentTab = null;
 
 window.onload = function () {
-    init();
-    initTab();
+    // init();
+
 };
 
 function onSearchBlur() {
