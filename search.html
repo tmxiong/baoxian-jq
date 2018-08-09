@@ -13,13 +13,13 @@
 <body ontouchstart>
 
 <section>
-    <div class="tab-header swiper1">
+    <div class="tab-header">
         <!--搜索s-->
-        <div class="weui-search-bar" id="searchBar">
-            <form class="weui-search-bar__form" action="#">
+        <div class="weui-search-bar" id="searchBar" style="width:100%">
+            <form class="weui-search-bar__form" action="javascript:;" onsubmit="return onSubmit()" >
                 <div class="weui-search-bar__box">
                     <i class="weui-icon-search"></i>
-                    <input type="search" class="weui-search-bar__input" id="searchInput" onBlur="onSearchBlur()" onFocus="onSearchFocus()" placeholder="搜索" required="">
+                    <input type="search" class="weui-search-bar__input" id="searchInput"  placeholder="搜索" required="">
                     <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
                 </div>
                 <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
@@ -44,18 +44,16 @@
             <a class="notice-item">微信</a>
         </div>
     </div>
-    <!--<div class="article-container">-->
-        <!--<div class="tab-body swiper2">-->
-            <!--<div id="content1"></div>-->
-            <!--<div id="tab1-loadmore" class="weui-loadmore" style="display: none;">-->
-                <!--<i class="weui-loading"></i>-->
-                <!--<span class="weui-loadmore__tips">正在加载</span>-->
-            <!--</div>-->
-            <!--<div id="tab1-loadnone" class="weui-loadmore weui-loadmore_line" style="display: none">-->
-                <!--<span class="weui-loadmore__tips">暂无数据</span>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div class="article-container">
+        <div id="content1"></div>
+        <div id="tab1-loadmore" class="weui-loadmore" style="display: none;">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+        </div>
+        <div id="tab1-loadnone" class="weui-loadmore weui-loadmore_line" style="display: none">
+            <span class="weui-loadmore__tips">暂无数据</span>
+        </div>
+    </div>
 
 </section>
 

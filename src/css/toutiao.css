@@ -2,46 +2,6 @@ body, html {
   height: 100%;
   -webkit-tap-highlight-color: transparent;
 }
-.demos-title {
-  text-align: center;
-  font-size: 34px;
-  color: #3cc51f;
-  font-weight: 400;
-  margin: 0 15%;
-}
-
-.demos-sub-title {
-  text-align: center;
-  color: #888;
-  font-size: 14px;
-}
-
-.demos-header {
-  padding: 35px 0;
-}
-
-.demos-content-padded {
-  padding: 15px;
-}
-
-.demos-second-title {
-  text-align: center;
-  font-size: 24px;
-  color: #3cc51f;
-  font-weight: 400;
-  margin: 0 15%;
-}
-
-footer {
-  text-align: center;
-  font-size: 14px;
-  padding: 20px;
-}
-
-footer a {
-  color: #999;
-  text-decoration: none;
-}
 
 .item-content{
   display:flex;
@@ -110,7 +70,7 @@ footer a {
 
 /*********tab-s**********/
 .tab-header {
-  box-shadow:0px 1px 8px #7e7e7e;
+  box-shadow:0px 1px 5px #7e7e7e;
 }
 .swiper1 {
   width: 100%;
@@ -146,7 +106,7 @@ footer a {
 }
 .swiper2 {
   width: 100%;
-  margin-top:40px;
+  margin-top:44px;
   height:100%;
   overflow-y: scroll;
 
@@ -157,7 +117,23 @@ footer a {
   color: #fff;
   text-align: center;
   box-sizing: border-box !important;
-
-
 }
 /*********tab-e**********/
+
+.error-content {
+  width:100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  height:100%;
+  justify-content: center;
+  margin-top:30%;
+}
+.error-icon {
+  font-size: 70px;color:#bbb;
+  margin:20px;
+}
+.error-text {
+  width:100%;color:#bbb;
+  text-align: center;
+}

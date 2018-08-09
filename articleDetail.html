@@ -4,21 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>头条详情</title>
+    <link rel="stylesheet" href="dist/lib/weui.min.css">
+    <link rel="stylesheet" href="dist/css/jquery-weui.min.css">
     <style>
+        .title{
+            width:calc(100% - 20px);
+            margin: 10px auto;
+        }
         .article-container{
             display:flex;
             background-color:#fff;
             flex:1;
             flex-direction: column;
             width:100%;
+            overflow-y: hidden;
+            padding:20px 0;
         }
         .content{
-            padding:10px
+            width:calc(100% - 20px);
+            overflow-y: hidden;
+            margin:0 auto;
+        }
+        .content img {
+            width:100%;
+        }
+        .error-content {
+            width:100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            height:100%;
+            justify-content: center;
+            margin-top:30%;
+        }
+        .error-icon {
+            font-size: 70px;color:#bbb;
+            margin:20px;
+        }
+        .error-text {
+            width:100%;color:#bbb;
+            text-align: center;
         }
     </style>
+
+
+</head>
+
+<body>
+    <div class="article-container">
+        <h3 id="article-title" class="title"></h3>
+        <div id="article-content" class="content" >
+            <div class="error-content">
+                <i class="weui-icon-warn error-icon"></i>
+                <div class="error-text">啊哦, 此文章已飞去火星了!</div>
+            </div>
+        </div>
+    </div>
     <script src="src/js/utils.js"></script>
     <script src="src/config/urls.js"></script>
     <script src="dist/lib/jquery-2.1.4.js"></script>
+    <script src="./dist/lib/fastclick.js"></script>
+    <script>
+        $(function() {
+            FastClick.attach(document.body);
+        });
+    </script>
     <script src="dist/js/jquery-weui.js"></script>
     <script>
         window.onload = function () {
@@ -41,23 +91,10 @@
             if(data.status === 1) {
                 $("#article-content").html(data.article_detail.article_content);
             }else {
-
+                $(".error-content").css('display','flex');
             }
             $.hideLoading();
         }
-    </script>
-</head>
-
-<body>
-    <div class="article-container">
-        <h3 id="article-title" style="margin-left: 10px;margin-top: 10px"></h3>
-        <div id="article-content" class="content" v-html="articleContent"></div>
-    </div>
-    <script src="./dist/lib/fastclick.js"></script>
-    <script>
-        $(function() {
-            FastClick.attach(document.body);
-        });
     </script>
 </body>
 </html>

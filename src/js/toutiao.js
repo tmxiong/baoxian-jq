@@ -12,15 +12,6 @@ window.onload = function () {
     init();
     initTab();
 };
-
-function onSearchBlur() {
-    console.log('取消输入,')
-}
-
-function onSearchFocus() {
-    console.log('开始输入')
-}
-
 function init() {
     getCurrentTab();
     $(".infinite").infinite().on("infinite", function () {
@@ -118,14 +109,20 @@ function checkIsBackToThis() {
     return IsBackToThis;
 }
 
+function reloadData() {
+    $.showLoading();
+    showError(false);
+    getData(urls.articleList);
+}
+
 function getData(url) {
 
     $.get(url, function (data) {
         setData(data);
     }).error(function (e) {
-        loading = false;
-        loadError = true;
+        $.hideLoading();
         loader('tab1-loadmore', false);
+        showError(true);
         console.log(e);
     })
 
@@ -152,13 +149,28 @@ function setData(data) {
         loader('tab1-loadmore', false);
         loader('tab1-loadnone', true, `结束探索,海拔高度${articleList.length}000米`)
     } else {
-        loadError = true;
+
+        showError(true)
     }
     $.hideLoading();
 
 }
 
+function showError(isShow) {
+    loadError = true;
+    if(isShow) {
+        if(articleList.length === 0) { // 列表页是空的
+            $(".error-content").css('display',"flex")
+        }else { // 上拉加载时出错
+            $.toast("网络错误", "forbidden", function() {
+                loading = false;
+            });
+        }
 
+    }else {
+        $(".error-content").css('display',"none")
+    }
+}
 // 保存数据, 返回页面使用
 function saveDataToLocal(list) {
     //头条页 搜索页articleSearch
@@ -196,7 +208,7 @@ function onItemPress() {
 
 function listTemp(list) {
     return `
-            <a class="item-content" onclick="onItemPress()" href="toutiaoDetail.html?articleID=${list.article_id}&articleTitle=${list.article_title}">
+            <a class="item-content" onclick="onItemPress()" href="articleDetail.html?articleID=${list.article_id}&articleTitle=${list.article_title}">
                 <img class="item-img" alt="${list.article_title}" src="${list.article_pic_url}">
                 <div class="item-right">
                     <span class="item-title">${list.article_title}</span>
