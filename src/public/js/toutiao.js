@@ -13,7 +13,7 @@ window.onload = function () {
     initTab();
 };
 function init() {
-    getCurrentTab();
+    // getCurrentTab();
     $(".infinite").infinite().on("infinite", function () {
         if (loading || loadNone) return;
         loading = true;
@@ -94,15 +94,11 @@ function getCurrentTab() {
 // 是否从详情页返回此页的
 function checkIsBackToThis() {
     var toutiaoData = getDataFromLocal('articleToutiao');
-    var searchData = getDataFromLocal('articleSearch');
     var IsBackToThis = false;
     if (toutiaoData) {
         setData(toutiaoData);
         var currentHeight = sessionStorage.getItem('currentHeight');
         $(currentTab).scrollTop(currentHeight);
-        IsBackToThis = true;
-    }
-    if (searchData) {
         IsBackToThis = true;
     }
     // console.log(IsBackToThis);

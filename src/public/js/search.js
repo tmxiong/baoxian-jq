@@ -99,22 +99,24 @@ function setData(data) {
     // 加载成功
     loading = false;
     if (data.error_code === 0) {
-        loadNone = false;
-        var list = data.data;
-        articleList = articleList.concat(list);
-        saveDataToLocal(articleList);
-        lastArticleID = data.last_article_id;
-        var listHtml = [];
-        for (let i = 0, len = list.length; i < len; i++) {
-            listHtml.push(listTemp(list[i]));
+        if(data.data.length === 0) {
+            loadNone = true;
+            loader('tab1-loadmore', false);
+            loader('tab1-loadnone', true, `结束探索,海拔高度${articleList.length}000米`)
+        }else {
+            loadNone = false;
+            var list = data.data;
+            articleList = articleList.concat(list);
+            saveDataToLocal(articleList);
+            lastArticleID = data.last_article_id;
+            var listHtml = [];
+            for (let i = 0, len = list.length; i < len; i++) {
+                listHtml.push(listTemp(list[i]));
+            }
+            $("#content1").append(listHtml);
+            loader('tab1-loadmore', false);
         }
-        $("#content1").append(listHtml);
-        loader('tab1-loadmore', false);
 
-    } else if (data.status === 0) { // 没有数据
-        loadNone = true;
-        loader('tab1-loadmore', false);
-        loader('tab1-loadnone', true, `结束探索,海拔高度${articleList.length}000米`)
     } else {
         loadError = true;
         page --

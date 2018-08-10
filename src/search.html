@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <title>搜索文章</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="public/css/weui.min.css">
+    <link rel="stylesheet" href="public/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="public/css/search.css">
+
+</head>
+
+<body ontouchstart>
+
+<section>
+    <div class="tab-header">
+        <!--搜索s-->
+        <div class="weui-search-bar" id="searchBar" style="width:100%;background-color: #f2f2f2">
+            <form class="weui-search-bar__form" action="javascript:;" onsubmit="return onSubmit()" >
+                <div class="weui-search-bar__box">
+                    <i class="weui-icon-search"></i>
+                    <input type="search" class="weui-search-bar__input" id="searchInput"  placeholder="搜索" required="">
+                    <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                </div>
+                <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                    <i class="weui-icon-search"></i>
+                    <span>搜索</span>
+                </label>
+            </form>
+            <a href="javascript:" class="weui-search-bar__cancel-btn" style="color:#0f87eb" id="searchCancel">取消</a>
+        </div>
+        <!--搜索e-->
+    </div>
+</section>
+
+<section class="container infinite" style="-webkit-overflow-scrolling: touch">
+    <div class="notice-container">
+        <span class="notice-title">热门搜索:</span>
+        <div class="notice-item-container">
+            <a class="notice-item">马云</a>
+            <a class="notice-item">保险</a>
+            <a class="notice-item">头条</a>
+            <a class="notice-item">新闻</a>
+            <a class="notice-item">齐天大圣</a>
+            <a class="notice-item">如来佛祖</a>
+        </div>
+    </div>
+    <div class="article-container">
+        <div class="error-content" onclick="reloadData()">
+            <i class="weui-icon-safe-warn error-icon"></i>
+            <div class="error-text">加载失败, 点击重试</div>
+        </div>
+        <div class="nodata-content">
+            <i class="weui-icon-info error-icon"></i>
+            <div class="error-text">没找到结果, 请更换关键词</div>
+        </div>
+        <div id="content1">
+
+        </div>
+        <div id="tab1-loadmore" class="weui-loadmore" style="display: none;">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+        </div>
+        <div id="tab1-loadnone" class="weui-loadmore weui-loadmore_line" style="display: none">
+            <span class="weui-loadmore__tips">暂无数据</span>
+        </div>
+    </div>
+
+</section>
+
+<script src="public/js/jquery-2.1.4.js"></script>
+<script src="public/js/fastclick.min.js"></script>
+<script>
+    $(function() {
+        FastClick.attach(document.body);
+    });
+</script>
+<script type="text/javascript" src="public/js/swiper.min.js"></script>
+<script src="public/js/jquery-weui.js"></script>
+<script src="public/js/config.js"></script>
+<!--<script src="public/js/search.js"></script>-->
+<script>
+    /**
+     * Created by Administrator on 2018/8/6.
+     */
+    var articleList = [];
+    var loading = false;
+    var page = 0;
+    var keyWords = "";
+    var loadNone = false;
+    var loadError = false;
+
+    window.onload = function () {
+        init();
+
+    };
+
+
+    function init() {
+        $(".infinite").infinite().on("infinite", function () {
+            if (loading || loadNone) return;
+            loading = true;
+            loader('tab1-loadmore', true);
+            page ++;
+            var url = getSearchUrl(keyWords);
+            getData(url);
+        });
+
+        // 热门搜索词的点击事件
+        $(".notice-item").click(function () {
+            $.showLoading();
+            var text = $(this).text();
+            onSubmit(text);
+        });
+
+        // if (checkIsBackToThis()) {
+        //     return;
+        // }
+        // $.showLoading();
+        // getData(urls.articleList);
+    }
+
+    function onSubmit(value) {
+        $("#content1").empty();
+        $(".nodata-content").css("display","none");
+        articleList = [];
+        page = 0;
+        var input = $("#searchInput");
+        input.blur();
+        if(!value) { // 从搜索栏输入的
+            value = input.val();
+            $.showLoading();
+        }
+        keyWords = value;
+
+        var url = getSearchUrl(value);
+        $(".notice-container").css("display",'none');
+        $(".article-container").css("display",'block');
+        getData(url);
+    }
+
+    function getSearchUrl(keyWords) {
+        return urls.searchArticle.replace('{keywords}',keyWords).replace('{pageIndex}',page);
+    }
+
+    // 是否从详情页返回此页的
+    function checkIsBackToThis() {
+        var toutiaoData = getDataFromLocal('articleToutiao');
+        var searchData = getDataFromLocal('articleSearch');
+        var IsBackToThis = false;
+        if (toutiaoData) {
+            setData(toutiaoData);
+            var currentHeight = sessionStorage.getItem('currentHeight');
+            $(currentTab).scrollTop(currentHeight);
+            IsBackToThis = true;
+        }
+        if (searchData) {
+            IsBackToThis = true;
+        }
+        // console.log(IsBackToThis);
+        return IsBackToThis;
+    }
+
+    function getData(url) {
+        console.log(page);
+        $.get(url, function (data) {
+            data = JSON.parse(data);
+            setData(data);
+            $.hideLoading();
+        }).error(function (e) {
+            page --;
+            $.hideLoading();
+            showError(true);
+            loader('tab1-loadmore', false);
+        })
+
+    }
+
+    function setData(data) {
+        console.log(data);
+        // 加载成功
+        if (data.error_code === 0) {
+            loading = false;
+            if(data.data.length === 0) {
+                if(page === 0) { // 没有搜到结果
+                    $(".nodata-content").css("display",'flex');
+                    loader('tab1-loadmore', false);
+                }else {
+                    loadNone = true;
+                    loader('tab1-loadmore', false);
+                    loader('tab1-loadnone', true, `结束探索,海拔高度${articleList.length}000米`)
+                }
+            }else {
+                loadNone = false;
+                var list = data.data;
+                articleList = articleList.concat(list);
+                saveDataToLocal(articleList);
+                lastArticleID = data.last_article_id;
+                var listHtml = [];
+                for (let i = 0, len = list.length; i < len; i++) {
+                    listHtml.push(listTemp(list[i]));
+                }
+                $("#content1").append(listHtml);
+                loader('tab1-loadmore', false);
+            }
+
+        } else {
+            showError(true);
+            page --
+        }
+        $.hideLoading();
+
+    }
+
+    function showError(isShow) {
+        loadError = true;
+        if(isShow) {
+            if(articleList.length === 0) { // 列表页是空的
+                $(".error-content").css('display',"flex")
+            }else { // 上拉加载时出错
+                $.toast("网络错误", "forbidden", function() {
+                    loading = false;
+                });
+            }
+
+        }else {
+            $(".error-content").css('display',"none")
+        }
+    }
+
+    // 保存数据, 返回页面使用
+    function saveDataToLocal(list) {
+        //头条页 搜索页articleSearch
+        let obj = {};
+        //obj.last_article_id = lastArticleID;
+        obj.page = page;
+        obj.article_list = list;
+        obj.error_code = 0;
+        sessionStorage.setItem('articleSearch', JSON.stringify(obj));
+    }
+
+    function getDataFromLocal(key) {
+        return JSON.parse(sessionStorage.getItem(key))
+    }
+
+    function loader(id, isShow, text = null) {
+        if (isShow) {
+            if (text) {
+                var ele = $(`#${id}`);
+                ele.css("display", "block");
+                ele.children().eq(0).text(text);
+            } else {
+                $(`#${id}`).css("display", "block");
+            }
+
+        } else {
+            $(`#${id}`).css("display", "none");
+        }
+
+    }
+
+    function onItemPress() {
+        // var currentHeight = $(currentTab).scrollTop();
+        // sessionStorage.setItem('currentHeight', currentHeight);
+    }
+
+    function listTemp(list) {
+        return `
+            <a class="item-content" onclick="onItemPress()" href="articleDetail.html?articleID=${list.article_id}&articleTitle=${list.article_title}">
+                <img class="item-img" alt="${list.article_title}" src="${list.article_pic_url}">
+                <div class="item-right">
+                    <span class="item-title">${list.article_title}</span>
+                    <div class="item-counts">
+                        <!--<svg class="item-icon">-->
+                <!--<use xlink:href="../assets/svgs.svg"/>-->
+                <!--</svg>-->
+                <span class="item-text">阅读:${list.article_browse_count}</span>
+
+                <!--<svg class="item-icon" style="margin-left:5px">-->
+                <!--<use xlink:href="../assets/svgs.svg"/>-->
+                <!--</svg>-->
+                <span class="item-text">分享:${list.article_share_count}</span>
+                </div>
+                </div>
+                </a>`
+}
+</script>
+</body>
+</html>
