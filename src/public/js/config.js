@@ -1,5 +1,5 @@
-// var API_URL = 'http://bs.linlizone.com/';
-const API_URL = 'http://hkds.yunxinsky.com/'
+var API_URL = 'http://bs.linlizone.com/';
+// const API_URL = 'http://hkds.yunxinsky.com/'
 
 var urls = {
   // 文章列表
