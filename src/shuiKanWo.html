@@ -125,6 +125,7 @@
             font-size: 14px;
             /*background-color: #dedede;*/
         }
+
         .date-manual{
             position:absolute;
             right:5px;
@@ -134,12 +135,17 @@
             color:#eee;
             background-color: #00a0e9;
         }
-        .date-result{
-            color:#eee;
+        .result{
+            color:#999;
             font-size:14px;
+        }
+        .date-result{
+            margin-left:10px;
+            color:#333
         }
         .tab{
             width:100%;
+            height:100px;
             background-color: #00a0e9;
         }
         .tab-1,.tab-2{
@@ -179,6 +185,24 @@
             font-size: 12px;
             color:#444
         }
+        .sort-active{
+            color:#d6401e;
+            fill:#d6401e;
+        }
+        .popup-content{
+            height:300px;
+        }
+        .popup-search, .popup-cancel{
+            margin:10px 0;
+            color:#00a0e9;
+        }
+        .popup-cancel{
+            color:#999
+        }
+        #datetime-picker-start, #datetime-picker-end {
+            font-size: 14px;
+            width: auto;
+        }
 
     </style>
 </head>
@@ -211,17 +235,18 @@
         <!--<div style="width:1px;height:15px;background-color: #ccc"></div>-->
         <span class="date date-manual">手动选时间</span>
     </div>
-    <div class="flex-column tab" style="align-items: flex-start">
-        <span class="date-result">今天:</span>
-        <div class="flex-row">
-            <div class="tab-1 flex-column">
-                <span class="tab-number">22 / 33</span>
-                <span class="tab-text">阅读 / 分享</span>
-            </div>
-            <div class="tab-2 flex-column">
-                <span class="tab-number">66</span>
-                <span class="tab-text">准客户</span>
-            </div>
+    <div class="flex-row" style="justify-content: flex-start;height:30px;">
+        <span class="result date-result">今天</span>
+        <span class="result"> 的获客成果：</span>
+    </div>
+    <div class="flex-row tab" >
+        <div class="tab-1 flex-column">
+            <span class="tab-number">22 / 33</span>
+            <span class="tab-text">阅读 / 分享</span>
+        </div>
+        <div class="tab-2 flex-column">
+            <span class="tab-number">66</span>
+            <span class="tab-text">准客户</span>
         </div>
     </div>
 
@@ -233,13 +258,13 @@
                 <use xlink:href="#sort"/>
             </svg>
             <span class="sort-text" style="font-weight: bold;margin-right:5px">排序:</span>
-            <span class="sort-text">分享时间</span>
-            <svg class="sort-arrow-icon" >
-                <use xlink:href="#arrow-up"/>
+            <span class="sort-text sort-active">分享时间</span>
+            <svg class="sort-arrow-icon sort-active" >
+                <use xlink:href="#arrow-down"/>
             </svg>
             <span class="sort-text" style="margin-left:5px">阅读数</span>
             <svg class="sort-arrow-icon" >
-                <use xlink:href="#arrow-up"/>
+                <use xlink:href="#arrow-down"/>
             </svg>
         </div>
         <div style="width:1px;height:15px;background-color: #ccc"></div>
@@ -248,7 +273,7 @@
                 <use xlink:href="#list-type"/>
             </svg>
             <span class="sort-text" style="font-weight: bold;margin-right:5px">显示:</span>
-            <span class="sort-text" style="border-bottom: 1px solid #333;padding:0 5px">按文章显示</span>
+            <span class="sort-text" style="color:#d6401e">按文章显示</span>
         </div>
     </div>
 </section>
@@ -334,10 +359,25 @@
             <a href="" style="font-size: 14px;color:#00a0e9;margin-right:10px">查看>></a>
         </div>
     </div>
-
-
 </section>
+<div id="popup-container" class="weui-popup__container popup-bottom">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal popup-content">
+        <div class="flex-row" style="justify-content: space-between;height:40px;border-bottom: 1px solid #bbb;padding:0 10px;">
+            <span class="popup-cancel">取消</span>
+            <span class="popup-search">查询</span>
+        </div>
+        <div class="flex-row" style="height:40px;margin-top: 20px;">
+            <span>开始时间：</span>
+            <input type="text" id='datetime-picker-start'/>
+        </div>
+        <div class="flex-row" style="height:40px;margin-bottom: 20px">
+            <span>结束时间：</span>
+            <input type="text" id='datetime-picker-end'/>
+        </div>
 
+    </div>
+</div>
 
 
 <script src="public/js/jquery-2.1.4.js"></script>
@@ -350,9 +390,107 @@
 <script src="public/js/jquery-weui.js"></script>
 <script>
     window.onload = function () {
-
+        // 今天 进7天等按钮
+        initDateClick();
+        initCalendar();
+        initSearchClick();
 
     };
+    function initDateClick() {
+        $('.date').click(function() {
+            var ele = $(this);
+            var dateText = ele.text();
+            if(dateText === "手动选时间") {
+                $("#popup-container").popup();
+            }else {
+                ele.addClass('date-active').siblings(".date").removeClass("date-active");
+                $(".date-result").text(dateText);
+            }
+        })
+    }
+    // function initDateTimePicker() {
+    //     var times = function () {
+    //         return [];
+    //     };
+    //     var paramsStart = {
+    //         times: times,
+    //         // max: getFormatDate(0,0,-1)
+    //
+    //     }
+    //     var paramsEnd = {
+    //         times: times,
+    //         // max: getFormatDate(0,0,0)
+    //
+    //     }
+    //     $("#datetime-picker-start").datetimePicker(paramsStart).val(getFormatDate(0,-2,0));
+    //     $("#datetime-picker-end").datetimePicker(paramsEnd).val(getFormatDate(0,0,0));
+    // }
+
+    function initCalendar() {
+        var paramsStart = {
+            closeByOutsideClick: false,
+            maxDate:getFormatDate(0,0,-1),
+            onClose: onCalendarClose,
+            value:[getFormatDate(0,-2,0)]
+        }
+        var paramsEnd = {
+            closeByOutsideClick: false,
+            maxDate:getFormatDate(0,0,0),
+            onClose: onCalendarClose,
+            value:[getFormatDate(0,0,0)]
+        }
+        $("#datetime-picker-start").calendar(paramsStart).val(getFormatDate(0,-2,0));
+        $("#datetime-picker-end").calendar(paramsEnd).val(getFormatDate(0,0,0));
+    }
+
+    // 点击查询或取消按钮
+    function initSearchClick() {
+        $(".popup-search").click(function(){
+            var st = $("#datetime-picker-start").val();
+            var et = $("#datetime-picker-end").val();
+            var stNum = Number(st.replace(/\//g,""));
+            var etNum = Number(et.replace(/\//g,""));
+            if(etNum > stNum) {
+                // 查询
+                $(".date-manual").addClass('date-active').siblings(".date").removeClass("date-active");
+                $(".date-result").text(st+"至"+et);
+                $.closePopup();
+
+            } else {
+                $.toast("开始时间不能大于结束时间", "cancel");
+            }
+
+            console.log(stNum);
+            console.log(etNum);
+        });
+        $(".popup-cancel").click(function() {
+            $.closePopup();
+        })
+    }
+
+    function onCalendarClose() {
+        console.log('close');
+    }
+
+    //获取当前时间，格式yyyy-mm-dd
+    function getFormatDate(y,m,d) {
+        var arg = getFormatDate.arguments;
+        if(getFormatDate.arguments.length === 0) {
+            var y = 0;
+            var m = 0;
+            var d = 0;
+        }
+        var seperator1="/";
+        var now = new Date();
+        //格式化日，如果小于9，前面补0
+        var day = ("0" + (now.getDate()+d)).slice(-2);
+        //格式化月，如果小于9，前面补0
+        var month = ("0" + ((now.getMonth()+m) + 1)).slice(-2);
+        //拼装完整日期格式
+        var date = (now.getFullYear()+y) + seperator1 + (month) + seperator1
+            + (day);
+        return date;
+    }
 </script>
 </body>
 </html>
