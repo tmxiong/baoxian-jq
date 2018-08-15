@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <script type="text/javascript">
-        document.documentElement.style.fontSize = document.documentElement.clientWidth / 10 + 'px';
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
     </script>
     <title>创建文章</title>
     <link rel="stylesheet" href="public/css/weui.min.css">
@@ -34,38 +34,177 @@
             width:100%;
             height:70px;
         }
-        .cover-img{
+        .cover-img-container{
             width:27%;
             height:60px;
             background-color: #eee;
             border:1px dashed #ddd;
+        }
+        .cover-img-icon{
+            width:30px;
+            height:30px;
+            background-color: #ccc;
+        }
+        .cover-img-text{
+            font-size:.12rem;
+            color:#ccc;
         }
         .title-text-container{
             width:73%;
             height:60px;
             background-color: #fff;
             align-items: flex-end;
-            border:1px dashed #ddd;
+            border:1px dashed #ccc;
         }
         .title-text{
             width:calc(100% - 10px);
             padding:0 5px;
             height:40px;
             background-color: #fff;
-            font-size: 0.4rem;
+            font-size: 0.14rem;
             outline:none;resize:none;
             border:none;
         }
+        textarea::placeholder, textarea::-webkit-input-placeholder{
+            color:#ccc;
+        }
         .font-limit{
-            font-size: .3rem;
+            font-size: .12rem;
             color:#aaa;
             margin-right:.1rem;
         }
         .add-material{
             width:100%;
             background-color: #eee;
+            height:35px;
+            margin-top: 10px;
+        }
+        .add-btn-container{
+            width:50%;
+            height:35px;
+            border:1px dashed #ccc;
+        }
+        .add-icon{
+            width:15px;
+            height:15px;
+            background-color: #bbb;
+        }
+        .add-text{
+            font-size:.14rem;
+            color:#aaa;
+            margin-left:10px;
+        }
+        .add-img{
+
+        }
+        .article-param-container{
+            width:100%;
+            background-color: #fff;
+            border:1px dashed #ccc;
+            margin-top:10px;
+        }
+        .article-param{
+            width:calc(100% - 20px);
+            margin: 10px 0;
+        }
+        .article-img{
+            width:100%;
+            height:auto;
+        }
+        .edit-container{
+            width:100%;
+            height:25px;
+            justify-content: flex-end;
+            border-top:1px dashed #ccc;
+        }
+        .edit-content{
+            height:100%;
+        }
+        .edit-icon {
+            width:15px;
+            height:15px;
+            background-color: #bbb;
+            margin-right:5px;
+            margin-left:10px;
+        }
+        .edit-text{
+            font-size:.12rem;
+            margin-right:10px
+        }
+        .place-holder{
+            height:1rem;
+            width:100%;
+
+        }
+        .footer{
+            width:100%;
+            height:.9rem;
+            position:fixed;
+            bottom:0;
+            left:0;
+            background-color: #fff;
+            box-shadow: 0 -1px 10px #aaa;
+            justify-content: flex-start;
+        }
+        .check-box{
+            width:.18rem;
+            height:.18rem;
+        }
+        .agreement-container{
+            width:calc(100% - 20px);
+            height:.5rem;
+            border-bottom:1px solid #ddd;
+            justify-content: flex-start;
+            position:relative;
+        }
+        .agreement-1{
+          font-size: .14rem;
+            margin-left:5px;
+        }
+        .agreement-2{
+            font-size: .14rem;
+            color:#00a0e9;
+            height:.5rem;
+            line-height: .5rem;
+        }
+        .drafts-container{
+            height:.5rem;
+            position:absolute;
+            right:0px;
+
+        }
+        .drafts-icon{
+            width:15px;
+            height:15px;
+            background-color: #888;
+        }
+        .drafts-text{
+            font-size:.14rem;
+            color:#888;
+            margin-left: 2px;
+        }
+        .btn-container{
+            height:100%;
+            width:100%;
+            justify-content: space-around;
+        }
+        .btn-cancel, .btn-save-draft, .btn-preview, .btn-publish{
+            width:20%;
             height:30px;
-            border:1px dashed #ddd;
+            background-color: #ddd;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 7px;
+            font-size:.16rem;
+            color:#888
+        }
+        .btn-cancel{
+            background-color: #f6383a;
+            color:#eee;
+        }
+        .btn-publish{
+            background-color: #00a0e9;
+            color:#eee;
         }
 
 
@@ -83,20 +222,108 @@
         </svg>
 
     </svg>
-    <!--以750宽度为基准 1rem = 10px-->
+    <!--以375像素为基准 1rem = 10px-->
     <div class="container">
         <section class="header flex-row">
-            <div class="cover-img"></div>
+            <div class="flex-column cover-img-container">
+                <span class="cover-img-icon"></span>
+                <span class="cover-img-text">添加文章封面</span>
+            </div>
             <div class="title-text-container flex-column">
-                <textarea class="title-text"></textarea>
+                <textarea placeholder="请输入文章标题..." class="title-text"></textarea>
                 <span class="font-limit">已输入12/20</span>
             </div>
         </section>
-        <section class="add-material">
-            插入文字或图片
+        <section class="flex-row add-material">
+            <div class="flex-row add-btn-container">
+                <span class="add-icon"></span>
+                <span class="add-text">插入文字</span>
+            </div>
+            <div class="flex-row add-btn-container">
+                <span class="add-icon"></span>
+                <span class="add-text">插入图片</span>
+            </div>
         </section>
-        <section class="body"></section>
-        <section class="footer"></section>
+        <section class="flex-column article-param-container">
+            <span class="article-param">
+                阿斯蒂芬阿斯蒂芬阿斯顿发斯蒂芬阿道夫阿斯顿发生特异国风情你问看巨额罚款七年级的风格后期搜狗复何求
+            </span>
+            <div class="flex-row edit-container">
+                <div class="flex-row delete-content">
+                    <span class="edit-icon"></span>
+                    <span class="edit-text">删除</span>
+                </div>
+                <div class="flex-row edit-content">
+                    <span class="edit-icon"></span>
+                    <span class="edit-text">编辑</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="flex-row add-material">
+            <div class="flex-row add-btn-container">
+                <span class="add-icon"></span>
+                <span class="add-text">插入文字</span>
+            </div>
+            <div class="flex-row add-btn-container">
+                <span class="add-icon"></span>
+                <span class="add-text">插入图片</span>
+            </div>
+        </section>
+
+        <section class="flex-column article-param-container">
+            <img class="article-img" src="https://img.xiaopiu.com/userImages/img11159694579f0.jpg">
+
+            </img>
+            <div class="flex-row edit-container">
+                <div class="flex-row delete-content">
+                    <span class="edit-icon"></span>
+                    <span class="edit-text">删除</span>
+                </div>
+                <div class="flex-row edit-content">
+                    <span class="edit-icon"></span>
+                    <span class="edit-text">替换</span>
+                </div>
+            </div>
+        </section>
+        <section class="flex-row add-material">
+            <div class="flex-row add-btn-container">
+                <span class="add-icon"></span>
+                <span class="add-text">插入文字</span>
+            </div>
+            <div class="flex-row add-btn-container">
+                <span class="add-icon"></span>
+                <span class="add-text">插入图片</span>
+            </div>
+        </section>
+
+        <!--占位-->
+        <section class="place-holder"></section>
+        <section class="flex-column footer">
+            <div class="flex-row agreement-container">
+                <input class="check-box" type="checkbox">
+                <span class="agreement-1">我已阅读并同意</span>
+                <span class="agreement-2">《内容发布协议》</span>
+                <div class="flex-row drafts-container">
+                    <span class="drafts-icon"></span>
+                    <span class="drafts-text">草稿箱</span>
+                </div>
+            </div>
+            <div class="flex-row btn-container">
+                <span class="btn-cancel">取消</span>
+                <span class="btn-save-draft">存草稿</span>
+                <span class="btn-preview">预览</span>
+                <span class="btn-publish">发布</span>
+            </div>
+
+        </section>
+    </div>
+
+    <div id="edit-param-popup" class="weui-popup__container">
+        <div class="weui-popup__overlay"></div>
+        <div class="weui-popup__modal">
+            <div class="edit-close">关闭</div>
+        </div>
     </div>
 
     <script src="public/js/jquery-2.1.4.js"></script>
@@ -109,7 +336,12 @@
     <script src="public/js/jquery-weui.js"></script>
     <script>
         window.onload = function () {
-
+            $(".edit-content").click(function() {
+                $("#edit-param-popup").popup();
+            })
+            $(".edit-close").click(function() {
+                $.closePopup();
+            })
         };
 
 
