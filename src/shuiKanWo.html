@@ -178,8 +178,13 @@
             fill:#444;
         }
         .sort-arrow-icon{
-            width:15px;
-            height:15px;
+            width:20px;
+            height:20px;
+        }
+        .sort-title{
+            font-size: 12px;
+            color:#444;
+            font-weight: bold;margin-right:5px
         }
         .sort-text{
             font-size: 12px;
@@ -253,27 +258,32 @@
 </section>
 <section>
     <div class="sort-container flex-row">
-        <div class="flex-row">
+        <div class="flex-row" style="height:100%">
             <svg class="sort-type-icon" >
                 <use xlink:href="#sort"/>
             </svg>
-            <span class="sort-text" style="font-weight: bold;margin-right:5px">排序:</span>
-            <span class="sort-text sort-active">分享时间</span>
-            <svg class="sort-arrow-icon sort-active" >
-                <use xlink:href="#arrow-down"/>
-            </svg>
-            <span class="sort-text" style="margin-left:5px">阅读数</span>
-            <svg class="sort-arrow-icon" >
-                <use xlink:href="#arrow-down"/>
-            </svg>
+            <span class="sort-title">排序:</span>
+            <div class="flex-row sort-list-btn" style="height:100%">
+                <span class="sort-text sort-active">分享时间</span>
+                <svg class="sort-arrow-icon sort-active" >
+                    <use xlink:href="#arrow-down"/>
+                </svg>
+            </div>
+            <div class="flex-row sort-list-btn" style="height:100%">
+                <span class="sort-text" style="margin-left:5px">阅读数</span>
+                <svg class="sort-arrow-icon" style="visibility: hidden">
+                    <use xlink:href="#arrow-up"/>
+                </svg>
+            </div>
+
         </div>
         <div style="width:1px;height:15px;background-color: #ccc"></div>
         <div class="flex-row" style="margin-right:10px;">
             <svg class="sort-type-icon" >
                 <use xlink:href="#list-type"/>
             </svg>
-            <span class="sort-text" style="font-weight: bold;margin-right:5px">显示:</span>
-            <span class="sort-text" style="color:#d6401e">按文章显示</span>
+            <span class="sort-title">显示:</span>
+            <span class="sort-text change-list" style="color:#d6401e">按文章显示</span>
         </div>
     </div>
 </section>
@@ -394,6 +404,7 @@
         initDateClick();
         initCalendar();
         initSearchClick();
+        initSortClick();
 
     };
     function initDateClick() {
@@ -405,38 +416,35 @@
             }else {
                 ele.addClass('date-active').siblings(".date").removeClass("date-active");
                 $(".date-result").text(dateText);
+                var className = $(this).attr("class")
+                if(className.match('today')){
+                    // 开始查询今天
+                    // ...
+
+                }else if(className.match("seven")) {
+                    // 开始查询7天
+                    // ...
+
+                }else if(className.match("thirty")) {
+                    // 开始查询30天
+                    // ...
+
+                }
             }
         })
     }
-    // function initDateTimePicker() {
-    //     var times = function () {
-    //         return [];
-    //     };
-    //     var paramsStart = {
-    //         times: times,
-    //         // max: getFormatDate(0,0,-1)
-    //
-    //     }
-    //     var paramsEnd = {
-    //         times: times,
-    //         // max: getFormatDate(0,0,0)
-    //
-    //     }
-    //     $("#datetime-picker-start").datetimePicker(paramsStart).val(getFormatDate(0,-2,0));
-    //     $("#datetime-picker-end").datetimePicker(paramsEnd).val(getFormatDate(0,0,0));
-    // }
 
     function initCalendar() {
         var paramsStart = {
             closeByOutsideClick: false,
             maxDate:getFormatDate(0,0,-1),
-            onClose: onCalendarClose,
+            //onClose: onCalendarClose,
             value:[getFormatDate(0,-2,0)]
         }
         var paramsEnd = {
             closeByOutsideClick: false,
             maxDate:getFormatDate(0,0,0),
-            onClose: onCalendarClose,
+            //onClose: onCalendarClose,
             value:[getFormatDate(0,0,0)]
         }
         $("#datetime-picker-start").calendar(paramsStart).val(getFormatDate(0,-2,0));
@@ -468,17 +476,54 @@
         })
     }
 
-    function onCalendarClose() {
-        console.log('close');
+    function initSortClick() {
+        $(".sort-list-btn").click(function() {
+            if(isClickSelf(this)){
+                if(isSortUp(this)) {
+                    addActiveDown(this);
+                    // 开始降序排序
+                    // ...
+                }else{
+                    addActiveUp(this);
+                    // 开始升序排序
+                    // ...
+                }
+            }else{
+                removeActive($(this).siblings(".sort-list-btn"));
+                addActive(this);
+            }
+
+        });
+        var activeColor = "#d6401e";
+        var noActiveColor = "#444";
+        var addActive = function(_this) {
+            $(_this).find("svg").css({"fill":activeColor,"visibility":"visible"});
+            $(_this).find(".sort-text").addClass("sort-active")
+        }
+        var addActiveUp = function(_this) {
+            $(_this).find("use").attr("xlink:href","#arrow-up");
+        }
+        var addActiveDown = function(_this) {
+            $(_this).find("use").attr("xlink:href","#arrow-down");
+        }
+        var removeActive = function(_this) {
+            $(_this).find("svg").css({"fill":noActiveColor,"visibility":"hidden"});
+            $(_this).find(".sort-text").removeClass("sort-active")
+        }
+        var isSortUp = function(_this) {
+            // up or down
+            return $(_this).find("use").attr("xlink:href").match("up") !== null;
+        }
+        var isClickSelf = function(_this) {
+            return $(_this).find("span").attr("class").match("active") !== null;
+        }
     }
 
     //获取当前时间，格式yyyy-mm-dd
     function getFormatDate(y,m,d) {
-        var arg = getFormatDate.arguments;
-        if(getFormatDate.arguments.length === 0) {
-            var y = 0;
-            var m = 0;
-            var d = 0;
+        var args = getFormatDate.arguments;
+        if(args.length === 0) {
+            y = m = d = 0;
         }
         var seperator1="/";
         var now = new Date();
