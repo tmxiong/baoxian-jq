@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="public/css/jquery-weui.min.css">
     <style>
         body, html {
-            height: 100%;
+            /*height: 100%;*/
             -webkit-tap-highlight-color: transparent;
         }
         .flex-row{
@@ -36,6 +36,7 @@
         .header{
             width:100%;
             height:70px;
+            margin-top:5px;
         }
         .cover-img-container{
             width:27%;
@@ -119,6 +120,12 @@
             height:25px;
             justify-content: flex-end;
             border-top:1px dashed #ccc;
+            position:relative;
+        }
+        .delete-btn{
+            position:absolute;
+            left:10px;
+            height:100%;
         }
         .edit-btn, .delete-btn, .replace-btn{
             height:100%;
@@ -131,7 +138,7 @@
             fill:#666;
         }
         .edit-text{
-            font-size:.12rem;
+            font-size:.14rem;
             margin-right:10px;
             color:#666;
         }
@@ -258,9 +265,17 @@
             font-size: .16rem;
             border: none;
         }
-        .clean-input{
-            height:30px;
-            align-self: flex-end
+        .popup-input-menu{
+            height:40px;
+            width:calc(100% - 20px);
+            justify-content: space-between;
+            border-top:1px solid #eee;
+        }
+        .input-clean, .input-undo {
+            height:100%;
+        }
+        .input-clean:active, .input-undo:active {
+            opacity: 0.5;
         }
         .complete-edit-btn{
             width:75%;
@@ -308,6 +323,10 @@
         <svg  id="delete" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>删除</title>
             <path d="M580.352 747.648V388.672c0-41.856 65.344-41.856 65.344 0v358.912c0.064 41.856-65.344 41.856-65.344 0.064z m-196.032 0V388.672c0-41.856 65.344-41.856 65.344 0v358.912c0 41.856-65.344 41.856-65.344 0.064z m555.584-522.112h-163.392v-65.28c0-54.08-43.968-97.856-97.088-97.856H351.616a97.92 97.92 0 0 0-98.048 97.856v65.28H90.176c-41.856 0-41.856 65.216 0 65.216h849.664c41.92 0 41.92-65.216 0.064-65.216z m-620.928-65.28c0-17.344 15.296-32.64 32.64-32.64h327.808c17.344 0 31.68 13.312 31.68 32.64v65.28H318.976v-65.28z m424.832 815.744H286.272a97.92 97.92 0 0 1-97.984-97.856V388.672c0-19.392 15.296-32.64 32.64-32.64s32.704 13.248 32.704 32.64v489.408c0 17.344 15.36 32.64 32.64 32.64h457.536a33.6 33.6 0 0 0 32.704-32.64V389.696c0-42.816 65.344-42.816 65.344 0v488.448a97.984 97.984 0 0 1-98.048 97.856z m0 0" p-id="3412"></path>
+        </svg>
+        <svg  id="undo" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>撤销</title>
+            <path d="M289.6384 256H614.4a307.2 307.2 0 1 1 0 614.4H204.8a51.2 51.2 0 0 1 0-102.4h409.6a204.8 204.8 0 1 0 0-409.6H286.0032l59.2384 59.2384A51.2 51.2 0 1 1 272.7936 489.984L128 345.2416a51.2 51.2 0 0 1 0-72.448L272.7936 128a51.2 51.2 0 0 1 72.448 72.3968L289.6384 256z" fill="#666666" p-id="937"></path>
         </svg>
         <svg  id="edit" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>编辑</title>
@@ -419,142 +438,6 @@
                 <span class="add-text">插入图片</span>
             </div>
         </section>
-        <section class="flex-column article-param-container">
-            <span class="article-param">
-                阿斯蒂芬阿斯蒂芬阿斯顿发斯蒂芬阿道夫阿斯顿发生特异国风情你问看巨额罚款七年级的风格后期搜狗复何求
-            </span>
-            <div class="flex-row edit-container">
-                <div class="flex-row delete-btn">
-                    <svg class="edit-icon" style="fill:#dd2926">
-                        <use xlink:href="#delete"/>
-                    </svg>
-                    <span class="edit-text" style="color:#dd2926">删除</span>
-                </div>
-                <div class="flex-row edit-btn">
-                    <svg class="edit-icon">
-                        <use xlink:href="#edit"/>
-                    </svg>
-                    <span class="edit-text">编辑</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="flex-row add-material">
-            <div class="flex-row add-btn-container">
-                <svg class="add-icon" >
-                    <use xlink:href="#add-text"/>
-                </svg>
-                <span class="add-text">插入文字</span>
-            </div>
-            <div class="flex-row add-btn-container">
-                <svg class="add-icon" style="width:20px;height:20px">
-                    <use xlink:href="#add-img"/>
-                </svg>
-                <span class="add-text">插入图片</span>
-            </div>
-        </section>
-
-        <section class="flex-column article-param-container">
-            <img class="article-img" src="https://img.xiaopiu.com/userImages/img11159694579f0.jpg">
-
-            </img>
-            <div class="flex-row edit-container">
-                <div class="flex-row delete-btn">
-                    <svg class="edit-icon" style="fill:#dd2926">
-                        <use xlink:href="#delete"/>
-                    </svg>
-                    <span class="edit-text" style="color:#dd2926">删除</span>
-                </div>
-                <div class="flex-row replace-btn">
-                    <svg class="edit-icon">
-                        <use xlink:href="#replace"/>
-                    </svg>
-                    <span class="edit-text">替换</span>
-                </div>
-            </div>
-        </section>
-        <section class="flex-row add-material">
-            <div class="flex-row add-btn-container">
-                <svg class="add-icon" >
-                    <use xlink:href="#add-text"/>
-                </svg>
-                <span class="add-text">插入文字</span>
-            </div>
-            <div class="flex-row add-btn-container">
-                <svg class="add-icon" style="width:20px;height:20px">
-                    <use xlink:href="#add-img"/>
-                </svg>
-                <span class="add-text">插入图片</span>
-            </div>
-        </section>
-
-        <section class="flex-column article-param-container">
-            <span class="article-param">
-                阿斯蒂芬阿斯蒂芬阿斯顿发斯蒂芬阿道夫阿斯顿发生特异国风情你问看巨额罚款七年级的风格后期搜狗复何求
-            </span>
-            <div class="flex-row edit-container">
-                <div class="flex-row delete-btn">
-                    <svg class="edit-icon" style="fill:#dd2926">
-                        <use xlink:href="#delete"/>
-                    </svg>
-                    <span class="edit-text" style="color:#dd2926">删除</span>
-                </div>
-                <div class="flex-row edit-btn">
-                    <svg class="edit-icon">
-                        <use xlink:href="#edit"/>
-                    </svg>
-                    <span class="edit-text">编辑</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="flex-row add-material">
-            <div class="flex-row add-btn-container">
-                <svg class="add-icon" >
-                    <use xlink:href="#add-text"/>
-                </svg>
-                <span class="add-text">插入文字</span>
-            </div>
-            <div class="flex-row add-btn-container">
-                <svg class="add-icon" style="width:20px;height:20px">
-                    <use xlink:href="#add-img"/>
-                </svg>
-                <span class="add-text">插入图片</span>
-            </div>
-        </section>
-        <section class="flex-column article-param-container">
-            <img class="article-img" src="https://img.xiaopiu.com/userImages/img11159694579f0.jpg">
-
-            </img>
-            <div class="flex-row edit-container">
-                <div class="flex-row delete-btn">
-                    <svg class="edit-icon" style="fill:#dd2926">
-                        <use xlink:href="#delete"/>
-                    </svg>
-                    <span class="edit-text" style="color:#dd2926">删除</span>
-                </div>
-                <div class="flex-row replace-btn">
-                    <svg class="edit-icon">
-                        <use xlink:href="#replace"/>
-                    </svg>
-                    <span class="edit-text">替换</span>
-                </div>
-            </div>
-        </section>
-        <section class="flex-row add-material">
-            <div class="flex-row add-btn-container">
-                <svg class="add-icon" >
-                    <use xlink:href="#add-text"/>
-                </svg>
-                <span class="add-text">插入文字</span>
-            </div>
-            <div class="flex-row add-btn-container">
-                <svg class="add-icon" style="width:20px;height:20px">
-                    <use xlink:href="#add-img"/>
-                </svg>
-                <span class="add-text">插入图片</span>
-            </div>
-        </section>
 
         <!--占位-->
         <section class="place-holder"></section>
@@ -589,12 +472,20 @@
         <div class="weui-popup__overlay"></div>
         <div class="weui-popup__modal flex-column" style="justify-content:flex-start;background-color: #f3f3f3">
             <div class="flex-column edit-popup-container">
-                <textarea class="edit-popup-input" placeholder="输入文字..."></textarea>
-                <div class="flex-row clean-input">
-                    <svg style="fill:#888;width:.15rem;height:.15rem">
-                        <use xlink:href="#delete"></use>
-                    </svg>
-                    <span style="font-size: .14rem; color:#888;margin:5px">清空输入</span>
+                <textarea class="edit-popup-input" placeholder="输入文章内容..."></textarea>
+                <div class="flex-row popup-input-menu">
+                    <div class="flex-row input-clean">
+                        <svg style="fill:#d6401e;width:.15rem;height:.15rem;">
+                            <use xlink:href="#delete"></use>
+                        </svg>
+                        <span style="font-size: .14rem; color:#d6401e;margin:5px">清空输入</span>
+                    </div>
+                    <div class="flex-row input-undo">
+                        <svg style="fill:#888;width:.15rem;height:.15rem">
+                            <use xlink:href="#undo"></use>
+                        </svg>
+                        <span style="font-size: .14rem; color:#888;margin:5px 0 5px 5px">撤销清空</span>
+                    </div>
                 </div>
             </div>
             <div class="flex-row" style="width:calc(100% - 20px);margin-top:20px;justify-content: space-between">
@@ -629,7 +520,7 @@
 
             </div>
             <p class="flex-column" style="width:100%;justify-content: space-around">
-                <span class="agreement-close agree" style="background-color: #00a0e9;">同意</span>
+                <span class="agreement-close agree" style="background-color: #00a0e9;">我同意</span>
                 <span class="agreement-close disagree" style="margin-bottom: 20px">我再想想</span>
             </p>
 
@@ -647,12 +538,19 @@
     <script>
         // 是否阅读协议
         var isReadAgreement = false;
+
         // 添加文字 或 添加图片 的this对象
         var addThis = null;
+
         // 编辑 按钮的this对象
         var editThis = null;
+
         // 区分是 添加新段落 还是 在原有段落编辑
         var editType = "addNew"; // addNew or editCurrent;
+
+        // 缓存编辑文本内容 用于撤销清空
+        var sectionText = "";
+
         window.onload = function () {
             initCheckBox();
             initBottomBtns();
@@ -783,8 +681,7 @@
                         isLockScroll(false);
 
                         // 删除段落
-                        $(_this).parent().parent().next().remove();
-                        $(_this).parent().parent().remove();
+                        deleteSection(_this);
                     }, function() {
                         //点击取消后的回调函数
                         isLockScroll(false);
@@ -807,10 +704,11 @@
                 }
             })
 
-            // 编辑文本弹框中的 完成 或 取消 或 清空按钮
+            // 编辑文本弹框中的 完成 / 取消
             $(".complete-edit-btn").click(function() {
                 isLockScroll(false);
                 $.closePopup();
+                sectionText = "";
                 var btnType = $(this).attr("class");
                 if(btnType.match("finish")) {
                     var content = $(".edit-popup-input").val().trim();
@@ -833,15 +731,31 @@
                         }
 
                     }else {
-                        // 重新编辑时把内容清空了
+                        // 重新编辑时把内容清空了 则 删除编辑前的段落
+                        deleteSection(editThis)
+
                     }
                 }
 
             })
 
-            //清空文本按钮
-            $(".clean-input").click(function() {
-                $(".edit-popup-input").val("");
+            //清空输入 / 撤销清空
+            $(".popup-input-menu").on('click',".input-clean, .input-undo",function() {
+                var btnType = $(this).attr("class");
+                if(btnType.match("clean")){
+                    var text = $(".edit-popup-input").val();
+                    if(text!=="") {
+                        $(".edit-popup-input").val("");
+                        sectionText = text;
+                    }
+
+                }else if(btnType.match("undo")) {
+                    if(sectionText!==""){
+                        $(".edit-popup-input").val(sectionText);
+                        sectionText = "";
+                    }
+                }
+
             })
         }
 
@@ -860,6 +774,12 @@
                 $(document).scrollTop(currentTop);
 
             }
+        }
+
+        // 删除段落 _this为按钮
+        function deleteSection(_this) {
+            $(_this).parent().parent().next().remove();
+            $(_this).parent().parent().remove();
         }
 
 
