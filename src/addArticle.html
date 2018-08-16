@@ -26,6 +26,9 @@
             align-items:  center;
             flex-direction: column;
         }
+        .clone-container{
+            display: none;
+        }
         .container{
             width:calc(100% - 20px);
             margin:0 auto;
@@ -41,9 +44,9 @@
             border:1px dashed #ddd;
         }
         .cover-img-icon{
-            width:30px;
-            height:30px;
-            background-color: #ccc;
+            width:40px;
+            height:40px;
+            fill:#ccc
         }
         .cover-img-text{
             font-size:.12rem;
@@ -87,17 +90,17 @@
         .add-icon{
             width:15px;
             height:15px;
-            background-color: #bbb;
+            fill: #bbb;
         }
         .add-text{
             font-size:.14rem;
             color:#aaa;
-            margin-left:10px;
+            margin-left:5px;
         }
         .add-img{
 
         }
-        .article-param-container{
+        .article-param-container, .img-param-container{
             width:100%;
             background-color: #fff;
             border:1px dashed #ccc;
@@ -117,19 +120,20 @@
             justify-content: flex-end;
             border-top:1px dashed #ccc;
         }
-        .edit-content{
+        .edit-btn, .delete-btn, .replace-btn{
             height:100%;
         }
         .edit-icon {
             width:15px;
             height:15px;
-            background-color: #bbb;
-            margin-right:5px;
+            margin-right:2px;
             margin-left:10px;
+            fill:#666;
         }
         .edit-text{
             font-size:.12rem;
-            margin-right:10px
+            margin-right:10px;
+            color:#666;
         }
         .place-holder{
             height:1rem;
@@ -149,42 +153,43 @@
         .check-box{
             width:.18rem;
             height:.18rem;
+            fill:#888;
         }
         .agreement-container{
             width:calc(100% - 20px);
-            height:.5rem;
+            height:.4rem;
             border-bottom:1px solid #ddd;
             justify-content: flex-start;
             position:relative;
         }
         .agreement-1{
-          font-size: .14rem;
-            margin-left:5px;
+            font-size: .14rem;
+            color:#888;
         }
         .agreement-2{
             font-size: .14rem;
             color:#00a0e9;
-            height:.5rem;
-            line-height: .5rem;
+            height:.4rem;
+            line-height: .4rem;
         }
-        .drafts-container{
-            height:.5rem;
+        .btn-draft{
+            height:100%;
             position:absolute;
             right:0px;
 
         }
         .drafts-icon{
-            width:15px;
-            height:15px;
-            background-color: #888;
+            width:18px;
+            height:18px;
+            fill:#888;
         }
         .drafts-text{
             font-size:.14rem;
             color:#888;
-            margin-left: 2px;
+            margin-left: 3px;
         }
         .btn-container{
-            height:100%;
+            height:.6rem;
             width:100%;
             justify-content: space-around;
         }
@@ -198,35 +203,201 @@
             font-size:.16rem;
             color:#888
         }
+        .btn-cancel:active, .btn-save-draft:active, .btn-preview:active, .btn-publish:active{
+            opacity: 0.5;
+            /*transition:all 0.2s ease-in 0s;*/
+        }
         .btn-cancel{
             background-color: #f6383a;
             color:#eee;
         }
         .btn-publish{
-            background-color: #00a0e9;
+            background-color: #888;
             color:#eee;
         }
 
+
+        .agreement-popup-container{
+            width:calc(100% - 20px);
+            padding:10px;
+            background-color: #fff;
+            justify-content: flex-start;
+        }
+        .agreement-popup-container p{
+            margin-top:10px;
+        }
+        .agreement-close{
+            width:calc(100% - 20px);
+            height:.4rem;
+            background-color: #aaa;
+            text-align: center;
+            font-size: .16rem;
+            line-height: .4rem;
+            border-radius: 8px;
+            color:#eee;
+            margin-top: 10px;
+            /*cursor:pointer*/
+        }
+        .agreement-close:active{
+            color: rgba(238,238,238,0.3)!important;
+        }
+
+        .edit-popup-container{
+            width:calc(100% - 20px);
+            height:85%;
+            background-color: #fff;
+            border:1px solid #eee;
+            margin-top: 10px;
+        }
+        .edit-popup-input{
+            width:calc(100% - 20px);
+            height:calc(100% - 20px);
+            background-color: #fff;
+            outline:none;resize:none;
+            padding:10px;
+            font-size: .16rem;
+            border: none;
+        }
+        .clean-input{
+            height:30px;
+            align-self: flex-end
+        }
+        .complete-edit-btn{
+            width:75%;
+            height:.4rem;
+            background-color: #00a0e9;
+            color:rgba(243,243,243,1);
+            border-radius: 5px;
+            text-align: center;
+            line-height: .4rem;
+            font-size: .16rem;
+        }
+        .complete-edit-btn:active{
+            color:rgba(233,233,233,0.4)!important;
+        }
+
+
+        /*禁止滚动*/
+        .lock-scroll{
+            width:100%;
+            height:100%;
+            position: fixed;
+            top:0px;
+
+        }
+        .weui-dialog__btn{
+            color: #dd2926;
+        }
 
     </style>
 
 
 </head>
 
-<body style="background-color: #f3f3f3">
+<body style="background-color: #f3f3f3;">
 
     <svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
-        <svg  id="read" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <title>阅读</title>
-            <path d="M979.222 415.474C894.954 332.02 776.31 192.004 509.958 192.004c-266.316 0-384.962 140.016-469.23 223.47-19.86 19.682-30.788 45.784-30.788 73.534 0 27.728 10.93 53.85 30.788 73.51 84.27 83.476 202.896 223.47 469.23 223.47 266.368 0 384.996-139.994 469.264-223.47 19.86-19.66 30.79-45.784 30.79-73.51C1010.01 461.256 999.082 435.156 979.222 415.474zM940.882 524.282C862.556 601.838 756.802 732 509.958 732c-246.81 0-352.564-130.164-430.89-207.718-9.548-9.468-14.8-22.01-14.8-35.276 0-13.288 5.252-25.806 14.8-35.252 78.344-77.578 184.098-207.764 430.89-207.764 246.826 0 352.58 130.186 430.924 207.764 9.55 9.446 14.802 21.966 14.802 35.252C955.684 502.272 950.432 514.812 940.882 524.282zM509.974 335.996c-84.868 0-153.928 68.652-153.928 152.988 0 84.358 69.06 153.01 153.928 153.01 84.872 0 153.93-68.652 153.93-153.01C663.904 404.648 594.846 335.996 509.974 335.996zM509.974 588.008c-54.912 0-99.6-44.428-99.6-99.024 0-54.574 44.69-98.978 99.6-98.978 54.912 0 99.6 44.404 99.6 98.978C609.576 543.58 564.888 588.008 509.974 588.008z" p-id="2325"></path>
+        <svg  id="add-img" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>添加封面</title>
+            <path d="M986.4068 263.666098l-75.878155 0 0 75.877131c0 20.937868-16.997116 37.936007-37.934984 37.936007-20.945031 0-37.942147-16.999163-37.942147-37.936007l0-75.877131L758.774383 263.666098c-20.942985 0-37.936007-16.999163-37.936007-37.942147 0-20.942985 16.993023-37.934984 37.936007-37.934984l75.877131 0 0-75.878155c0-20.942985 16.997116-37.940101 37.942147-37.940101 20.937868 0 37.934984 16.997116 37.934984 37.940101l0 75.878155 75.878155 0c20.942985 0 37.940101 16.991999 37.940101 37.934984C1024.346901 246.667959 1007.349785 263.666098 986.4068 263.666098L986.4068 263.666098zM758.774383 396.447241c0 31.41243-25.491581 56.909128-56.909128 56.909128-31.413454 0-56.904011-25.497721-56.904011-56.909128s25.490557-56.904011 56.904011-56.904011C733.281779 339.54323 758.774383 365.035834 758.774383 396.447241L758.774383 396.447241zM607.019097 263.666098 75.877131 263.666098l0 528.748453c0.076748-0.265036 83.047438-372.255259 225.244021-372.255259 93.66731 0 188.932 287.689235 248.310366 374.648772 0 0 46.549176-188.480722 126.866433-189.69641 79.44233-1.177825 120.417557 187.301873 120.417557 187.301873l37.936007 0L834.651514 567.175647c0-20.942985 16.997116-37.942147 37.942147-37.942147 20.937868 0 37.934984 16.999163 37.934984 37.942147l0 303.509549c0 41.919738-33.989115 75.877131-75.877131 75.877131L75.877131 946.562327c-41.919738 0-75.877131-33.957393-75.877131-75.877131L0 263.666098c0-41.924855 33.957393-75.877131 75.877131-75.877131l531.141966 0c20.942985 0 37.942147 16.991999 37.942147 37.934984C644.961244 246.667959 627.962082 263.666098 607.019097 263.666098L607.019097 263.666098zM607.019097 263.666098" p-id="1845"></path>
         </svg>
-
+        <svg  id="add-text" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>文字</title>
+            <path d="M32 0 972.651987 0 972.651987 316.651576 931.05337 316.651576C931.05337 316.651576 851.664627 123.301587 757.99696 106.426488 664.326945 89.551388 599.217138 101.163665 599.217138 101.163665L598.048275 908.460659C598.048275 908.460659 624.046382 963.027206 666.957181 966.897965L761.948781 966.897965 761.948781 1022.63337 242.777214 1022.63337 244.09057 965.511776 327.28898 964.19607C327.28898 964.19607 389.765027 944.689555 389.765027 899.258944 389.765027 853.896474 391.083083 107.668185 391.083083 107.668185 391.083083 107.668185 288.327649 93.496156 234.939369 106.496972 181.625097 119.427304 87.881073 197.297106 73.598618 311.462763L32 312.778468 32 0 32 0 32 0Z" p-id="2340"></path>
+        </svg>
+        <svg  id="delete" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>删除</title>
+            <path d="M580.352 747.648V388.672c0-41.856 65.344-41.856 65.344 0v358.912c0.064 41.856-65.344 41.856-65.344 0.064z m-196.032 0V388.672c0-41.856 65.344-41.856 65.344 0v358.912c0 41.856-65.344 41.856-65.344 0.064z m555.584-522.112h-163.392v-65.28c0-54.08-43.968-97.856-97.088-97.856H351.616a97.92 97.92 0 0 0-98.048 97.856v65.28H90.176c-41.856 0-41.856 65.216 0 65.216h849.664c41.92 0 41.92-65.216 0.064-65.216z m-620.928-65.28c0-17.344 15.296-32.64 32.64-32.64h327.808c17.344 0 31.68 13.312 31.68 32.64v65.28H318.976v-65.28z m424.832 815.744H286.272a97.92 97.92 0 0 1-97.984-97.856V388.672c0-19.392 15.296-32.64 32.64-32.64s32.704 13.248 32.704 32.64v489.408c0 17.344 15.36 32.64 32.64 32.64h457.536a33.6 33.6 0 0 0 32.704-32.64V389.696c0-42.816 65.344-42.816 65.344 0v488.448a97.984 97.984 0 0 1-98.048 97.856z m0 0" p-id="3412"></path>
+        </svg>
+        <svg  id="edit" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>编辑</title>
+            <path d="M925.013333 884.053333l-822.613333 0c-17.066667 0-30.72 13.653333-30.72 30.72s13.653333 30.72 30.72 30.72l826.026667 0c17.066667 0 30.72-13.653333 30.72-30.72-3.413333-13.653333-17.066667-30.72-34.133334-30.72zM98.986667 791.893333l146.773333 0c6.826667 0 17.066667-3.413333 20.48-10.24l505.173333-505.173333c13.653333-13.653333 13.653333-30.72 0-44.373333L628.053333 85.333333c-13.653333-13.653333-30.72-13.653333-44.373333 0l-102.4 102.4-402.773333 402.773334c-6.826667 6.826667-10.24 13.653333-10.24 20.48l0 146.773333c0 6.826667 3.413333 17.066667 10.24 23.893333 3.413333 6.826667 13.653333 10.24 20.48 10.24zm505.173333-641.706666l102.4 102.4-58.026667 58.026666-102.4-102.4 58.026667-58.026666zm-471.04 474.453333l372.053333-372.053333 102.4 102.4-372.053333 372.053333-102.4 0 0-102.4z" p-id="4115"></path>
+        </svg>
+        <svg  id="draft" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>草稿</title>
+            <path d="M982.656 486.912l-61.632-61.568a33.024 33.024 0 0 0-46.656 46.656l39.936 40H800V192a64 64 0 0 0-64-64h-448a64 64 0 0 0-64 64v320H110.976l39.552-39.488a33.152 33.152 0 1 0-47.04-46.976l-62.016 61.952a32.896 32.896 0 0 0-9.472 24.896V768a128 128 0 0 0 128 128h704a128 128 0 0 0 128-128V512h-0.064a32.64 32.64 0 0 0-9.28-25.088zM288 192h448v320h-448V192z m640 576a64 64 0 0 1-64 64h-704a64 64 0 0 1-64-64V576h832v192z" fill="" p-id="4413"></path><path d="M640 256H384a32 32 0 0 0 0 64h256a32 32 0 0 0 0-64zM640 384H384a32 32 0 0 0 0 64h256a32 32 0 0 0 0-64z" fill="" p-id="4414"></path>
+        </svg>
+        <svg  id="replace" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>替换</title>
+            <path d="M620.544 137.6c103.936 10.432 187.328 72.96 205.12 180.224h-60.16l97.088 144.448 97.152-144.448h-67.008c-17.792-144.448-127.168-238.336-265.344-251.712-19.136-1.536-36.864 14.848-36.864 35.712 1.28 17.92 13.568 34.24 30.016 35.776z m-150.4-73.024H132.416c-19.136 0-34.176 16.384-34.176 37.248v321.728c0 20.864 15.04 37.248 34.176 37.248h337.728c19.136 0 34.176-16.384 34.176-37.248V101.824c0-20.864-15.04-37.248-34.176-37.248z m-32.832 324.736H165.248V136.064h272.128v253.248h-0.064zM404.48 883.84c-116.224-10.432-205.12-87.872-209.216-216h64.256L162.496 523.392l-97.088 144.448h64.256c2.688 165.376 118.912 272.576 268.032 287.488 19.136 1.472 36.928-14.912 36.928-35.776a35.648 35.648 0 0 0-30.144-35.712z m489.6-323.264H556.288c-19.2 0-34.176 16.448-34.176 37.248v323.264c0 20.8 14.976 37.184 34.176 37.184h337.728c19.136 0 34.112-16.384 34.112-37.184V597.824c0.064-20.8-16.32-37.248-34.048-37.248z m-32.896 324.736H589.12V633.536h272.064v251.776z" p-id="4617"></path>
+        </svg>
+        <svg  id="check-box" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>选中</title>
+            <path d="M337.066667 430.933333l-59.733334 59.733334L469.333333 682.666667 896 256l-59.733333-59.733333-366.933334 366.933333-132.266666-132.266667zM810.666667 810.666667H213.333333V213.333333h426.666667V128H213.333333c-46.933333 0-85.333333 38.4-85.333333 85.333333v597.333334c0 46.933333 38.4 85.333333 85.333333 85.333333h597.333334c46.933333 0 85.333333-38.4 85.333333-85.333333v-341.333334h-85.333333v341.333334z" p-id="1052"></path>
+        </svg>
+        <svg  id="check-box-blank" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>未选中</title>
+            <path d="M810.666667 213.333333l0 597.333333L213.333333 810.666667 213.333333 213.333333 810.666667 213.333333M810.666667 128 213.333333 128C166.4 128 128 166.4 128 213.333333l0 597.333333c0 46.933333 38.4 85.333333 85.333333 85.333333l597.333333 0c46.933333 0 85.333333-38.4 85.333333-85.333333L896 213.333333C896 166.4 857.6 128 810.666667 128L810.666667 128z" p-id="1182"></path>
+        </svg>
     </svg>
     <!--以375像素为基准 1rem = 10px-->
+
+    <!--不可见, 克隆用的-->
+    <div class="clone-container">
+        <!--插入按钮-->
+        <section class="flex-row add-material">
+            <div class="flex-row add-btn-container">
+                <svg class="add-icon" >
+                    <use xlink:href="#add-text"/>
+                </svg>
+                <span class="add-text">插入文字</span>
+            </div>
+            <div class="flex-row add-btn-container">
+                <svg class="add-icon" style="width:20px;height:20px">
+                    <use xlink:href="#add-img"/>
+                </svg>
+                <span class="add-text">插入图片</span>
+            </div>
+        </section>
+
+
+        <!--段落-->
+        <section class="flex-column article-param-container">
+            <span class="article-param">克隆出来的</span>
+            <div class="flex-row edit-container">
+                <div class="flex-row delete-btn">
+                    <svg class="edit-icon" style="fill:#dd2926">
+                        <use xlink:href="#delete"/>
+                    </svg>
+                    <span class="edit-text" style="color:#dd2926">删除</span>
+                </div>
+                <div class="flex-row edit-btn">
+                    <svg class="edit-icon">
+                        <use xlink:href="#edit"/>
+                    </svg>
+                    <span class="edit-text">编辑</span>
+                </div>
+            </div>
+        </section>
+
+        <!--图片-->
+        <section class="flex-column img-param-container">
+            <img class="article-img" src="https://img.xiaopiu.com/userImages/img11159694579f0.jpg">
+
+            </img>
+            <div class="flex-row edit-container">
+                <div class="flex-row delete-btn">
+                    <svg class="edit-icon" style="fill:#dd2926">
+                        <use xlink:href="#delete"/>
+                    </svg>
+                    <span class="edit-text" style="color:#dd2926">删除</span>
+                </div>
+                <div class="flex-row replace-btn">
+                    <svg class="edit-icon">
+                        <use xlink:href="#replace"/>
+                    </svg>
+                    <span class="edit-text">替换</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
     <div class="container">
         <section class="header flex-row">
             <div class="flex-column cover-img-container">
-                <span class="cover-img-icon"></span>
+                <svg class="cover-img-icon" >
+                    <use xlink:href="#add-img"/>
+                </svg>
                 <span class="cover-img-text">添加文章封面</span>
             </div>
             <div class="title-text-container flex-column">
@@ -236,11 +407,15 @@
         </section>
         <section class="flex-row add-material">
             <div class="flex-row add-btn-container">
-                <span class="add-icon"></span>
+                <svg class="add-icon" >
+                    <use xlink:href="#add-text"/>
+                </svg>
                 <span class="add-text">插入文字</span>
             </div>
             <div class="flex-row add-btn-container">
-                <span class="add-icon"></span>
+                <svg class="add-icon" style="width:20px;height:20px">
+                    <use xlink:href="#add-img"/>
+                </svg>
                 <span class="add-text">插入图片</span>
             </div>
         </section>
@@ -249,12 +424,16 @@
                 阿斯蒂芬阿斯蒂芬阿斯顿发斯蒂芬阿道夫阿斯顿发生特异国风情你问看巨额罚款七年级的风格后期搜狗复何求
             </span>
             <div class="flex-row edit-container">
-                <div class="flex-row delete-content">
-                    <span class="edit-icon"></span>
-                    <span class="edit-text">删除</span>
+                <div class="flex-row delete-btn">
+                    <svg class="edit-icon" style="fill:#dd2926">
+                        <use xlink:href="#delete"/>
+                    </svg>
+                    <span class="edit-text" style="color:#dd2926">删除</span>
                 </div>
-                <div class="flex-row edit-content">
-                    <span class="edit-icon"></span>
+                <div class="flex-row edit-btn">
+                    <svg class="edit-icon">
+                        <use xlink:href="#edit"/>
+                    </svg>
                     <span class="edit-text">编辑</span>
                 </div>
             </div>
@@ -262,11 +441,15 @@
 
         <section class="flex-row add-material">
             <div class="flex-row add-btn-container">
-                <span class="add-icon"></span>
+                <svg class="add-icon" >
+                    <use xlink:href="#add-text"/>
+                </svg>
                 <span class="add-text">插入文字</span>
             </div>
             <div class="flex-row add-btn-container">
-                <span class="add-icon"></span>
+                <svg class="add-icon" style="width:20px;height:20px">
+                    <use xlink:href="#add-img"/>
+                </svg>
                 <span class="add-text">插入图片</span>
             </div>
         </section>
@@ -276,23 +459,99 @@
 
             </img>
             <div class="flex-row edit-container">
-                <div class="flex-row delete-content">
-                    <span class="edit-icon"></span>
-                    <span class="edit-text">删除</span>
+                <div class="flex-row delete-btn">
+                    <svg class="edit-icon" style="fill:#dd2926">
+                        <use xlink:href="#delete"/>
+                    </svg>
+                    <span class="edit-text" style="color:#dd2926">删除</span>
                 </div>
-                <div class="flex-row edit-content">
-                    <span class="edit-icon"></span>
+                <div class="flex-row replace-btn">
+                    <svg class="edit-icon">
+                        <use xlink:href="#replace"/>
+                    </svg>
                     <span class="edit-text">替换</span>
                 </div>
             </div>
         </section>
         <section class="flex-row add-material">
             <div class="flex-row add-btn-container">
-                <span class="add-icon"></span>
+                <svg class="add-icon" >
+                    <use xlink:href="#add-text"/>
+                </svg>
                 <span class="add-text">插入文字</span>
             </div>
             <div class="flex-row add-btn-container">
-                <span class="add-icon"></span>
+                <svg class="add-icon" style="width:20px;height:20px">
+                    <use xlink:href="#add-img"/>
+                </svg>
+                <span class="add-text">插入图片</span>
+            </div>
+        </section>
+
+        <section class="flex-column article-param-container">
+            <span class="article-param">
+                阿斯蒂芬阿斯蒂芬阿斯顿发斯蒂芬阿道夫阿斯顿发生特异国风情你问看巨额罚款七年级的风格后期搜狗复何求
+            </span>
+            <div class="flex-row edit-container">
+                <div class="flex-row delete-btn">
+                    <svg class="edit-icon" style="fill:#dd2926">
+                        <use xlink:href="#delete"/>
+                    </svg>
+                    <span class="edit-text" style="color:#dd2926">删除</span>
+                </div>
+                <div class="flex-row edit-btn">
+                    <svg class="edit-icon">
+                        <use xlink:href="#edit"/>
+                    </svg>
+                    <span class="edit-text">编辑</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="flex-row add-material">
+            <div class="flex-row add-btn-container">
+                <svg class="add-icon" >
+                    <use xlink:href="#add-text"/>
+                </svg>
+                <span class="add-text">插入文字</span>
+            </div>
+            <div class="flex-row add-btn-container">
+                <svg class="add-icon" style="width:20px;height:20px">
+                    <use xlink:href="#add-img"/>
+                </svg>
+                <span class="add-text">插入图片</span>
+            </div>
+        </section>
+        <section class="flex-column article-param-container">
+            <img class="article-img" src="https://img.xiaopiu.com/userImages/img11159694579f0.jpg">
+
+            </img>
+            <div class="flex-row edit-container">
+                <div class="flex-row delete-btn">
+                    <svg class="edit-icon" style="fill:#dd2926">
+                        <use xlink:href="#delete"/>
+                    </svg>
+                    <span class="edit-text" style="color:#dd2926">删除</span>
+                </div>
+                <div class="flex-row replace-btn">
+                    <svg class="edit-icon">
+                        <use xlink:href="#replace"/>
+                    </svg>
+                    <span class="edit-text">替换</span>
+                </div>
+            </div>
+        </section>
+        <section class="flex-row add-material">
+            <div class="flex-row add-btn-container">
+                <svg class="add-icon" >
+                    <use xlink:href="#add-text"/>
+                </svg>
+                <span class="add-text">插入文字</span>
+            </div>
+            <div class="flex-row add-btn-container">
+                <svg class="add-icon" style="width:20px;height:20px">
+                    <use xlink:href="#add-img"/>
+                </svg>
                 <span class="add-text">插入图片</span>
             </div>
         </section>
@@ -301,11 +560,18 @@
         <section class="place-holder"></section>
         <section class="flex-column footer">
             <div class="flex-row agreement-container">
-                <input class="check-box" type="checkbox">
-                <span class="agreement-1">我已阅读并同意</span>
+                <div class="flex-row check-box-click" style="height:100%">
+                    <svg class="check-box" style="width:20px;height:20px">
+                        <use xlink:href="#check-box-blank"/>
+                    </svg>
+                    <span class="agreement-1">我已阅读并同意</span>
+                </div>
+
                 <span class="agreement-2">《内容发布协议》</span>
-                <div class="flex-row drafts-container">
-                    <span class="drafts-icon"></span>
+                <div class="flex-row btn-draft">
+                    <svg class="drafts-icon">
+                        <use xlink:href="#draft"></use>
+                    </svg>
                     <span class="drafts-text">草稿箱</span>
                 </div>
             </div>
@@ -318,11 +584,55 @@
 
         </section>
     </div>
+    <!--编辑文字的弹框-->
+    <div id="edit-section-popup" class="weui-popup__container">
+        <div class="weui-popup__overlay"></div>
+        <div class="weui-popup__modal flex-column" style="justify-content:flex-start;background-color: #f3f3f3">
+            <div class="flex-column edit-popup-container">
+                <textarea class="edit-popup-input" placeholder="输入文字..."></textarea>
+                <div class="flex-row clean-input">
+                    <svg style="fill:#888;width:.15rem;height:.15rem">
+                        <use xlink:href="#delete"></use>
+                    </svg>
+                    <span style="font-size: .14rem; color:#888;margin:5px">清空输入</span>
+                </div>
+            </div>
+            <div class="flex-row" style="width:calc(100% - 20px);margin-top:20px;justify-content: space-between">
+                <span class="complete-edit-btn cancel" style="width:20%;background-color: #aaa">取消</span>
+                <span class="complete-edit-btn finish">完成并返回</span>
+            </div>
+        </div>
+    </div>
 
-    <div id="edit-param-popup" class="weui-popup__container">
+
+    <!--内容发布协议的弹框-->
+    <div id="argument-popup" class="weui-popup__container">
         <div class="weui-popup__overlay"></div>
         <div class="weui-popup__modal">
-            <div class="edit-close">关闭</div>
+            <div class="agreement-popup-container flex-column">
+                <h3>《内容发布协议》</h3>
+                <p>
+                    使用原创文章需遵守以下协议，如您违规使用本平台原创功能，您的账户与服务将会被关闭，并依法追究法律责任。
+                </p>
+                <p>
+                    1. 您使用本平台创建的文章需秉承社会主义核心价值观、遵守国家法律法规、符合社会公序良俗。
+                </p>
+                <p>
+                    2. 文章微名片中已经包含作者个人信息，您发布的文章正文中不得再植入任何手机号吗、二维码等，一经发现即刻予以删除，如您在文章正文中加入非您本人的手机号码或二维码等信息，本平台将立即关闭您的账户与服务。
+                </p>
+                <p>
+                    3. 您需保证您发送的文章为您原创，如果涉嫌抄袭侵犯他人作品，一经发现本平台将即刻予以删除，一切由此产生法律责任由您个人承担。
+                </p>
+                <p>
+                    4. 您发布的文章不得对任何第三方（包括个人或组织机构）构成诽谤、攻击、污蔑等，不得发布谣言，一经发现本平台将即刻予以删除，一切由此产生的法律责任由您个人承担。
+                </p>
+
+            </div>
+            <p class="flex-column" style="width:100%;justify-content: space-around">
+                <span class="agreement-close agree" style="background-color: #00a0e9;">同意</span>
+                <span class="agreement-close disagree" style="margin-bottom: 20px">我再想想</span>
+            </p>
+
         </div>
     </div>
 
@@ -335,14 +645,222 @@
     </script>
     <script src="public/js/jquery-weui.js"></script>
     <script>
+        // 是否阅读协议
+        var isReadAgreement = false;
+        // 添加文字 或 添加图片 的this对象
+        var addThis = null;
+        // 编辑 按钮的this对象
+        var editThis = null;
+        // 区分是 添加新段落 还是 在原有段落编辑
+        var editType = "addNew"; // addNew or editCurrent;
         window.onload = function () {
-            $(".edit-content").click(function() {
-                $("#edit-param-popup").popup();
-            })
-            $(".edit-close").click(function() {
-                $.closePopup();
-            })
+            initCheckBox();
+            initBottomBtns();
+            initAgreementBtn();
+            initEditBtn();
+            initAddBtn();
         };
+
+        function initCheckBox() {
+            $(".check-box-click").click(function () {
+                var isChecked = $(this).find("use").attr("xlink:href").match("blank") === null;
+                setCheckBox(this,!isChecked);
+            });
+        }
+
+        function setCheckBox(_this,_isSetChecked) {
+            var svgCheckBox = $(_this).find("svg");
+            var checkedColor = "#00a0e9";
+            var uncheckColor = "#888";
+            if(_isSetChecked) {
+                svgCheckBox.children().attr("xlink:href","#check-box");
+                svgCheckBox.css("fill",checkedColor);
+                isReadAgreement = true;
+                $(".btn-publish").css("background-color",checkedColor)
+            }else{
+                svgCheckBox.children().attr("xlink:href","#check-box-blank");
+                svgCheckBox.css("fill",uncheckColor);
+                isReadAgreement = false;
+                $(".btn-publish").css("background-color",uncheckColor)
+            }
+        }
+
+        // 插入文字 插入图片 按钮
+        function initAddBtn() {
+            $(".add-btn-container").click(function() {
+                addThis = this;
+                var btnType = $(this).find("use").attr("xlink:href");
+
+                // 插入文字
+                if(btnType.match("text")) {
+                    isLockScroll(true);
+                    $("#edit-section-popup").popup();
+                    $(".edit-popup-input").val("");
+                    editType = "addNew";
+
+                    // 插入图片
+                }else if(btnType.match("img")) {
+
+                }
+            })
+        }
+
+        // 底部的5个按钮 取消 存草稿 预览 发布 草稿箱
+        function initBottomBtns() {
+            $(".btn-container").on("click",".btn-cancel,.btn-publish, .btn-save-draft, .btn-preview",function () {
+                switch ($(this).attr("class")) {
+                    case "btn-cancel":
+                        isLockScroll(true);
+                        //console.log("取消");
+                        $.confirm("退出编辑之前记得先保存，是否要退出编辑界面？", function() {
+                            //点击确认后的回调函数
+                            isLockScroll(false);
+
+                        }, function() {
+                            //点击取消后的回调函数
+                            isLockScroll(false);
+                        });
+                        break;
+                    case "btn-save-draft":
+                        $.toast("已保存到草稿","success");
+                        //console.log("保存草稿");
+                        break;
+                    case "btn-preview":
+                        //console.log("预览");
+                        break;
+                    case "btn-publish":
+                        //console.log("发布");
+                            // 没有同意内容发布协议,弹窗协议文本;
+                        if(!isReadAgreement){
+                            $("#argument-popup").popup();
+                            isLockScroll(true)
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            })
+        }
+
+        function initAgreementBtn() {
+            // 同意 我再想想
+            $(".agreement-close").click(function() {
+                $.closePopup();
+                isLockScroll(false);
+                var isAgree = $(this).attr("class").match('disagree') === null;
+                if(isAgree) {
+                    setCheckBox($(".check-box-click"),true);
+                }else{
+                    setCheckBox($(".check-box-click"),false);
+                }
+            })
+
+            // <内容发布协议>
+            $(".agreement-2").click(function() {
+                isLockScroll(true);
+                $("#argument-popup").popup();
+            })
+        }
+
+        // 删除 替换 编辑 与文本输入弹框中的 完成 取消 清空按钮
+        function initEditBtn() {
+            $(".edit-container").on('click',".delete-btn, .edit-btn, .replace-btn",function () {
+                //console.log( $(document).scrollTop());
+                //$(document).scrollTop(22);
+                //return console.log($(this).offset());
+
+                var type = $(this).attr("class");
+
+                /**
+                 * 删除*/
+                if(type.match("delete-btn")) {
+                    //console.log('删除')
+                    isLockScroll(true);
+                    var _this = this;
+                    $.confirm("确定要删除此段？", function() {
+
+                        //点击确认后的回调函数
+                        isLockScroll(false);
+
+                        // 删除段落
+                        $(_this).parent().parent().next().remove();
+                        $(_this).parent().parent().remove();
+                    }, function() {
+                        //点击取消后的回调函数
+                        isLockScroll(false);
+                    });
+
+                    /**
+                     * 编辑*/
+                }else if(type.match("edit-btn")) {
+                    editType = "editCurrent";
+                    editThis = this;
+                    isLockScroll(true);
+                    $("#edit-section-popup").popup();
+                    var textContent = $(this).parent().siblings(".article-param").text().trim();
+                    $(".edit-popup-input").val(textContent);
+
+                    /**
+                     * 替换*/
+                }else if("replace-btn") {
+                    //console.log('替换')
+                }
+            })
+
+            // 编辑文本弹框中的 完成 或 取消 或 清空按钮
+            $(".complete-edit-btn").click(function() {
+                isLockScroll(false);
+                $.closePopup();
+                var btnType = $(this).attr("class");
+                if(btnType.match("finish")) {
+                    var content = $(".edit-popup-input").val().trim();
+                    if(content !== "") {
+                        // 添加新段落
+                        if(editType === "addNew") {
+                            // 克隆 段落
+                            var paramEle = $(".clone-container .article-param-container").clone(true);
+                            // 克隆 插入按钮
+                            var addEle = $(".clone-container .add-material").clone(true);
+                            // 段落中加入文字
+                            paramEle.find(".article-param").text(content);
+                            $(addThis).parent().after(paramEle);
+                            $(addThis).parent().next().after(addEle);
+                            //console.log($(addThis).parent());
+
+                        // 在现有的段落上重新编辑的
+                        }else if(editType === 'editCurrent') {
+                            $(editThis).parent().siblings(".article-param").text(content);
+                        }
+
+                    }else {
+                        // 重新编辑时把内容清空了
+                    }
+                }
+
+            })
+
+            //清空文本按钮
+            $(".clean-input").click(function() {
+                $(".edit-popup-input").val("");
+            })
+        }
+
+        // 出现弹框或modal时,锁定下层容器的滚动!
+        function isLockScroll(isLock) {
+            if(isLock) {
+                var currentTop1 = $(document).scrollTop();
+                $("body").css('top',-currentTop1+"px").addClass("lock-scroll");
+
+            }else {
+                var $body = $("body");
+                $body.removeClass("lock-scroll");
+                var currentTop = $body.css("top");
+                currentTop = currentTop.substring(1,currentTop.length - 2);
+                currentTop = Number(currentTop);
+                $(document).scrollTop(currentTop);
+
+            }
+        }
 
 
     </script>
