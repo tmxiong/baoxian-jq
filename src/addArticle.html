@@ -14,6 +14,10 @@
             /*height: 100%;*/
             -webkit-tap-highlight-color: transparent;
         }
+        textarea{
+            outline:none;resize:none;
+            border:none;
+        }
         .flex-row{
             display: flex;
             justify-content: center;
@@ -41,45 +45,45 @@
         .cover-img-container{
             width:27%;
             height:60px;
-            background-color: #eee;
-            border:1px dashed #ddd;
+            border:1px dashed #ccc;
+            /*background-color: #eee;*/
         }
         .cover-img-icon{
-            width:40px;
-            height:40px;
+            width:4rem;
+            height:4rem;
             fill:#ccc
         }
         .cover-img-text{
-            font-size:.12rem;
+            font-size:.11rem;
             color:#ccc;
         }
         .title-text-container{
             width:73%;
-            height:60px;
+            height:.6rem;
             background-color: #fff;
             align-items: flex-end;
             border:1px dashed #ccc;
+
         }
         .title-text{
-            width:calc(100% - 10px);
-            padding:0 5px;
-            height:40px;
+            width:calc(100% - .1rem);
+            padding:.05rem .05rem 0 .05rem;
+            height:.4rem;
             background-color: #fff;
             font-size: 0.14rem;
-            outline:none;resize:none;
-            border:none;
         }
         textarea::placeholder, textarea::-webkit-input-placeholder{
             color:#ccc;
         }
         .font-limit{
-            font-size: .12rem;
+            font-size: .1rem;
             color:#aaa;
             margin-right:.1rem;
+            line-height:.15rem;
         }
         .add-material{
             width:100%;
-            background-color: #eee;
+            /*background-color: #eee;*/
             height:35px;
             margin-top: 10px;
         }
@@ -106,10 +110,15 @@
             background-color: #fff;
             border:1px dashed #ccc;
             margin-top:10px;
+
+            transition:all 1.5s cubic-bezier(0.6, 2.00, 0.6,-1.8) 0s;
+            opacity:0
         }
         .article-param{
             width:calc(100% - 20px);
             margin: 10px 0;
+            font-size:.16rem;
+            line-height: .22rem;
         }
         .article-img{
             width:100%;
@@ -224,6 +233,7 @@
         }
 
 
+
         .agreement-popup-container{
             width:calc(100% - 20px);
             padding:10px;
@@ -233,7 +243,7 @@
         .agreement-popup-container p{
             margin-top:10px;
         }
-        .agreement-close{
+        .agreement-close, .preview-back-btn{
             width:calc(100% - 20px);
             height:.4rem;
             background-color: #aaa;
@@ -245,8 +255,13 @@
             margin-top: 10px;
             /*cursor:pointer*/
         }
-        .agreement-close:active{
-            color: rgba(238,238,238,0.3)!important;
+        .agreement-close:active, .preview-back-btn:active{
+            opacity: 0.5!important;
+        }
+
+        .preview-back-btn{
+            background-color: #00a0e9;
+            margin-top:0;
         }
 
         .edit-popup-container{
@@ -260,10 +275,9 @@
             width:calc(100% - 20px);
             height:calc(100% - 20px);
             background-color: #fff;
-            outline:none;resize:none;
             padding:10px;
             font-size: .16rem;
-            border: none;
+            line-height: .22rem;
         }
         .popup-input-menu{
             height:40px;
@@ -369,10 +383,8 @@
             </div>
         </section>
 
-
-        <!--段落-->
         <section class="flex-column article-param-container">
-            <span class="article-param">克隆出来的</span>
+            <textarea class="article-param" readonly></textarea>
             <div class="flex-row edit-container">
                 <div class="flex-row delete-btn">
                     <svg class="edit-icon" style="fill:#dd2926">
@@ -391,7 +403,7 @@
 
         <!--图片-->
         <section class="flex-column img-param-container">
-            <img class="article-img" src="https://img.xiaopiu.com/userImages/img11159694579f0.jpg">
+            <img class="article-img" src="">
 
             </img>
             <div class="flex-row edit-container">
@@ -413,15 +425,22 @@
 
     <div class="container">
         <section class="header flex-row">
+            <!--<div class="flex-column cover-img-container">-->
+                <!--<svg class="cover-img-icon" >-->
+                    <!--<use xlink:href="#add-img"/>-->
+                <!--</svg>-->
+                <!--<span class="cover-img-text">添加文章封面</span>-->
+            <!--</div>-->
             <div class="flex-column cover-img-container">
                 <svg class="cover-img-icon" >
                     <use xlink:href="#add-img"/>
                 </svg>
-                <span class="cover-img-text">添加文章封面</span>
+                <span class="cover-img-text">文章封面</span>
+                <!--<input id="cover-img" name="cover-img" type="file" accept = "image/*" onchange = "selectImg('cover-img')"/>-->
             </div>
             <div class="title-text-container flex-column">
-                <textarea placeholder="请输入文章标题..." class="title-text"></textarea>
-                <span class="font-limit">已输入12/20</span>
+                <textarea placeholder="请输入文章标题(建议20字内)" maxlength="50" class="title-text" onfocus="limitTextarea(this,'.font-limit')"></textarea>
+                <span class="font-limit">0/50</span>
             </div>
         </section>
         <section class="flex-row add-material">
@@ -438,6 +457,7 @@
                 <span class="add-text">插入图片</span>
             </div>
         </section>
+
 
         <!--占位-->
         <section class="place-holder"></section>
@@ -527,6 +547,27 @@
         </div>
     </div>
 
+
+    <!--预览的弹窗-->
+    <div id="preview-popup" class="weui-popup__container">
+        <div class="weui-popup__overlay"></div>
+        <div class="weui-popup__modal flex-column preview-content" style="width:100%;justify-content: flex-start">
+            <div style="padding:10px;height:calc(100% - .6rem);overflow-y: scroll;-webkit-overflow-scrolling: touch">
+                <p>
+                    巨齿鲨的进化与分类在过去的很长一段时间内一直存在争议。不同意见主要集中在两个问题上：1，巨齿鲨牙冠上的锯齿起源于何处；2，巨齿鲨与大白鲨(Carcharodon carcharias)的亲缘关系如何。造成这些争议的一大原因是Ypresian中期的地层在全球范围内比较少见（因为这段时期全球海平面较低），而这段时期恰是提供巨齿鲨起源关键证据的时期。尽管如此，经过近二十年的化石发掘与研究，尤其是哈萨克斯坦西北部 [3]  以及北美东海岸 [4]  的化石发掘，我们目前所掌握的证据显示巨齿鲨起源于Otodus 下的某个物种，并且在白垩纪晚期独立于大白鲨的早期物种Isurus praecursor 单独进化。
+                    最早关于巨齿鲨锯齿来源的假说涉及另外一个已经灭绝的属Palaeocarcharodon。这个属目前已知的物种是P. orientalis。假说认为，巨齿鲨的早期物种auriculatus由P. orientalis演化而来。形态学上来看，他们的牙齿存在一定的相似之处：1，都存在双边对称的副牙(cusplet)；2，主齿和副牙的切边都长有不整齐的锯齿。然而，更详细的样本分析表明，这两个物种的牙齿存在大量差异显著的地方：1，P. orientalis的牙冠薄，auriculatus的牙冠异常厚；2，牙根形态差异很大，P. orientalis牙根短且薄，auriculatus牙根长且厚；3，P. orientalis牙齿长边尺寸在6厘米以内，auriculatus牙齿长边尺寸可以达到9厘米；4，P. orientalis的dental band 非常窄，几乎在牙冠上看不到，而auriculatus的dental band呈深V型，非常宽，这一点与Otodus下的物种很类似；5，显微结构表明P. orientalis与auriculatus的锯齿形态存在很大的差异。除了形态学差异之外，另一个需要解释的现象来自于化石出现的地层。目前我们在5650万年以后的地层内再未发现过任何Palaeocarcharodon的遗迹，而auriculatus的遗迹首次出现的时间大概在5100万年。如果auriculatus真的由P. orientalis演化而来，需要有证据解释中间大约500万年的样本断层。另一方面，从哈萨克斯坦西北部以及美国马里兰的Ypresian中期（5200-5100万年）地层发掘的样本显示，Otodus和有微弱锯齿的Otodus在同一时期共存过，而在接下来的100万年内，auriculatus逐渐出现。形态学分析显示，早期的auriculatus和Otodus在形态上几乎没有差别，除了是否有锯齿以外。综上，当前证据指向巨齿鲨在5200万年前起源于Otodus的某一分支，而不是Palaeocarcharodon。
+                    第二个争议涉及到如何划分巨齿鲨以及大白鲨的进化线上的物种。目前有三种比较重要的学说，第一种（较早）认为，巨齿鲨和大白鲨都应划分在Carcharodon属内，因此巨齿鲨学名为Carcharodon megalodon（此学说进一步认为大白鲨是巨齿鲨的直系后代）；第二种认为巨齿鲨从Otodus分支以后应该独立划分在Carcharocles属内，而大白鲨并非来自Otodus属的物种，而是Isurus属的某个分支；第三种（俄罗斯）观点认为巨齿鲨应该被保留在Otodus属内，大白鲨则起源于Isurus属的某个分支。第二个学说和第三个学说并不存在本质上的不同，因此不做区分，而第一个学说涉及到巨齿鲨和大白鲨的亲缘关系，需要单独讨论。目前有部分学者沿用旧的命名，称巨齿鲨为Carcharodon megalodon，但随着我们对大白鲨演化的深入了解（这是另一个非常重要但是非常长的内容，也存在很多分支划分的争议，此处不详解），尤其是对Carcharodon hubbelli的研究表明，大白鲨与Isurus hastalis \ xiphodon 存在非常近的亲缘关系 [5-6]  ，从而间接否定了大白鲨演化自巨齿鲨的假说。因此，更多学者接受巨齿鲨的命名Carcharocles megalodon。值得一提的是，俄罗斯的Zhelesko [7]  等人在哈萨克斯坦进行了详细的发掘，对巨齿鲨的进化线做了非常细致的划分，列举如下：
+                </p>
+            </div>
+
+            <div class="flex-column" style="background-color:#fff;width:100%; height:.6rem;">
+                <span class='preview-back-btn' style="">退出预览</span>
+            </div>
+        </div>
+
+
+    </div>
+
     <script src="public/js/jquery-2.1.4.js"></script>
     <script src="public/js/fastclick.js"></script>
     <script>
@@ -535,6 +576,7 @@
         });
     </script>
     <script src="public/js/jquery-weui.js"></script>
+    <!--<script src="public/js/jweixin-1.2.0.min.js"></script>-->
     <script>
         // 是否阅读协议
         var isReadAgreement = false;
@@ -552,12 +594,31 @@
         var sectionText = "";
 
         window.onload = function () {
+//            initWX();
             initCheckBox();
             initBottomBtns();
             initAgreementBtn();
             initEditBtn();
             initAddBtn();
         };
+
+        function selectImg(id) {
+            var files = document.getElementById(id).files;
+            console.log(files);
+        }
+
+        // 文章标题字数限制
+        function limitTextarea(self,nowleng) {
+            $(self).on('input propertychange', function(event) {
+                var _val = $(self).val();
+                _val = _val < 50 ? _val : _val.substr(0,50);
+                $(self).val(_val);
+                $(nowleng).text(_val.length+"/50")
+            });
+            $(self).blur(function(){
+                $(self).off('input propertychange');
+            });
+        }
 
         function initCheckBox() {
             $(".check-box-click").click(function () {
@@ -598,9 +659,33 @@
 
                     // 插入图片
                 }else if(btnType.match("img")) {
-
+                    // 克隆图片段落模板
+                    var tempImg = $(".clone-container").find(".img-param-container").clone(true);
+                    var tempAddEle = $(".clone-container .add-material").clone(true);
+                    // 设置图片链接
+                    tempImg.find(".article-img").attr("src","https://img.xiaopiu.com/userImages/img11159694579f0.jpg");
+                    $(this).parent().after(tempImg);
+                    // 增加 插入 按钮
+                    $(addThis).parent().next().after(tempAddEle);
+                    _scrollToBottom(this);
+                    // 添加淡入动画
+                    tempImg.animate({"opacity":"1"});
                 }
-            })
+            });
+
+        }
+
+        // 检测是否滚动到底部
+        function _scrollToBottom(_this) {
+            var ele = $(_this).parent().next().next().next(".img-param-container, .article-param-container")
+//            console.log("length"+ele.length);
+            if(ele.length === 0) {
+                var h = $(document).height()-$(window).height();
+//                console.log("h"+h);
+                if(h > 0) {
+                    $("html,body").finish().animate({"scrollTop":h+"px"},500);
+                }
+            }
         }
 
         // 底部的5个按钮 取消 存草稿 预览 发布 草稿箱
@@ -624,7 +709,13 @@
                         //console.log("保存草稿");
                         break;
                     case "btn-preview":
-                        //console.log("预览");
+                        if($(".title-text").val().trim() === ""){
+                            return $.toast("请输入标题", "forbidden");
+                        }else if($(".container").find(".img-param-container, .article-param-container").length === 0) {
+                            return $.toast("请输入内容", "forbidden");
+                        }
+                        isLockScroll(true);
+                        $("#preview-popup").popup();
                         break;
                     case "btn-publish":
                         //console.log("发布");
@@ -660,7 +751,7 @@
             })
         }
 
-        // 删除 替换 编辑 与文本输入弹框中的 完成 取消 清空按钮
+        // 删除/替换/编辑, 文本输入弹框中的 完成/取消/清空 按钮,预览返回键
         function initEditBtn() {
             $(".edit-container").on('click',".delete-btn, .edit-btn, .replace-btn",function () {
                 //console.log( $(document).scrollTop());
@@ -700,7 +791,7 @@
                     /**
                      * 替换*/
                 }else if("replace-btn") {
-                    //console.log('替换')
+                    $(this).parent().siblings(".article-img").attr("src","http://i1.umei.cc/uploads/tu/201805/9999/deb60dd02a.jpg")
                 }
             })
 
@@ -710,24 +801,45 @@
                 $.closePopup();
                 sectionText = "";
                 var btnType = $(this).attr("class");
+                var _adjustTextAreaHeight = function(textAreaEle) {
+                    // textArea高度无法自动撑开 需手动设置
+                    // 先把高度调成0.22rem再获取高度(因为line-height:0.22rem)
+                    // 否在如果编辑前高度大于编辑后高度,高度就无法缩小
+                    textAreaEle.css("height","0.22rem");
+                    let textAreaHeight = textAreaEle.scrollHeight();
+                    textAreaEle.css("height",textAreaHeight);
+                };
+
                 if(btnType.match("finish")) {
                     var content = $(".edit-popup-input").val().trim();
                     if(content !== "") {
                         // 添加新段落
                         if(editType === "addNew") {
-                            // 克隆 段落
-                            var paramEle = $(".clone-container .article-param-container").clone(true);
+                            // 克隆 段落模板
+                            var tempArticleEle = $(".clone-container .article-param-container").clone(true);
                             // 克隆 插入按钮
-                            var addEle = $(".clone-container .add-material").clone(true);
+                            var tempAddEle = $(".clone-container .add-material").clone(true);
                             // 段落中加入文字
-                            paramEle.find(".article-param").text(content);
-                            $(addThis).parent().after(paramEle);
-                            $(addThis).parent().next().after(addEle);
-                            //console.log($(addThis).parent());
+                            tempArticleEle.find(".article-param").text(content);
+                            $(addThis).parent().after(tempArticleEle);
+                            $(addThis).parent().next().after(tempAddEle);
+
+                            // textArea高度无法自动撑开 需手动设置
+                            let textAreaEle = $(addThis).parent().next().find(".article-param");
+                            _adjustTextAreaHeight(textAreaEle)
+
+                            tempArticleEle.animate({"opacity":"1"});
+                            // 是否滚动到底部;
+                            _scrollToBottom(addThis);
 
                         // 在现有的段落上重新编辑的
                         }else if(editType === 'editCurrent') {
-                            $(editThis).parent().siblings(".article-param").text(content);
+                            let textAreaEle = $(editThis).parent().siblings(".article-param");
+                            textAreaEle.text(content);
+                           _adjustTextAreaHeight(textAreaEle);
+
+                            $(editThis).parent().parent().css("opacity",1);
+
                         }
 
                     }else {
@@ -737,7 +849,7 @@
                     }
                 }
 
-            })
+            });
 
             //清空输入 / 撤销清空
             $(".popup-input-menu").on('click',".input-clean, .input-undo",function() {
@@ -756,6 +868,11 @@
                     }
                 }
 
+            })
+
+            $(".preview-back-btn").click(function(){
+                isLockScroll(false);
+                $.closePopup();
             })
         }
 
@@ -780,6 +897,111 @@
         function deleteSection(_this) {
             $(_this).parent().parent().next().remove();
             $(_this).parent().parent().remove();
+        }
+
+        function initWX() {
+            wx.config({
+                debug: false,
+                appId: '{$wechat_jssdk_config.appid}',
+                timestamp: "{$wechat_jssdk_config.timestamp}",
+                nonceStr: '{$wechat_jssdk_config.noncestr}',
+                signature: '{$wechat_jssdk_config.signature}',
+                jsApiList: [
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareWeibo',
+                    'onMenuShareQZone',
+                    'hideMenuItems',
+                    'showMenuItems',
+                    'hideAllNonBaseMenuItem',
+                    'showAllNonBaseMenuItem',
+                    'chooseImage',
+                    'uploadImage',
+                ]
+            });
+
+            wx.ready(function() {
+                var images = {
+                    localId: [],
+                    serverId: []
+                };
+                $('#changeAvatar').on('click', function() {
+                    wx.chooseImage({
+                        count: 1,
+                        sizeType: ['compressed'],
+                        success: function(res) {
+                            images.localId = res.localIds;
+                            if (images.localId.length == 0) {
+                                return;
+                            }
+                            $('.pre_user_avatar').attr('src', res.localIds);
+                            var i = 0, length = images.localId.length;
+                            images.serverId = [];
+                            function uploadAvatar() {
+                                wx.uploadImage({
+                                    localId: images.localId[i],
+                                    success: function(res) {
+                                        i++;
+                                        images.serverId.push(res.serverId); //serverId（即media_id）
+                                        if (i < length) {
+                                            uploadAvatar();
+                                        }
+                                        $('.user_avatar').attr('src', res.serverId);
+                                        localStorage.setItem('user_avatar', res.serverId)
+                                    },
+                                    fail: function(res) {
+                                        alert('上传失败');
+                                    }
+                                });
+                            }
+                            uploadAvatar();
+                        }
+                    });
+                });
+                //上传二维码
+                $('#changeQRCode').on('click', function() {
+                    // document.getElementById('changeQRCode').onclick = function () {
+                    wx.chooseImage({
+                        count: 1,
+                        sizeType: ['compressed'],
+                        success: function(res) {
+                            images.localId = res.localIds;
+                            if (images.localId.length == 0) {
+                                return;
+                            };
+                            $('.pre_wechat_qrcode').attr('src', res.localIds);
+                            var i = 0, length = images.localId.length;
+                            images.serverId = [];
+                            function upload() {
+                                // 1 success
+                                wx.uploadImage({
+                                    localId: images.localId[i],
+                                    success: function(res) {
+                                        i++;
+                                        images.serverId.push(res.serverId); //serverId（即media_id）
+                                        if (i < length) {
+                                            upload();
+                                        };
+                                        $('.wechat_qrcode').attr('src', res.serverId);
+                                        localStorage.setItem('wechat_qrcode', res.serverId)
+                                    },
+                                    fail: function(res) {
+                                        alert('上传失败');
+                                        //alert(JSON.stringify(res));
+                                    }
+                                });
+                            }
+                            upload();
+                        }
+                    });
+                });
+            });
+
+            wx.error(function(res){
+                alert(res.errMsg);
+            });
         }
 
 
