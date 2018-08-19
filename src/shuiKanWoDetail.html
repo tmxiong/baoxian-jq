@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <title>谁看了这篇文章</title>
+    <style>
+        html{
+            -ms-text-size-adjust:100%;
+            -webkit-text-size-adjust:100%;
+            height:100%;
+        }
+        body{
+            height:100%;
+            font-family:-apple-system-font, "Helvetica Neue", sans-serif;
+        }
+        *{
+            margin:0;
+            padding:0;
+        }
+        a img{
+            border:0;
+        }
+        a{
+            text-decoration:none;
+            -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+        }
+        .flex-row{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: row;
+        }
+        .flex-column{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: column;
+        }
+        .container{
+            width:100%;
+            background-color: #f5f5f5;
+            justify-content: space-around;
+        }
+
+        .item-content{
+            display:flex;
+            flex-direction: row;
+            width:100%;
+            height:.8rem;
+            background-color:#fff;
+            align-items:center;
+            color:#000;
+            margin:0 auto;
+            /*border-bottom:1px solid #eee;*/
+            box-shadow:0px 1px 8px #aaa;
+            position:fixed;
+            top:0;
+            left:0;
+            z-index: 999;
+        }
+        .item-title{
+            font-size:15px;
+            margin-top:10px;
+            height:40px;
+            overflow: hidden;
+            line-height: 20px;
+            text-overflow:ellipsis;
+            padding-right:.1rem;
+        }
+        .item-img{
+            min-width:100px;
+            max-width:100px;
+            height:60px;
+            background-size: 100px 60px;
+            background-repeat:no-repeat;
+            margin-left:10px;
+            margin-right:10px;
+            display:block;
+        }
+        .item-right{
+            display:flex;
+            flex-direction:column;
+            height:100%;
+            justify-content:space-between;
+        }
+        .item-counts{
+            height:30px;
+            display:flex;
+            flex-direction: row;
+            width:100%;
+            align-items:center;
+            margin-bottom: 5px;
+        }
+        .item-text{
+            color:#ccc;
+            font-size:12px;
+            margin: 0 2px 0 2px;
+        }
+
+        .reader-item-container{
+            font-size: .16rem;
+            width:100%;
+            border-bottom:1px solid #eee;
+            margin-top: .15rem;
+            background-color: #fff;
+        }
+        .content-1{
+            justify-content: flex-start;position:relative;
+            width:calc(100% - .2rem);
+            border-bottom: 1px solid #ccc;
+            height:.6rem;
+        }
+        .content-2{
+            align-items: flex-start;
+            width:calc(100% - .2rem);
+        }
+        .icon{
+            width:.3rem;
+            height:.3rem;
+            background-color: #f67;
+            border-radius: .15rem;
+            margin-right: .05rem;
+        }
+        .nick-name{
+            font-weight: bold;
+        }
+        .nick-name-1{
+            color:#aaa;
+            font-size:.14rem;
+            height:.3rem;
+            line-height:.3rem;
+        }
+        .read-time{
+            font-size: .14rem;
+            color:#aaa;
+            margin-top: .04rem;
+        }
+        .read-length{
+            font-size: .12rem;
+            color:#f6383a;
+            margin-top:.05rem
+        }
+        .contact-btn{
+            border:1px solid #00a0e9;
+            border-radius:.05rem;
+            padding: .02rem .07rem;
+            color:#00a0e9;
+            font-size: .14rem;
+        }
+
+
+    </style>
+
+
+</head>
+
+<body style="background-color: #f5f5f5">
+
+    <script src="public/js/fastclick.js"></script>
+    <script>
+        window.onload = function () {
+            FastClick.attach(document.body);
+        };
+
+
+    </script>
+
+    <div class="flex-column container" style="justify-content: flex-start">
+        <a class="item-content">
+            <img class="item-img" alt="${list.article_title}" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1782285467,1466552504&fm=27&gp=0.jpg">
+            <div class="item-right">
+                <span class="item-title">标题标题标题标题标题标题标题标题标题标题标题标题</span>
+                <div class="item-counts">
+                    <span class="item-text">阅读:123</span>
+
+                    <span class="item-text">分享:456</span>
+                </div>
+            </div>
+        </a>
+        <div style="margin-top:.9rem;"></div>
+
+        <div class="flex-column reader-item-container">
+            <div class="flex-row content-1">
+                <span class="icon" style="width:.4rem;height:.4rem;border-radius: .2rem"></span>
+                <div class="flex-column" style="align-items: flex-start">
+                    <span class="nick-name">冷浪漫</span>
+                    <span class="read-time">2018-12-12</span>
+                </div>
+                <div class="flex-column" style="position:absolute;right:.05rem;align-items: flex-end">
+                    <span class="contact-btn">联系TA</span>
+                    <span class="read-length">阅读3分12秒</span>
+                </div>
+            </div>
+            <div class="flex-column content-2">
+                <span style="color:#aaa;font-size: .14rem;margin:.1rem 0">文章通过以下人脉关系链传到 冷浪漫</span>
+                <div class="flex-row" style="align-items: flex-start">
+                    <div class="flex-column">
+                        <span class="icon"></span>
+                        <span class="nick-name-1">lsjdfsdf</span>
+                    </div>
+                    <span style="height:.3rem;line-height: .3rem;color:#aaa">-></span>
+                    <div class="flex-column">
+                        <span class="icon"></span>
+                        <span class="nick-name-1">lsjdfsdf</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-column reader-item-container">
+            <div class="flex-row content-1">
+                <span class="icon" style="width:.4rem;height:.4rem;border-radius: .2rem"></span>
+                <div class="flex-column" style="align-items: flex-start">
+                    <span class="nick-name">冷浪漫</span>
+                    <span class="read-time">2018-12-12</span>
+                </div>
+                <div class="flex-column" style="position:absolute;right:.05rem;align-items: flex-end">
+                    <span class="contact-btn">联系TA</span>
+                    <span class="read-length">阅读3分12秒</span>
+                </div>
+            </div>
+            <div class="flex-column content-2">
+                <span style="color:#aaa;font-size: .14rem;margin:.1rem 0">文章通过以下人脉关系链传到 冷浪漫</span>
+                <div class="flex-row" style="align-items: flex-start">
+                    <div class="flex-column">
+                        <span class="icon"></span>
+                        <span class="nick-name-1">lsjdfsdf</span>
+                    </div>
+                    <span style="height:.3rem;line-height: .3rem;color:#aaa">-></span>
+                    <div class="flex-column">
+                        <span class="icon"></span>
+                        <span class="nick-name-1">lsjdfsdf</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-column reader-item-container">
+            <div class="flex-row content-1">
+                <span class="icon" style="width:.4rem;height:.4rem;border-radius: .2rem"></span>
+                <div class="flex-column" style="align-items: flex-start">
+                    <span class="nick-name">冷浪漫</span>
+                    <span class="read-time">2018-12-12</span>
+                </div>
+                <div class="flex-column" style="position:absolute;right:.05rem;align-items: flex-end">
+                    <span class="contact-btn">联系TA</span>
+                    <span class="read-length">阅读3分12秒</span>
+                </div>
+            </div>
+            <div class="flex-column content-2">
+                <span style="color:#aaa;font-size: .14rem;margin:.1rem 0">文章通过以下人脉关系链传到 冷浪漫</span>
+                <div class="flex-row" style="align-items: flex-start">
+                    <div class="flex-column">
+                        <span class="icon"></span>
+                        <span class="nick-name-1">lsjdfsdf</span>
+                    </div>
+                    <span style="height:.3rem;line-height: .3rem;color:#aaa">-></span>
+                    <div class="flex-column">
+                        <span class="icon"></span>
+                        <span class="nick-name-1">lsjdfsdf</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-column reader-item-container">
+            <div class="flex-row content-1">
+                <span class="icon" style="width:.4rem;height:.4rem;border-radius: .2rem"></span>
+                <div class="flex-column" style="align-items: flex-start">
+                    <span class="nick-name">冷浪漫</span>
+                    <span class="read-time">2018-12-12</span>
+                </div>
+                <div class="flex-column" style="position:absolute;right:.05rem;align-items: flex-end">
+                    <span class="contact-btn">联系TA</span>
+                    <span class="read-length">阅读3分12秒</span>
+                </div>
+            </div>
+            <div class="flex-column content-2">
+                <span style="color:#aaa;font-size: .14rem;margin:.1rem 0">文章通过以下人脉关系链传到 冷浪漫</span>
+                <div class="flex-row" style="align-items: flex-start">
+                    <div class="flex-column">
+                        <span class="icon"></span>
+                        <span class="nick-name-1">lsjdfsdf</span>
+                    </div>
+                    <span style="height:.3rem;line-height: .3rem;color:#aaa">-></span>
+                    <div class="flex-column">
+                        <span class="icon"></span>
+                        <span class="nick-name-1">lsjdfsdf</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

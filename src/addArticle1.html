@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <title>创建头条</title>
+    <link rel="stylesheet" href="public/css/weui.min.css">
+    <link rel="stylesheet" href="public/css/jquery-weui.min.css">
+    <style>
+        body, html {
+            -webkit-tap-highlight-color: transparent;
+            width:100%;
+        }
+        .flex-row{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: row;
+        }
+        textarea::placeholder, textarea::-webkit-input-placeholder{
+            color:#ccc;
+            font-size:.15rem;
+        }
+        .flex-column{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: column;
+        }
+        .container{
+            width:calc(100% - .2rem);
+            height:100%;
+            background-color: #fff;
+            margin:0 auto;
+            justify-content: flex-start;
+        }
+        .url-input{
+            width:calc(100% - .2rem);
+            height:.6rem;
+            background-color: #fff;
+            border:1px solid #ccc;
+            border-radius: .05rem;
+            resize: none;
+            outline: none;
+            padding:.1rem;
+            margin-top:.1rem;
+        }
+        .add-btn{
+            width:100%;
+            height:.4rem;
+            background-color: #d6401e;
+            border-radius: .05rem;
+            color: #ffd8de;
+            text-align: center;
+            line-height: .4rem;
+            font-size:.16rem;
+        }
+        .add-btn:active{
+            opacity:0.6;
+        }
+        .check-box-container{
+            align-self:flex-start;margin:.1rem 0
+        }
+        .help-icon{
+            width:.2rem;
+            height:.2rem;
+            fill:#d6401e;
+        }
+        .help-btn:active{
+            opacity: 0.6;
+        }
+        .help-content{
+            width:100%;
+            height:auto;
+            margin-top: .1rem;
+            display: none;
+        }
+        .help-content p {
+            margin:.1rem 0;
+        }
+
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+        <svg  id="check-box" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>选中</title>
+            <path d="M337.066667 430.933333l-59.733334 59.733334L469.333333 682.666667 896 256l-59.733333-59.733333-366.933334 366.933333-132.266666-132.266667zM810.666667 810.666667H213.333333V213.333333h426.666667V128H213.333333c-46.933333 0-85.333333 38.4-85.333333 85.333333v597.333334c0 46.933333 38.4 85.333333 85.333333 85.333333h597.333334c46.933333 0 85.333333-38.4 85.333333-85.333333v-341.333334h-85.333333v341.333334z" p-id="1052"></path>
+        </svg>
+        <svg  id="check-box-blank" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>未选中</title>
+            <path d="M810.666667 213.333333l0 597.333333L213.333333 810.666667 213.333333 213.333333 810.666667 213.333333M810.666667 128 213.333333 128C166.4 128 128 166.4 128 213.333333l0 597.333333c0 46.933333 38.4 85.333333 85.333333 85.333333l597.333333 0c46.933333 0 85.333333-38.4 85.333333-85.333333L896 213.333333C896 166.4 857.6 128 810.666667 128L810.666667 128z" p-id="1182"></path>
+        </svg>
+        <svg  id="help" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>帮助</title>
+            <path d="M512.697383 63.444984c-247.538793 0-448.208115 200.649879-448.208115 448.208115 0 247.520373 200.669322 448.208115 448.208115 448.208115s448.208115-200.687742 448.208115-448.208115C960.905498 264.094864 760.236176 63.444984 512.697383 63.444984zM510.988462 735.138056c-25.550932 0-46.25958-21.301142-46.25958-47.563272s20.708648-47.563272 46.25958-47.563272c25.561166 0 46.269813 21.301142 46.269813 47.563272S536.548604 735.138056 510.988462 735.138056zM640.211569 436.222129c-6.383384 12.291954-13.970176 22.86987-22.751167 31.769564-8.78099 8.936533-24.557302 23.927969-47.299259 45.046962-6.291287 5.945409-11.334139 11.161201-15.119349 15.684214-3.792373 4.487198-6.619768 8.608052-8.462742 12.365632-1.868557 3.719718-3.291976 7.477298-4.303003 11.197016-1.013073 3.756557-2.543939 10.32209-4.579295 19.733437-3.518127 19.950378-14.524808 29.910217-33.027208 29.910217-9.611915 0-17.708314-3.247974-24.26566-9.775644-6.573719-6.529717-9.848299-16.194844-9.848299-29.071106 0-16.086373 2.39863-30.055526 7.204076-41.836851 4.814656-11.818163 11.18883-22.177092 19.150152-31.076786 7.960299-8.899694 18.684548-19.514449 32.17991-31.806403 11.835559-10.724249 20.398586-18.821671 25.660426-24.293289 5.287423-5.470595 9.720386-11.562337 13.323447-18.273179 3.610224-6.711865 5.415336-14.007015 5.415336-21.848611 0-15.355733-5.508457-28.305673-16.503882-38.845727-11.016915-10.541077-25.205055-15.830547-42.594097-15.830547-20.354584 0-35.335786 5.325285-44.947701 15.975856-9.620102 10.650571-17.754363 26.297946-24.420179 47.052642-6.291287 21.666462-18.219967 32.499182-35.791158 32.499182-10.349719 0-19.10308-3.793396-26.217105-11.380188-7.121188-7.586792-10.6782-15.793708-10.6782-24.583908 0-18.237363 5.635347-36.694737 16.915251-55.405891 11.279904-18.675338 27.757181-34.17638 49.396014-46.432519 21.630646-12.292977 46.888913-18.420535 75.742055-18.420535 26.825972 0 50.489928 5.143137 71.025637 15.392572 20.534685 10.249435 36.392862 24.219611 47.580668 41.836851 11.189853 17.654079 16.788361 36.839023 16.788361 57.557904C649.785621 409.668357 646.593929 423.967014 640.211569 436.222129z" p-id="2273"></path>
+        </svg>
+
+    </svg>
+
+    <script src="public/js/config.js"></script>
+    <script src="public/js/jquery-2.1.4.js"></script>
+    <script src="public/js/fastclick.js"></script>
+    <script>
+        $(function() {
+            FastClick.attach(document.body);
+        });
+    </script>
+    <script>
+        window.onload = function () {
+            $(".check-box-container").click(function(){
+                var useEle = $(this).find("use");
+                var isChecked = useEle.attr("xlink:href") === "#check-box";
+                if(isChecked) {
+                    useEle.attr("xlink:href","#check-box-blank");
+                    useEle.parent().css("fill","#666")
+                }else{
+                    useEle.attr("xlink:href","#check-box");
+                    useEle.parent().css("fill","#d6401e")
+                }
+            })
+
+            $(".help-btn").click(function(){
+                $(this).siblings(".help-content").toggle(500)
+            })
+        };
+
+
+    </script>
+
+    <div class="flex-column container">
+        <section class="flex-column" style="width:100%">
+            <textarea class="url-input" name="" id=""
+                      placeholder=" 1.打开你喜欢的公众号文章 &#13;&#10; 2.复制微信公众号文章链接 &#13;&#10; 3.点此区域后长按粘贴链接
+"
+            ></textarea>
+
+            <div class="flex-row check-box-container">
+                <svg style="width:.2rem;height:.2rem;fill:#d6401e">
+                    <use xlink:href="#check-box"></use>
+                </svg>
+                <span style="font-size:.15rem;color:#666;margin-left:.05rem">同时插入我的名片</span>
+            </div>
+            <span class="add-btn">生成我的头条</span>
+        </section>
+
+        <section class="flex-column" style="width:100%;align-items: flex-start;margin-bottom:.1rem">
+            <div class="flex-row help-btn" style="margin-top:.2rem">
+                <svg class="help-icon">
+                    <use xlink:href="#help"></use>
+                </svg>
+                <span style="color:#d6401e;font-size: .14rem;margin-left:.05rem">不会使用？请戳这里<<--</span>
+            </div>
+            <div class="help-content">
+                <p>先打开微信公众号文章，再按下面方式复制链接：</p>
+                <img style="width:100%;" src="./public/images/help.jpg" alt="">
+                <p>将复制的链接粘贴到最上面的输入框，完毕！</p>
+            </div>
+
+        </section>
+
+
+
+    </div>
+</body>
+</html>

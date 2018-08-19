@@ -7,12 +7,26 @@
         document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
     </script>
     <title>添加头条方式</title>
-    <link rel="stylesheet" href="public/css/weui.min.css">
-    <link rel="stylesheet" href="public/css/jquery-weui.min.css">
     <style>
-        body, html {
-            height: 100%;
-            -webkit-tap-highlight-color: transparent;
+        html{
+            -ms-text-size-adjust:100%;
+            -webkit-text-size-adjust:100%;
+            height:100%;
+        }
+        body{
+            height:100%;
+            font-family:-apple-system-font, "Helvetica Neue", sans-serif;
+        }
+        *{
+            margin:0;
+            padding:0;
+        }
+        a img{
+            border:0;
+        }
+        a{
+            text-decoration:none;
+            -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
         }
         .flex-row{
             display: flex;
@@ -30,32 +44,38 @@
             width:100%;
             height:100%;
             background-color: #fff;
+            justify-content: space-around;
         }
-        .by-url{
-            width:80%;
-            /*height:80%;*/
-            background-color: #dd2926;
-            font-size: 16px;
+        .by-url, .by-manual{
+            background-color: #d6401e;
+            width:2.5rem;
+            height:2.5rem;
+            border-radius: 1.25rem;
+        }
+        .by-url:active, .by-manual:active{
+            opacity:0.7;
         }
         .by-manual{
-
+            background-color: #00a0e9;
+            //margin-top:calc((6.67rem - 2.5rem - 2.5rem) / 2)
         }
 
-        /*div {*/
-            /*!*display: inline-block;*!*/
-            /*width: 20%;*/
-            /*background: green;*/
-            /*font-size: 12px;*/
-            /*position: relative;*/
-            /*vertical-align: middle;*/
-        /*}*/
-
-        /*div span {*/
-            /*display: inline-block;*/
-            /*vertical-align: middle;*/
-            /*font-size: 4em;*/
-            /*color: #fff;*/
-        /*}*/
+        .manual-icon,.url-icon{
+            width:1.1rem;
+            height:1.1rem;
+            fill: #fff;
+        }
+        .title{
+            font-size: .25rem;
+            font-weight: bold;
+            color:#fff;
+            margin-top:.06rem;
+        }
+        .desc{
+            margin-top:.01rem;
+            color:rgba(255,255,255,0.6);
+            font-size:.16rem;
+        }
 
     </style>
 
@@ -65,38 +85,42 @@
 <body>
 
     <svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
-        <svg  id="read" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <title>阅读</title>
-            <path d="M979.222 415.474C894.954 332.02 776.31 192.004 509.958 192.004c-266.316 0-384.962 140.016-469.23 223.47-19.86 19.682-30.788 45.784-30.788 73.534 0 27.728 10.93 53.85 30.788 73.51 84.27 83.476 202.896 223.47 469.23 223.47 266.368 0 384.996-139.994 469.264-223.47 19.86-19.66 30.79-45.784 30.79-73.51C1010.01 461.256 999.082 435.156 979.222 415.474zM940.882 524.282C862.556 601.838 756.802 732 509.958 732c-246.81 0-352.564-130.164-430.89-207.718-9.548-9.468-14.8-22.01-14.8-35.276 0-13.288 5.252-25.806 14.8-35.252 78.344-77.578 184.098-207.764 430.89-207.764 246.826 0 352.58 130.186 430.924 207.764 9.55 9.446 14.802 21.966 14.802 35.252C955.684 502.272 950.432 514.812 940.882 524.282zM509.974 335.996c-84.868 0-153.928 68.652-153.928 152.988 0 84.358 69.06 153.01 153.928 153.01 84.872 0 153.93-68.652 153.93-153.01C663.904 404.648 594.846 335.996 509.974 335.996zM509.974 588.008c-54.912 0-99.6-44.428-99.6-99.024 0-54.574 44.69-98.978 99.6-98.978 54.912 0 99.6 44.404 99.6 98.978C609.576 543.58 564.888 588.008 509.974 588.008z" p-id="2325"></path>
+        <svg  id="manual" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>手动</title>
+            <path d="M921.895893 1023.974381H102.081032a51.238429 51.238429 0 0 1 0-102.476858h819.814861a51.238429 51.238429 0 0 1 0 102.476858z m-563.622717-204.953716H153.319461a51.238429 51.238429 0 0 1-51.238429-51.238428v-204.953716a51.238429 51.238429 0 0 1 15.012859-36.225569l512.384289-512.384288a51.238429 51.238429 0 0 1 72.451138 0l204.953715 204.953715a51.238429 51.238429 0 0 1 0 72.451139l-512.384288 512.384288a51.238429 51.238429 0 0 1-36.225569 15.012859z m-153.715287-102.476857h132.502577l461.14586-461.14586L665.703749 122.895372l-461.14586 461.145859v132.502577z" p-id="3093"></path>
+        </svg>
+        <svg  id="url" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>链接</title>
+            <path d="M262.4 1017.6c-64 0-128-25.6-179.2-76.8-102.4-102.4-102.4-262.4 0-364.8l134.4-134.4 89.6 89.6-134.4 134.4c-51.2 51.2-51.2 128 0 179.2 51.2 51.2 128 51.2 179.2 0l179.2-179.2c25.6-25.6 38.4-57.6 38.4-89.6S556.8 512 537.6 486.4L467.2 422.4l89.6-89.6 70.4 70.4C672 448 697.6 512 697.6 582.4c0 70.4-25.6 134.4-76.8 179.2l-179.2 179.2C396.8 992 326.4 1017.6 262.4 1017.6z" p-id="1620"></path><path d="M467.2 691.2 396.8 627.2c-102.4-102.4-102.4-262.4 0-364.8l179.2-179.2c102.4-102.4 262.4-102.4 364.8 0 102.4 102.4 102.4 262.4 0 364.8l-134.4 134.4-89.6-89.6 134.4-134.4c51.2-51.2 51.2-128 0-179.2-51.2-51.2-134.4-51.2-179.2 0L486.4 352c-51.2 51.2-51.2 128 0 179.2l70.4 70.4L467.2 691.2z" p-id="1621"></path>
         </svg>
 
     </svg>
-
-
-    <script src="public/js/utils.js"></script>
-    <script src="public/js/config.js"></script>
-    <script src="public/js/jquery-2.1.4.js"></script>
     <script src="public/js/fastclick.js"></script>
     <script>
-        $(function() {
-            FastClick.attach(document.body);
-        });
-    </script>
-    <script src="public/js/jquery-weui.js"></script>
-    <script>
         window.onload = function () {
-
+            FastClick.attach(document.body);
         };
 
 
     </script>
 
-    <div class="container">
-        <div class="by-url">
-            <div style="height:4em"></div>
+    <div class="flex-column container">
+        <div class="by-url flex-column">
+            <svg class="url-icon">
+                <use xlink:href="#url"></use>
+            </svg>
+            <span class="title">复制链接创建</span>
+            <span class="desc">10秒快速创建我的头条</span>
+            <span class="desc">方便快捷</span>
         </div>
-        <div class="by-manual"></div>
-        <!--<div><span>1</span></div>-->
+        <div class="by-manual flex-column">
+            <svg class="manual-icon">
+                <use xlink:href="#manual"></use>
+            </svg>
+            <span class="title">手动输入创建</span>
+            <span class="desc">用你的文笔打动客户</span>
+            <span class="desc">方便快捷</span>
+        </div>
 
     </div>
 </body>
