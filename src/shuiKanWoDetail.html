@@ -55,12 +55,7 @@
             align-items:center;
             color:#000;
             margin:0 auto;
-            /*border-bottom:1px solid #eee;*/
-            box-shadow:0px 1px 8px #aaa;
-            position:fixed;
-            top:0;
-            left:0;
-            z-index: 999;
+            border-bottom:1px solid #eee;
         }
         .item-title{
             font-size:15px;
@@ -170,18 +165,30 @@
     </script>
 
     <div class="flex-column container" style="justify-content: flex-start">
-        <a class="item-content">
-            <img class="item-img" alt="${list.article_title}" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1782285467,1466552504&fm=27&gp=0.jpg">
-            <div class="item-right">
-                <span class="item-title">标题标题标题标题标题标题标题标题标题标题标题标题</span>
-                <div class="item-counts">
-                    <span class="item-text">阅读:123</span>
+        <div class="flex-column" style="box-shadow:0px 1px 8px #aaa;
+            position:fixed;
+            top:0;
+            left:0;
+            z-index: 999;">
+            <a class="item-content">
+                <img class="item-img" alt="${list.article_title}" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1782285467,1466552504&fm=27&gp=0.jpg">
+                <div class="item-right">
+                    <span class="item-title">标题标题标题标题标题标题标题标题标题标题标题标题</span>
+                    <div class="item-counts">
+                        <span class="item-text">阅读:123</span>
 
-                    <span class="item-text">分享:456</span>
+                        <span class="item-text">分享:456</span>
+                    </div>
                 </div>
+            </a>
+            <div class="flex-row" style="font-size: .16rem;height:.35rem;background-color: #fff;width:100%;justify-content: flex-start">
+                <i style="width:.05rem;height:.2rem;background-color: #00a0e9;border-radius: .02rem;margin-left: .1rem;margin-right: .05rem"></i>
+                <span>此文章的查看记录</span>
             </div>
-        </a>
-        <div style="margin-top:.9rem;"></div>
+        </div>
+
+
+        <div style="margin-top:1.05rem;"></div>
 
         <div class="flex-column reader-item-container">
             <div class="flex-row content-1">

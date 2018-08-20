@@ -232,6 +232,13 @@
     </svg>
 
 </svg>
+<div class="weui-pull-to-refresh__layer">
+    <div class="weui-pull-to-refresh__arrow"></div> <!-- 上下拉动的时候显示的箭头 -->
+    <div class="weui-pull-to-refresh__preloader"></div> <!-- 正在刷新的菊花 -->
+    <div class="down">下拉刷新</div><!-- 下拉过程显示的文案 -->
+    <div class="up">释放刷新</div><!-- 下拉超过50px显示的文案 -->
+    <div class="refresh">正在刷新...</div><!-- 正在刷新时显示的文案 -->
+</div>
 <section>
     <div class="date-container flex-row">
         <span class="date date-today date-active">今天</span>
@@ -288,7 +295,47 @@
     </div>
 </section>
 
-<section>
+<section id="list-container">
+    <div class="flex-column item-container">
+        <a class="item-content" onclick="onItemPress()" href="articleDetail.html?articleID=${list.article_id}&articleTitle=${list.article_title}">
+            <img class="item-img" alt="" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1782285467,1466552504&fm=27&gp=0.jpg">
+            <div class="item-right">
+                <span class="item-title">标题标题标题标题标题标题标题标题标题标题</span>
+                <div class="item-counts">
+                    <span class="item-text">阅读:2</span>
+                    <span class="item-text">分享:444</span>
+                </div>
+            </div>
+        </a>
+        <div class="flex-row" style="width:100%;justify-content: space-between;height:40px">
+            <div class="user-icon-container flex-row">
+                <span class="user-icon"></span>
+                <span class="user-icon"></span>
+                <span class="user-icon"></span>
+            </div>
+            <a href="" style="font-size: 14px;color:#00a0e9;margin-right:10px">查看>></a>
+        </div>
+    </div>
+    <div class="flex-column item-container">
+        <a class="item-content" onclick="onItemPress()" href="articleDetail.html?articleID=${list.article_id}&articleTitle=${list.article_title}">
+            <img class="item-img" alt="" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1782285467,1466552504&fm=27&gp=0.jpg">
+            <div class="item-right">
+                <span class="item-title">标题标题标题标题标题标题标题标题标题标题</span>
+                <div class="item-counts">
+                    <span class="item-text">阅读:2</span>
+                    <span class="item-text">分享:444</span>
+                </div>
+            </div>
+        </a>
+        <div class="flex-row" style="width:100%;justify-content: space-between;height:40px">
+            <div class="user-icon-container flex-row">
+                <span class="user-icon"></span>
+                <span class="user-icon"></span>
+                <span class="user-icon"></span>
+            </div>
+            <a href="" style="font-size: 14px;color:#00a0e9;margin-right:10px">查看>></a>
+        </div>
+    </div>
     <div class="flex-column item-container">
         <a class="item-content" onclick="onItemPress()" href="articleDetail.html?articleID=${list.article_id}&articleTitle=${list.article_title}">
             <img class="item-img" alt="" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1782285467,1466552504&fm=27&gp=0.jpg">
@@ -400,6 +447,8 @@
 <script src="public/js/jquery-weui.js"></script>
 <script>
     window.onload = function () {
+        initPullRefresh();
+        initLoadMore();
         // 今天 进7天等按钮
         initDateClick();
         initCalendar();
@@ -407,6 +456,32 @@
         initSortClick();
 
     };
+
+    function initPullRefresh(){
+        var listContainer = $(document.body);
+        listContainer.pullToRefresh();
+        listContainer.on("pull-to-refresh", function() {
+            console.log('refresh');
+            setTimeout(function(){
+                listContainer.pullToRefreshDone();
+            },2000)
+        });
+    }
+
+    function initLoadMore() {
+        $(document.body).infinite();
+        var loading = false;  //状态标记
+        $(document.body).infinite().on("infinite", function() {
+            if(loading) return;
+            loading = true;
+            setTimeout(function() {
+                console.log("new list");
+                loading = false;
+            }, 1500);   //模拟延迟
+        });
+    }
+
+
     function initDateClick() {
         $('.date').click(function() {
             var ele = $(this);
