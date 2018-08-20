@@ -4,6 +4,9 @@
     <title>获取VIP</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
     <style>
         html{
             -ms-text-size-adjust:100%;
@@ -50,7 +53,7 @@
         }
         .notice-container{
             width:100%;
-            height:30px;
+            height:.3rem;
             background-color: #778db5;
             overflow: hidden;
             align-items: flex-start;
@@ -60,19 +63,19 @@
         .notice-content{
             justify-content: flex-start;
             width:100%;
-            height:30px;
+            height:.3rem;
         }
         .notice-icon{
-            width:25px;
-            height:25px;
+            width:.25rem;
+            height:.25rem;
             fill:#eee;
             align-self: center;
-            margin-left: 5px;
-            margin-right:5px;
+            margin-left: .05rem;
+            margin-right:.05rem;
         }
         .notice-text{
             color:#fff;
-            font-size:14px;
+            font-size:.14rem;
         }
         .nickname-container{
             display:flex;
@@ -81,103 +84,111 @@
             flex-direction: column;
         }
         .vip-icon{
-            width:45px;
-            height:45px;
+            width:.45rem;
+            height:.45rem;
             fill:#cea878;
-            margin-top:35px;
+            margin-top:.35rem;
         }
         .nickname{
-            font-size:20px;
+            font-size:.2rem;
             color:#fff
         }
         .nickname-desc{
-            font-size:15px;
+            font-size:.15rem;
             color:#fff;
         }
         .nickname-desc-1{
             color:#b37b2c;
             background-color: #f8e7cd;
-            padding:2px 10px;
-            font-size:14px;
-            margin-top:5px;
-            border-radius: 8px;
+            padding:.02rem .1rem;
+            font-size:.14rem;
+            margin-top:.05rem;
+            border-radius: .08rem;
         }
 
         .vip-item-container{
-            width:calc(100% - 40px);
+            width:calc(100% - .4rem);
             flex-wrap:wrap;
-            min-height:100px;
+            min-height:1rem;
             background-color: #fff;
-            border-radius: 10px;
-            margin-top:10px;
-            box-shadow: 0 0 20px #7a7a7a;
-            padding:15px 0;
+            border-radius: .1rem;
+            margin-top:.1rem;
+            box-shadow: 0 0 .2rem #7a7a7a;
+            padding:.15rem 0;
             justify-content: space-around;
         }
         .vip-item-content{
-            width:74px;
-            height:74px;
-            border-radius: 37px;
-            margin:4%;
-            border:1px solid #cea878;
+            width:.8rem;
+            height:.8rem;
+
+
+        }
+        .svg-container{
+            width:.5rem;
+            height:.5rem;
+            border:.01rem solid #cea878;
+            border-radius:.25rem;
         }
         .vip-item-icon{
-            width:40px;
-            height:40px;
-            fill:#cea878
+            width:.3rem;
+            height:.3rem;
+            fill:#cea878;
+
         }
         .vip-item-text{
-            color:#c59a62;
-            font-size:11px;
-            line-height: 11px;
-            margin-top:5px;
+            color: #a17c51;
+            font-size:.14rem;
+            line-height: .14rem;
+            margin-top:.1rem;
         }
         .vip-type-container{
-            margin-top: 5px;
+            margin-top: .05rem;
         }
         .vip-type-item{
-            width:calc(100% - 40px);
-            height:60px;
+            width:calc(100% - .4rem);
+            height:.6rem;
             /*background-color: #1b6bf4;*/
-            border-radius: 5px;
-            margin-top:10px;
+            border-radius: .05rem;
+            margin-top:.1rem;
             justify-content: flex-start;
             position: relative;
-            border:1px solid #aaa;
+            border:.01rem solid #aaa;
+            transition: all 0.2s ease-in 0s;
         }
         .item-selected{
-            border:1px solid #f00;
-            width:calc(100% - 30px);
-            background-color: rgba(255,0,0,0.05);
+            border:.01rem solid #c59a62;
+            width:calc(100% - .3rem);
+            background-color: #cea8782e;
+            transition: all 0.2s ease-in 0s;
         }
         .vip-type-item-icon{
-            width:35px;
-            height:35px;
+            width:.35rem;
+            height:.35rem;
             fill: #999;
-            margin-left: 10px;
+            margin-left: .1rem;
         }
         .vip-type-item-text{
             color:#666;
-            font-size: 20px;
+            font-size: .2rem;
             font-weight: bold;
-            margin-left: 10px;
+            margin-left: .1rem;
         }
         .vip-type-item-text-time{
-            font-size:14px;
+            font-size:.14rem;
             color:#666
         }
         .item-price-container{
             align-items: flex-end;
             position: absolute;
-            right:10px;
+            right:.1rem;
             /*min-width: 110px;*/
         }
         .old-price{
-            color:#aaa;font-size:14px;
-            margin-right: 5px;
+            color:#aaa;font-size:.14rem;
+            margin-right: .05rem;
         }
         .price-save{
-            font-size: 14px;
+            font-size: .14rem;
             color:#999;
         }
         .price-container{
@@ -185,48 +196,37 @@
         }
         .current-price{
             color:#f00;
-            font-size:20px;
+            font-size:.2rem;
             font-weight: bold;
         }
         .current-price:before{
             content:'￥';
-            font-size: 12px;
-            width:20px;
-            height:20px;
+            font-size: .12rem;
+            width:.2rem;
+            height:.2rem;
         }
         .btn-container{
-            height:45px;
-            margin-bottom:30px;
+            height:.45rem;
+            /*margin-bottom:.3rem;*/
             width:100%
         }
         .open-btn{
             background-color:#00a0e9;
-            width:calc(100% - 40px);
-            border-radius: 20px;
+            width:calc(100% - .4rem);
+            border-radius: .2rem;
             color:#fff;
-            font-size:20px;
+            font-size:.2rem;
             font-weight: bold;
             text-align: center;
-            line-height: 45px;
+            line-height: .45rem;
 
         }
         .open-btn-active{
             background-color: #00b1ff;
-            width:calc(100% - 45px);
-            height:40px;
-            font-size:18px;
-            line-height: 40px;
-        }
-
-        /*适配iphone5(640px)显示屏*/
-        @media screen and (max-width: 320px) {
-            .vip-item-content {
-                margin:2% 0;
-            }
-            .vip-type-item-text {
-                margin-left: 5px;
-            }
-
+            width:calc(100% - .45rem);
+            height:.4rem;
+            font-size:.18rem;
+            line-height: .4rem;
         }
 
     </style>
@@ -307,7 +307,6 @@
     <section class="nickname-container">
         <!--<img class="vip-icon" src="" alt="">-->
         <svg class="vip-icon" style="width:30px;height:30px">
-            <!--<use xlink:href="./public/images/buyVip.svg#vip"/>-->
             <use xlink:href="#vip"/>
         </svg>
         <span class="nickname">亲爱的冷浪漫</span>
@@ -316,58 +315,68 @@
     </section>
 
     <!--特权列表-->
-    <section class="vip-item-container flex-row">
-        <div class="vip-item-content flex-column">
-            <svg class="vip-item-icon" >
-                <use xlink:href="#eye"/>
-                <!--<use xlink:href="./public/images/buyVip.svg#eye"/>-->
-            </svg>
-            <span class="vip-item-text">谁看了我</span>
+    <section class="vip-item-container flex-column">
+        <div class="flex-row" style="width:100%;justify-content: space-around">
+            <div class="vip-item-content flex-column">
+                <div class="flex-column svg-container">
+                    <svg class="vip-item-icon" >
+                        <use xlink:href="#eye"/>
+                    </svg>
+                </div>
+                <span class="vip-item-text">谁看了我</span>
+            </div>
+            <div class="vip-item-content flex-column">
+                <div class="flex-column svg-container">
+                    <svg class="vip-item-icon" >
+                        <use xlink:href="#chat"/>
+                    </svg>
+                </div>
+                <span class="vip-item-text">即时对话</span>
+            </div>
+            <div class="vip-item-content flex-column">
+                <div class="flex-column svg-container">
+                    <svg class="vip-item-icon" >
+                        <use xlink:href="#voice"/>
+                    </svg>
+                </div>
+                <span class="vip-item-text">语音头条</span>
+            </div>
         </div>
-       <div class="vip-item-content flex-column">
-           <svg class="vip-item-icon" >
-               <use xlink:href="#chat"/>
-               <!--<use xlink:href="./public/images/buyVip.svg#chat"/>-->
-           </svg>
-            <span class="vip-item-text">即时对话</span>
+        <div class="flex-row" style="width:100%;margin-top:.1rem;justify-content: space-around">
+            <div class="vip-item-content flex-column">
+                <div class="flex-column svg-container">
+                    <svg class="vip-item-icon" >
+                        <use xlink:href="#add-article"/>
+                    </svg>
+                </div>
+                <span class="vip-item-text">添加文章</span>
+            </div>
+            <div class="vip-item-content flex-column">
+                <div class="flex-column svg-container">
+                    <svg class="vip-item-icon" >
+                        <use xlink:href="#material"/>
+                    </svg>
+                </div>
+                <span class="vip-item-text">海量素材</span>
+            </div>
+            <div class="vip-item-content flex-column">
+                <div class="flex-column svg-container">
+                    <svg class="vip-item-icon" >
+                        <use xlink:href="#business-card"/>
+                    </svg>
+                </div>
+                <span class="vip-item-text">专属名片</span>
+            </div>
         </div>
-       <div class="vip-item-content flex-column">
-           <svg class="vip-item-icon" >
-               <use xlink:href="#voice"/>
-               <!--<use xlink:href="./public/images/buyVip.svg#voice"/>-->
-           </svg>
-            <span class="vip-item-text">语音头条</span>
-        </div>
-        <div class="vip-item-content flex-column">
-            <svg class="vip-item-icon" >
-                <use xlink:href="#add-article"/>
-                <!--<use xlink:href="./public/images/buyVip.svg#add-article"/>-->
-            </svg>
-            <span class="vip-item-text">添加文章</span>
-        </div>
-        <div class="vip-item-content flex-column">
-            <svg class="vip-item-icon" >
-                <use xlink:href="#material"/>
-                <!--<use xlink:href="./public/images/buyVip.svg#material"/>-->
-            </svg>
-            <span class="vip-item-text">海量素材</span>
-        </div>
-        <div class="vip-item-content flex-column">
-            <svg class="vip-item-icon" >
-                <use xlink:href="#business-card"/>
-                <!--<use xlink:href="./public/images/buyVip.svg#business-card"/>-->
-            </svg>
-            <span class="vip-item-text">专属名片</span>
-        </div>
+
     </section>
 </header>
-<div style="background-color: #f5f5f5;width:100%;height:10px;margin-top: 15px"></div>
+<div style="width:100%;height:.15rem;border-bottom:1px dashed #c79c68"></div>
 <div>
     <section class="vip-type-container flex-column">
-        <div class="vip-type-item flex-row">
+        <div class="vip-type-item flex-row" id="zuanshi">
             <svg class="vip-type-item-icon" >
                 <use xlink:href="#zuanshi"/>
-                <!--<use xlink:href="./public/images/buyVip.svg#zuanshi"/>-->
             </svg>
             <span class="vip-type-item-text">钻石VIP</span>
             <span class="vip-type-item-text-time">(两年)</span>
@@ -382,10 +391,9 @@
             </div>
         </div>
 
-        <div class="vip-type-item flex-row item-selected">
+        <div class="vip-type-item flex-row" id="bojin">
             <svg class="vip-type-item-icon" >
                 <use xlink:href="#wujiaoxing"/>
-                <!--<use xlink:href="./public/images/buyVip.svg#wujiaoxing"/>-->
             </svg>
             <span class="vip-type-item-text">铂金VIP</span>
             <span class="vip-type-item-text-time">(一年)</span>
@@ -400,10 +408,9 @@
             </div>
         </div>
 
-        <div class="vip-type-item flex-row">
+        <div class="vip-type-item flex-row" id="huangjin">
             <svg class="vip-type-item-icon" >
                 <use xlink:href="#circle"/>
-                <!--<use xlink:href="./public/images/buyVip.svg#circle"/>-->
             </svg>
             <span class="vip-type-item-text">黄金VIP</span>
             <span class="vip-type-item-text-time">(半年)</span>
@@ -424,6 +431,7 @@
 <footer class="flex-column btn-container">
     <div class="open-btn">立即开通</div>
 </footer>
+<div style="height:.3rem;width:100%;"></div>
 
 <script src="public/js/jquery-2.1.4.js"></script>
 <script src="public/js/fastclick.min.js"></script>
@@ -477,21 +485,49 @@
     }
 
     function initItemClick() {
+
+        var _addActive = function($item) {
+            $item.addClass("item-selected");
+            $item.find("svg").css("fill","#c59a62");
+            $item.find("[class^='vip-type-item-text']").css("color","#c59a62");
+        }
+        var _remveActive = function($item) {
+            $item.removeClass("item-selected");
+            $item.find("svg").css("fill","#999");
+            $item.find("[class^='vip-type-item-text']").css("color","#999");
+        }
+
+        // 默认选中铂金
+        var $selectItem = $(".vip-type-item").eq(1);
+        _addActive($selectItem);
+
+
         $(".vip-type-item").click(function () {
-            $(this).addClass("item-selected").siblings(".vip-type-item").removeClass("item-selected");
-        })
+            var $item = $(this);
+            _remveActive($item.siblings());
+            _addActive($item);
+            var id = $item.attr("id");
+            if(id === "zuanshi"){
+
+            }else if(id === "bojin"){
+
+            }else if(id === 'huangjin'){
+
+            }
+        });
+
+
 
         var btn = $(".open-btn");
         btn[0].ontouchstart=function(){
-            // this.className="btn btn-on";
-            //console.log('ontouchstart')
             btn.addClass('open-btn-active');
         }
         btn[0].ontouchend=function(){
-            // this.className="btn";
-            //console.log('ontouchend');
             btn.removeClass('open-btn-active');
         }
+
+
+
 
     }
 
