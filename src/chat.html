@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <title>联系客户</title>
+    <link rel="stylesheet" href="public/css/weui.min.css">
+    <link rel="stylesheet" href="public/css/jquery-weui.min.css">
+    <style>
+        body, html {
+            -webkit-tap-highlight-color: transparent;
+            width:100%;
+            height:100%;
+            position: fixed;
+        }
+        .flex-row{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: row;
+        }
+        textarea{
+            outline:none;
+            resize:none;
+            border:none;
+        }
+        textarea::placeholder, textarea::-webkit-input-placeholder{
+            color:#ccc;
+            font-size:.15rem;
+        }
+        .flex-column{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: column;
+        }
+        .container{
+            width:100%;
+            height:100%;
+            background-color: #ebebeb;
+            margin:0 auto;
+            justify-content: flex-start;
+            overflow-y: scroll;
+        }
+        .header{
+            width:100%;
+            height:.5rem;
+            background-color: #302f34;
+            justify-content: space-between;
+            color:#eee;
+            position:fixed;
+            top:0;
+            bottom:0;
+        }
+        .copy-nick-name{
+            margin-right:.2rem;
+            color:#aaa;
+            font-size:.14rem;
+            padding:.02rem .05rem;
+            border-radius: .05rem;
+            border:1px solid #aaa;
+        }
+        .chat-content{
+            width:100%;
+            margin:.5rem 0;
+        }
+        .icon{
+            width:.5rem;
+            height:.5rem;
+            background-color: #ddd;
+            margin-left:.1rem;
+            margin-right:.1rem;
+        }
+        .msg-container-l{
+            justify-content: flex-start;
+            width:100%;
+            margin:.15rem 0;
+
+        }
+        .msg-container-r{
+            justify-content: flex-end;
+            width:100%;
+            margin:.15rem 0;
+
+        }
+        .text-content{
+            background-color: #fff;
+            border:1px solid #d4d4d4;
+            border-radius: .1rem;
+            padding:.05rem .08rem;
+            font-size: .14rem;
+            max-width: calc(100% - 1.5rem);
+        }
+        .footer{
+            width:100%;
+            height:.4rem;
+            position:fixed;
+            bottom:0;
+            left:0;
+            background-color: #f5f5f7;
+            border-top:1px solid #d1d1d3;
+        }
+        .msg-temp{
+            width:.3rem;
+            height:.3rem;
+            border-radius: .15rem;
+            box-sizing: border-box;
+            border:1px solid #8c8d91;
+        }
+        .input{
+            width:calc(100% - .4rem - .6rem - .2rem);
+            border:1px solid #dadadc;
+            border-radius: .05rem;
+            height:.3rem;
+            margin:0 .05rem;
+            box-sizing: border-box;
+            font-size: .16rem;
+            padding:.05rem .05rem;
+        }
+        .send-btn{
+            border:1px solid #8c8d91;
+            border-radius: .05rem;
+            color:#8c8d91;
+            font-size: .16rem;
+            width:.6rem;
+            height:.3rem;
+            box-sizing: border-box;
+            line-height: .3rem;
+            text-align: center;
+        }
+
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+        <svg  id="msg-temp" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>对话模板</title>
+            <path d="M256.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C320.070562 395.713341 291.281147 365.794928 256.282249 365.794928L256.282249 365.794928 256.282249 365.794928 256.282249 365.794928zM512 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C575.788313 395.713341 547.563396 365.794928 512 365.794928L512 365.794928 512 365.794928 512 365.794928zM768.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C832.070562 395.713341 803.281147 365.794928 768.282249 365.794928L768.282249 365.794928 768.282249 365.794928 768.282249 365.794928zM895.858875 32.176406 128.141125 32.176406C57.578831 32.176406 0 91.448732 0 164.833517l0 499.016538c0 73.384785 58.707828 141.124587 130.963616 141.124587l195.316428 0c33.869901 36.127894 174.994487 182.332966 174.994487 182.332966 6.209482 6.77398 16.370452 6.77398 22.579934 0 0 0 103.303197-116.851158 170.478501-182.332966l199.832415 0c72.255788 0 130.963616-67.739802 130.963616-141.124587L1025.128997 164.833517C1024 91.448732 966.985667 32.176406 895.858875 32.176406L895.858875 32.176406 895.858875 32.176406 895.858875 32.176406zM960.211687 662.15656c0 36.127894-30.482911 74.513782-66.610805 74.513782l-196.445424 0c-23.708931 0-45.159868 24.273429-45.159868 24.273429L513.693495 903.197354l-137.737596-141.689085c0 0-25.966924-24.273429-48.546858-24.273429L130.963616 737.23484c-36.127894 0-66.610805-38.385888-66.610805-74.513782L64.352811 168.220507c0-36.127894 28.789416-66.046307 63.788313-66.046307l768.282249 0c35.563396 0 63.788313 29.353914 63.788313 66.046307L960.211687 662.15656 960.211687 662.15656 960.211687 662.15656 960.211687 662.15656zM960.211687 662.15656" p-id="3204"></path>
+        </svg>
+
+    </svg>
+
+    <script src="public/js/config.js"></script>
+    <script src="public/js/jquery-2.1.4.js"></script>
+    <script src="public/js/fastclick.js"></script>
+    <script>
+        $(function() {
+            FastClick.attach(document.body);
+        });
+    </script>
+    <script>
+        window.onload = function () {
+
+        };
+
+
+    </script>
+
+    <div class="flex-column container">
+        <header class="flex-row header">
+            <span style="margin-left:.2rem">马化腾</span>
+            <span class="copy-nick-name">复制昵称</span>
+        </header>
+        <div class="chat-content">
+            <section class="flex-row msg-container-l">
+                <img class="icon" src="http://img.mp.itc.cn/upload/20161020/a4423d2f990d49d297e0380df6cebc7b_th.jpg"/>
+                <div class="text-content">我叫马化腾，我曾阅读过你分享的文章《如何坑女人》</div>
+            </section>
+            <section class="flex-row msg-container-r">
+                <div class="text-content" style="background-color: #a0e858;border-color:#96c96d">就知道坑小学生! </div>
+                <img class="icon" src="http://www.ghost64.com/qqtupian/zixunImg/local/2017/11/24/15114947943450.jpg"/>
+            </section>
+            <section class="flex-row msg-container-l">
+                <img class="icon" src="http://img.mp.itc.cn/upload/20161020/a4423d2f990d49d297e0380df6cebc7b_th.jpg"/>
+                <div class="text-content">就知道坑女人! </div>
+            </section>
+            <section class="flex-row msg-container-r">
+                <div class="text-content" style="background-color: #a0e858;border-color:#96c96d">就知道坑小学生! </div>
+                <img class="icon" src="http://www.ghost64.com/qqtupian/zixunImg/local/2017/11/24/15114947943450.jpg"/>
+            </section>
+            <section class="flex-row msg-container-l">
+                <img class="icon" src="http://img.mp.itc.cn/upload/20161020/a4423d2f990d49d297e0380df6cebc7b_th.jpg"/>
+                <div class="text-content">就知道坑女人! </div>
+            </section>
+            <section class="flex-row msg-container-r">
+                <div class="text-content" style="background-color: #a0e858;border-color:#96c96d">就知道坑小学生! </div>
+                <img class="icon" src="http://www.ghost64.com/qqtupian/zixunImg/local/2017/11/24/15114947943450.jpg"/>
+            </section>
+            <section class="flex-row msg-container-l">
+                <img class="icon" src="http://img.mp.itc.cn/upload/20161020/a4423d2f990d49d297e0380df6cebc7b_th.jpg"/>
+                <div class="text-content">就知道坑女人! </div>
+            </section>
+            <section class="flex-row msg-container-r">
+                <div class="text-content" style="background-color: #a0e858;border-color:#96c96d">就知道坑小学生! </div>
+                <img class="icon" src="http://www.ghost64.com/qqtupian/zixunImg/local/2017/11/24/15114947943450.jpg"/>
+            </section>
+            <section class="flex-row msg-container-l">
+                <img class="icon" src="http://img.mp.itc.cn/upload/20161020/a4423d2f990d49d297e0380df6cebc7b_th.jpg"/>
+                <div class="text-content">就知道坑女人! </div>
+            </section>
+            <section class="flex-row msg-container-r">
+                <div class="text-content" style="background-color: #a0e858;border-color:#96c96d">就知道坑小学生! </div>
+                <img class="icon" src="http://www.ghost64.com/qqtupian/zixunImg/local/2017/11/24/15114947943450.jpg"/>
+            </section>
+            <section class="flex-row msg-container-l">
+                <img class="icon" src="http://img.mp.itc.cn/upload/20161020/a4423d2f990d49d297e0380df6cebc7b_th.jpg"/>
+                <div class="text-content">就知道坑女人! </div>
+            </section>
+            <section class="flex-row msg-container-r">
+                <div class="text-content" style="background-color: #a0e858;border-color:#96c96d">就知道坑小学生! </div>
+                <img class="icon" src="http://www.ghost64.com/qqtupian/zixunImg/local/2017/11/24/15114947943450.jpg"/>
+            </section>
+            <section class="flex-row msg-container-l">
+                <img class="icon" src="http://img.mp.itc.cn/upload/20161020/a4423d2f990d49d297e0380df6cebc7b_th.jpg"/>
+                <div class="text-content">就知道坑女人! </div>
+            </section>
+            <section class="flex-row msg-container-r">
+                <div class="text-content" style="background-color: #a0e858;border-color:#96c96d">就知道坑小学生! </div>
+                <img class="icon" src="http://www.ghost64.com/qqtupian/zixunImg/local/2017/11/24/15114947943450.jpg"/>
+            </section>
+        </div>
+        <footer class="flex-row footer">
+            <div class="flex-row msg-temp">
+                <svg style="width:.2rem;height:.2rem;fill:#8c8d91"><use xlink:href="#msg-temp"></use></svg>
+            </div>
+            <textarea class="input"></textarea>
+            <span class="send-btn">发送</span>
+        </footer>
+
+    </div>
+</body>
+</html>
