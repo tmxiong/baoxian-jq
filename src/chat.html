@@ -45,25 +45,36 @@
             justify-content: flex-start;
         }
         .header{
-            width:100%;
-            height:.8rem;
+            width: 100%;
+            height: .5rem;
             background-color: #302f34;
             justify-content: space-between;
-            color:#eee;
-            /*position:fixed;*/
-            /*top:0;*/
-            /*bottom:0;*/
+            color: #eee;
+            /* position: fixed; */
+            /* top: 0; */
+            /* bottom: 0; */
+            /* flex: 1; */
+            display: block;
+            /* vertical-align: middle; */
+            position: relative;
         }
         .copy-nick-name{
-            margin-right:.2rem;
-            color:#aaa;
-            font-size:.14rem;
-            padding:.02rem .05rem;
+            color: #aaa;
+            font-size: .14rem;
+            padding: 0 .05rem;
             border-radius: .05rem;
-            border:1px solid #aaa;
+            border: 1px solid #aaa;
+            cursor: pointer;
+            position: absolute;
+            right: .1rem;
+            top: .1rem;
+            height: .3rem;
+            line-height: .3rem;
         }
         .copy-nick-name:active{
             opacity: 0.7;
+            color:#302f34;
+            background-color: #aaa;
         }
         .chat-content{
             width:100%;
@@ -109,7 +120,7 @@
             border-top:1px solid #d1d1d3;
             align-items:flex-end;
         }
-        .msg-temp{
+        .msg-temp-btn{
             width:.3rem;
             height:.3rem;
             border-radius: .15rem;
@@ -145,6 +156,28 @@
         }
         .send-btn:active{
             opacity: 0.7;
+            background-color: #8c8d91;
+            color:#f5f5f7;
+        }
+        .msg-temp-content{
+            width:100%;
+            max-height:3rem;
+            background-color: #fff;
+            overflow: hidden;
+
+        }
+        .msg-temp-top{
+            height:.3rem;
+            width:100%;
+            border:1px solid #ddd;
+            justify-content: space-between;
+        }
+        .msg-temp{
+            width:100%;
+            border-bottom: 1px dashed #ddd;
+            font-size: .14rem;
+            color:#666;
+            padding:.1rem 0
         }
 
 
@@ -176,7 +209,15 @@
         window.onload = function () {
             initSendBtn();
             initClipBorad();
+            initMsgTempBtn();
         };
+
+        function initMsgTempBtn() {
+            $(".msg-temp-btn").click(function(){
+                $("#msg-temp-container").popup();
+            })
+        }
+
 
         function initClipBorad() {
             var clipboard = new ClipboardJS('.copy-nick-name');
@@ -192,7 +233,7 @@
             });
         }
 
-        function inputMsg(self,nowleng) {
+        function inputMsg(self) {
             var footerHeight = $(".footer").height();
             var _checkHeight = function() {
                 var cFooterHeight = $(".footer").height();
@@ -220,19 +261,26 @@
         function initSendBtn() {
 
             var footerHeight = $(".footer").height();
-
+            var windowHeight = $(window).height();
             $(".send-btn").click(function(){
-                var val = $(".input").text();
+                // ios $('body').scrollTop() 为 0 键盘未弹出, 大于0 键盘弹出
+                // android $('body').scrollTop() 键盘弹出高度会变化
+                //alert($(window).height()+","+$('body').scrollTop())
+
+                var $input = $(".input");
+                if(_isShowkeyBoard()){
+                    $input.focus();
+                }
+
+                var val = $input.text();
                 if(val.trim() === "") return;
 
                 var msgTemp = `
                 <section class="flex-row msg-container-r">
                 <div class="text-content" style="background-color: #a0e858;border-color:#96c96d">${val} </div>
                 <img class="icon" src="http://www.ghost64.com/qqtupian/zixunImg/local/2017/11/24/15114947943450.jpg"/>
-            </section>
-
-                `
-                $(".input").text("");
+                </section>`;
+                $input.text("");
                 var $chatContent = $(".chat-content");
                 $chatContent.append(msgTemp);
                 var marginBottom = $chatContent.css("margin-bottom");
@@ -240,6 +288,23 @@
                 var containerHeight = $chatContent.height();
                 $chatContent.animate({"scrollTop":containerHeight+marginBottom},300)
             })
+
+            $(".msg-temp span").click(function(){
+                var text = $(this).text();
+                inputMsg(".input")
+                $(".input").text(text);
+                $.closePopup();
+            })
+
+            var _isShowkeyBoard = function() {
+                var bodyST = $('body').scrollTop();
+                var windowH = $(window).height();
+                if(bodyST > 0 || windowHeight - windowH > 0) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }
         }
 
 
@@ -247,7 +312,7 @@
 
     <div class="flex-column container">
         <header class="flex-row header">
-            <span class="nick-name" style="margin-left:.2rem">马化腾</span>
+            <span class="nick-name" style="margin-left:.2rem;line-height:.5rem">马化腾</span>
             <span class="copy-nick-name" data-clipboard-target=".nick-name">复制昵称</span>
         </header>
         <div class="chat-content">
@@ -309,7 +374,7 @@
             </section>
         </div>
         <footer class="flex-row footer">
-            <div class="flex-row msg-temp">
+            <div class="flex-row msg-temp-btn">
                 <svg style="width:.2rem;height:.2rem;fill:#8c8d91"><use xlink:href="#msg-temp"></use></svg>
             </div>
             <!--<textarea class="input" onfocus="inputMsg(this,'.input')"></textarea>-->
@@ -318,5 +383,51 @@
         </footer>
 
     </div>
+
+    <div id="msg-temp-container" class="weui-popup__container popup-bottom">
+        <div class="weui-popup__overlay"></div>
+        <div class="weui-popup__modal msg-temp-content">
+            <div class="flex-row msg-temp-top">
+                <span style="margin-left: .1rem">常用语:</span>
+                <a class="close-popup" data-target="#msg-temp-container" style="margin-right:.1rem;color:#00a0e9">取消</a>
+            </div>
+            <div style="overflow-y: scroll;height:calc(3rem - .3rem)">
+                <div style="width:calc(100% - .2rem);margin:.1rem auto">
+                    <p class="msg-temp">
+                        <span>
+                            永远都不会多余，可是等风险出现了，需要救命时，我们没钱是不是就不动手术了？或者医院就不收费了？
+                        </span>
+                    </p>
+                    <p class="msg-temp">
+                        <span>
+                            既然早晚都会生病，干嘛不买份保险，到时候保险公司刚给我送来几十万理赔款，不用花存款、不用担心收入损失。
+                        </span>
+                    </p>
+                    <p class="msg-temp">
+                        <span>
+                            你知道风险和明天谁先到吗？在考虑的过程中出险了怎么办？家里人专业还是保险公司专业？
+                        </span>
+                    </p>
+                    <p class="msg-temp">
+                        <span>
+                            正式不能提前预测，所以就没什么考虑的，怕就怕万一下班路上遇到点事怎么办，所以从来不让风险等到明天。
+                        </span>
+                    </p>
+                    <p class="msg-temp">
+                        <span>
+                            越是方便就越存不下钱，更何况最近爆出好几期钱在银行、卡和密码在身上，可账户的存款没了的事情。
+                        </span>
+                    </p>
+                    <p class="msg-temp">
+                        <span>
+                            银行里的钱你存进去多少，拿出来多少，就多那么点利息。保险的钱，你存一部分保几倍的保障，总有一天派上大用场。更何况2018年开始连存款都得买保险了。
+                        </span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

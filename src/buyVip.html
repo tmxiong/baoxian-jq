@@ -15,6 +15,8 @@
         body{
             line-height:1.6;
             font-family:-apple-system-font, "Helvetica Neue", sans-serif;
+            width:100%;
+            height:100%;
         }
         *{
             margin:0;
@@ -215,18 +217,53 @@
             width:calc(100% - .4rem);
             border-radius: .2rem;
             color:#fff;
-            font-size:.2rem;
-            font-weight: bold;
             text-align: center;
-            line-height: .45rem;
+            justify-content: flex-start;
+            height:.45rem;
+            position: fixed;
+            bottom: .1rem;
+            box-shadow: 1px 1px 5px #999;
 
         }
         .open-btn-active{
             background-color: #00b1ff;
             width:calc(100% - .45rem);
+            height:.45rem;
+            color:#ddd
+            /*font-size:.18rem;*/
+            /*line-height: .4rem;*/
+        }
+        .overlayout{
+            width:100%;
+            height:100%;
+            background-color: rgba(0,0,0,0.7);
+            position: fixed;
+            top:0;
+            left:0;
+            z-index: 999;
+            transition: all 0.2s ease-in 0s;
+            display: none;
+        }
+        .alert-content{
+            width:70%;
+            min-height:.5rem;
+            background-color: #fff;
+            border-radius: 5px;
+            font-size: .16rem;
+            justify-content: flex-start;
+            padding:.1rem;
+            box-shadow: 2px 2px 7px #333;
+        }
+        .alert-btn{
+            line-height:.4rem;
+            text-align:center;
+            color:#00b1ff;
             height:.4rem;
-            font-size:.18rem;
-            line-height: .4rem;
+            width:100%;
+            border-bottom: 1px solid #eee;
+        }
+        .alert-btn:active{
+            opacity: .6;
         }
 
     </style>
@@ -429,9 +466,30 @@
     </section>
 </div>
 <footer class="flex-column btn-container">
-    <div class="open-btn">立即开通</div>
+    <div class="flex-column open-btn" onclick="showAlert(true)">
+        <span style="font-size:.16rem;font-weight: bold;">立即开通</span>
+        <div class="flex-row btn-price-container" style="font-size: .12rem">
+            <span class="btn-vip-type">钻石VIP(两年)</span>
+            <s class="btn-price-old" style="margin-left:.05rem">￥999</s>
+            <span class="btn-price-current" style="margin-left:.05rem">￥156 </span>
+        </div>
+    </div>
 </footer>
 <div style="height:.3rem;width:100%;"></div>
+<div class="flex-column overlayout">
+    <div class="flex-column alert-content">
+        <p style="width:100%;height:.3rem;
+        text-align: center;line-height: .3rem;border-bottom: 1px solid #eee;color:#222;font-weight: bold">温馨提示</p>
+        <p style="margin:.1rem 0;color:#666;padding:.05rem">
+            全国约84.7%的保险代理人开通了获客会员，同时提升了约3.6倍的获客效率！
+        </p>
+        <p class="flex-column" style="width:100%;">
+            <span class="alert-btn" onclick="showAlert(false)">为业绩花点小钱，值！</span>
+            <span class="alert-btn" onclick="showAlert(false)" style="color: #ccc;border:none">我再想想~</span>
+        </p>
+    </div>
+</div>
+
 
 <script src="public/js/jquery-2.1.4.js"></script>
 <script src="public/js/fastclick.min.js"></script>
@@ -497,34 +555,36 @@
             $item.find("[class^='vip-type-item-text']").css("color","#999");
         }
 
+        var _setBtnText = function($item) {
+            $(".btn-vip-type").text($item.find(".vip-type-item-text").text()+$item.find(".vip-type-item-text-time").text())
+            $(".btn-price-old").text($item.find(".old-price").text());
+            $(".btn-price-current").text('￥' + $item.find(".current-price").text());
+        }
+
         // 默认选中铂金
         var $selectItem = $(".vip-type-item").eq(1);
         _addActive($selectItem);
+        _setBtnText($selectItem);
 
 
         $(".vip-type-item").click(function () {
             var $item = $(this);
             _remveActive($item.siblings());
             _addActive($item);
-            var id = $item.attr("id");
-            if(id === "zuanshi"){
+            _setBtnText($item);
 
-            }else if(id === "bojin"){
 
-            }else if(id === 'huangjin'){
-
-            }
         });
 
 
 
-        var btn = $(".open-btn");
-        btn[0].ontouchstart=function(){
-            btn.addClass('open-btn-active');
-        }
-        btn[0].ontouchend=function(){
-            btn.removeClass('open-btn-active');
-        }
+//        var btn = $(".open-btn");
+//        btn[0].ontouchstart=function(){
+//            btn.addClass('open-btn-active');
+//        }
+//        btn[0].ontouchend=function(){
+//            btn.removeClass('open-btn-active');
+//        }
 
 
 
@@ -534,6 +594,32 @@
     function preventLongPress() {
         for(var i = 0,e = document.getElementsByTagName("*"),len = e.length; i < len; i++) {e[i].style.webkitUserSelect="none"}
         window.addEventListener('contextmenu', function(e){  e.preventDefault();  });
+    }
+
+    function showAlert(isShow) {
+        if(isShow){
+            $(".overlayout").css('display','flex');
+            fixedBody();
+//            $("body").css('position','fixed');
+        }else{
+            $(".overlayout").css('display','none');
+            looseBody();
+//            $("body").css('position','relative');
+        }
+
+    }
+
+    function fixedBody(){
+        var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        document.body.style.cssText += 'position:fixed;top:-'+scrollTop+'px;';
+    }
+
+    function looseBody() {
+        var body = document.body;
+        body.style.position = '';
+        var top = body.style.top;
+        document.body.scrollTop = document.documentElement.scrollTop = -parseInt(top);
+        body.style.top = '';
     }
 
 </script>
