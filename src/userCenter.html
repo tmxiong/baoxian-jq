@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="http://statics.yunxinsky.com/weui.min.css">
+    <link rel="stylesheet" href="http://statics.yunxinsky.com/jquery-weui.min.css">
+    <title>会员中心</title>
+    <style>
+        html,body{
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        html{
+            -ms-text-size-adjust:100%;
+            -webkit-text-size-adjust:100%;
+        }
+        body{
+            line-height:1.6;
+            width:100%;
+            overflow-x:hidden;
+            font-family:-apple-system-font, "Helvetica Neue", sans-serif;
+        }
+        *{
+            margin:0;
+            padding:0;
+        }
+        a img{
+            border:0;
+        }
+        a{
+            text-decoration:none;
+            -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+        }
+        .flex-row{
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+        }
+        .flex-column{
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .space-between{
+            justify-content: space-between!important;
+        }
+        .item-container{
+            justify-content: flex-start;
+            width:100%;
+            height:100%;
+            background-color: #f5f5f5;
+        }
+        .item-content{
+            justify-content: flex-start;
+            width:calc(100% - 40px);
+            height:60px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+            margin: 0 auto;
+            position:relative;
+            background-color: #fff;
+        }
+        .item-content:active{
+            opacity: 0.6;
+        }
+
+
+        .buy-vip{
+            height:30px;
+            border:1px solid #f3a875;
+            color:#f3a875;
+            border-radius: 5px;
+            font-size:14px;
+            position:absolute;
+            right:5px;
+            padding:0 5px;
+        }
+        .buy-vip:active{
+            opacity:0.6
+        }
+        .my-icon{
+            width:50px;
+            height:50px;
+            background-color: #eee;
+            border-radius: 40px;
+        }
+        .item-icon{
+            width:25px;
+            height:25px;
+            /*fill:#f6b37f;*/
+            margin-right:10px;
+        }
+        .item-text{
+
+        }
+        .item-more{
+            width:30px;
+            height:15px;
+            fill:#aaa
+        }
+        .recharge{
+            position:absolute;
+            right:0;
+            border-radius:5px;
+            border:1px solid #f6b37f;
+            color:#f6b37f;
+            padding-left: 5px;
+            padding-right:5px;
+        }
+        .item-val{
+            color:#aaa
+        }
+        .qr-code{
+            width:50px;
+            height:50px;
+            background-color: #eee;
+        }
+        .item-ios-btn{
+            width:90px;
+            height:50px;
+        }
+
+        .vip-bg{
+            width:100%;
+            height:160px;
+            position: absolute;
+            z-index: -1;
+            top:0;
+
+        }
+
+        .vip-img{
+            width:85%;
+            height:180px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px #858585;
+            background-image: url("http://files.yunxinsky.com/vip-tiyan.png");
+            background-size: 100% 180px;
+            background-repeat: no-repeat;
+            align-items: flex-end;
+            justify-content: flex-start;
+            position:relative;;
+        }
+        .vip-img-icon{
+            width:40px;
+            height:40px;
+            background-color: #e34;
+            border-radius: 20px;
+        }
+        .vip-img-nickname{
+            color: #e4e4e4;
+            margin-top:5px;
+        }
+        .vip-img-expirydate{
+            color:#e4e4e4;
+            font-size:12px;
+        }
+    </style>
+</head>
+
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg  id="arrow-right" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>更多</title>
+        <path d="M624.576 0 544.128 80.512 976.192 512.032 544.128 943.488 624.576 1024 1136.096 512.032Z" p-id="3244"></path>
+    </svg>
+    <svg  id="btn-close" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>按钮关</title>
+        <path d="M581.856509 535.187095c0-30.280654-5.884011-59.165518-17.655102-86.653569-11.770068-27.488051-27.693736-51.271734-47.768957-71.345931-20.076244-20.076244-43.85788-35.998889-71.346955-47.768957-27.487028-11.770068-56.371892-17.655102-86.654592-17.655102-30.281677 0-59.164494 5.885034-86.653569 17.655102-27.487028 11.769045-51.27071 27.692712-71.345931 47.768957-20.077268 20.075221-35.999912 43.85788-47.768957 71.345931-11.770068 27.487028-17.655102 56.371892-17.655102 86.653569 0 30.2827 5.885034 59.165518 17.655102 86.654592 11.769045 27.488051 27.691689 51.271734 47.768957 71.344908 20.075221 20.076244 43.856857 36.001959 71.345931 47.76998 27.487028 11.771091 56.371892 17.656125 86.653569 17.656125 30.2827 0 59.166541-5.885034 86.654592-17.656125 27.487028-11.768021 51.27071-27.693736 71.346955-47.76998 20.075221-20.073174 35.998889-43.85481 47.768957-71.344908C575.971475 594.352613 581.856509 565.469795 581.856509 535.187095zM917.075247 535.187095c0-30.280654-5.886057-59.165518-17.656125-86.653569-11.768021-27.488051-27.693736-51.271734-47.76998-71.345931-20.075221-20.076244-43.85481-35.998889-71.344908-47.768957-27.488051-11.770068-56.371892-17.655102-86.656639-17.655102L525.148973 311.763536c34.639938 26.184359 62.069661 58.775638 82.295308 97.771791 20.225647 38.997176 30.336936 80.899518 30.336936 125.707027 0 44.806485-10.113335 86.708827-30.336936 125.70805-20.225647 38.995129-47.65537 71.587432-82.295308 97.771791l168.501692 0c30.283724 0 59.165518-5.885034 86.655615-17.656125 27.489074-11.770068 51.269687-27.692712 71.344908-47.768957 20.076244-20.075221 36.000935-43.856857 47.771003-71.345931 11.768021-27.488051 17.655102-56.371892 17.655102-86.654592L917.075247 535.187095 917.075247 535.187095zM972.945719 535.187095c0 37.841863-7.411807 73.991178-22.23542 108.443851C935.887708 678.083619 916.033521 707.769732 891.153878 732.687238c-24.88169 24.918529-54.568826 44.769646-89.057315 59.556421-34.489512 14.786775-70.63678 22.197558-108.443851 22.23542L358.433974 814.479079c-37.841863 0-73.991178-7.411807-108.443851-22.23542-34.453696-14.82259-64.138786-34.6778-89.055269-59.556421-24.918529-24.880667-44.770669-54.56678-59.557444-89.056292-14.786775-34.490535-22.199605-70.63678-22.23542-108.443851-0.036839-37.804001 7.374968-73.952292 22.23542-108.442828 14.859429-34.491559 34.713616-64.175625 59.557444-89.056292 24.841781-24.880667 54.527894-44.732807 89.055269-59.556421 34.527374-14.824637 70.674643-22.236444 108.443851-22.236444l335.218738 0c37.841863 0 73.991178 7.411807 108.442828 22.236444 34.45165 14.823614 64.138786 34.675754 89.057315 59.556421 24.917506 24.880667 44.768623 54.565756 59.555397 89.056292C965.497073 461.235826 972.907856 497.383094 972.945719 535.187095z" p-id="4744"></path>
+    </svg>
+    <svg  id="btn-open" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>按钮开</title>
+        <path d="M65.007061 551.08211c0-37.790698 7.401574-73.888847 22.205745-108.295472 14.803147-34.406624 34.628682-64.050782 59.476603-88.934518 24.846898-24.883737 54.491055-44.709271 88.934518-59.47558 34.443463-14.767332 70.541613-22.168905 108.295472-22.205745l334.760297 0c37.790698 0 73.889871 7.401574 108.293425 22.205745 34.406624 14.803147 64.052828 34.628682 88.934518 59.47558 24.885783 24.845874 44.710294 54.491055 59.476603 88.934518 14.768355 34.443463 22.168905 70.541613 22.205745 108.295472 0.036839 37.752836-7.363711 73.852008-22.205745 108.296495-14.84101 34.440393-34.665521 64.086597-59.476603 88.931448-24.809035 24.846898-54.453193 44.673455-88.934518 59.47558-34.478256 14.806217-70.578452 22.206768-108.293425 22.206768L343.917352 829.992401c-37.790698 0-73.888847-7.40055-108.295472-22.206768-34.406624-14.802124-64.050782-34.628682-88.934518-59.47558-24.88476-24.844851-44.709271-54.491055-59.476603-88.931448C72.445474 624.934119 65.0439 588.834946 65.007061 551.08211L65.007061 551.08211zM678.732907 774.254959c30.241768 0 59.0857-5.875824 86.536912-17.630542 27.449165-11.753695 51.199079-27.65485 71.246671-47.703465 20.048615-20.046568 35.950793-43.796482 47.702442-71.247694 11.755742-27.450189 17.631566-56.296167 17.631566-86.534865 0-30.240745-5.875824-59.0857-17.631566-86.535889-11.751648-27.451212-27.653827-51.200102-47.702442-71.247694-20.047592-20.048615-43.797505-35.94977-71.246671-47.703465-27.451212-11.753695-56.297191-17.630542-86.536912-17.630542-30.239721 0-59.084677 5.877871-86.535889 17.630542-27.449165 11.753695-51.198056 27.65485-71.245647 47.703465-20.049638 20.048615-35.950793 43.797505-47.704488 71.247694-11.754718 27.450189-17.630542 56.295144-17.630542 86.535889 0 30.239721 5.877871 59.084677 17.630542 86.534865 11.752672 27.451212 27.65485 51.201126 47.704488 71.247694 20.047592 20.048615 43.796482 35.94977 71.245647 47.703465C619.64823 768.379135 648.494209 774.254959 678.732907 774.254959L678.732907 774.254959z" p-id="4866"></path>
+    </svg>
+    <svg  id="vip" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>vip</title>
+        <path d="M747.2 896H276.8c-46.4 0-84.8-32-94.4-76.8L64 230.4c-3.2-12.8 3.2-27.2 16-33.6 11.2-6.4 27.2-4.8 36.8 3.2l198.4 169.6 171.2-228.8c12.8-16 38.4-16 51.2 0l171.2 228.8L907.2 200c9.6-9.6 25.6-9.6 36.8-3.2 11.2 6.4 17.6 20.8 16 33.6L841.6 819.2c-9.6 44.8-48 76.8-94.4 76.8zM145.6 308.8l99.2 497.6c3.2 14.4 16 25.6 32 25.6h470.4c16 0 28.8-11.2 32-25.6l99.2-497.6L724.8 440c-6.4 6.4-16 8-24 8-8-1.6-17.6-4.8-22.4-12.8L512 212.8 345.6 435.2c-4.8 6.4-12.8 11.2-22.4 12.8-8 1.6-17.6-1.6-24-8L145.6 308.8zM512 736c-11.2 0-22.4-6.4-27.2-16l-96-160c-9.6-14.4-4.8-35.2 11.2-43.2 14.4-9.6 35.2-4.8 43.2 11.2L512 641.6 580.8 528c9.6-14.4 28.8-20.8 43.2-11.2 14.4 9.6 20.8 28.8 11.2 43.2l-96 160c-4.8 9.6-16 16-27.2 16z" p-id="6446"></path>
+    </svg>
+    <svg  id="jinbi" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>金币</title>
+        <path d="M960 179.712c0-36.352-32.256-68.608-91.136-90.624-51.712-19.456-120.32-30.208-192.512-30.208-72.192 0-140.8 10.752-192.512 30.208C424.448 111.104 392.192 143.36 392.192 179.712V353.28c-22.528-2.048-46.08-3.584-70.144-3.584-72.192 0-140.8 10.752-192.512 30.208C70.656 402.432 38.4 434.688 38.4 471.04V844.288c0 36.352 32.256 68.608 91.136 90.624 51.712 19.456 120.32 30.208 192.512 30.208 72.192 0 140.8-10.752 192.512-30.208 51.2-19.456 82.432-46.08 89.6-76.8 23.552 2.56 47.616 3.584 71.68 3.584 72.192 0 140.8-10.752 192.512-30.208 58.88-22.016 91.136-54.272 91.136-90.624v-1.536-1.536l0.512-558.08z m-45.568 422.4c0 31.232-93.184 75.776-238.592 75.776-24.064 0-47.616-1.024-70.144-3.584v-93.184c23.04 2.56 46.08 3.584 70.144 3.584 72.192 0 140.8-10.752 192.512-30.208 17.92-6.656 33.28-14.336 46.08-22.528v70.144z m-353.792-1.024c0 31.232-93.184 75.776-238.592 75.776-145.408 0-238.592-45.056-238.592-75.776v-61.952c12.8 8.192 28.16 15.872 46.08 22.528 51.712 19.456 120.32 30.208 192.512 30.208 72.192 0 140.8-10.752 192.512-30.208 17.92-6.656 33.28-14.336 46.08-22.528v61.952z m-477.184 68.096c12.8 8.192 28.16 15.872 46.08 22.528 51.712 19.456 120.32 30.208 192.512 30.208 72.192 0 140.8-10.752 192.512-30.208 17.92-6.656 33.28-14.336 46.08-22.528v53.76c0 31.232-93.184 75.776-238.592 75.776-145.408 0-238.592-45.056-238.592-75.776v-53.76z m830.976-205.312c0 31.232-93.184 75.776-238.592 75.776-24.064 0-47.616-1.024-70.144-3.584V471.04c0-9.728-2.56-19.456-7.168-28.672 25.088 2.56 50.688 4.096 77.312 4.096 72.192 0 140.8-10.752 192.512-30.208 17.92-6.656 33.28-14.336 46.08-22.528v70.144z m0-138.752c0 31.232-93.184 75.776-238.592 75.776-145.408 0-238.592-45.056-238.592-75.776V247.808c12.8 8.192 28.16 15.872 46.08 22.528 51.712 19.456 120.32 30.208 192.512 30.208s140.8-10.752 192.512-30.208c17.92-6.656 33.28-14.336 46.08-22.528v77.312zM675.84 103.424c145.408 0 238.592 45.056 238.592 75.776S821.76 255.488 675.84 255.488c-145.408 0-238.592-45.056-238.592-75.776s93.184-76.288 238.592-76.288zM322.048 394.752c32.256 0 61.44 2.048 88.064 6.144 1.024 0 1.536 0.512 2.56 0.512 92.16 13.312 147.968 45.568 147.968 69.632 0 31.232-93.184 75.776-238.592 75.776-145.408 0-238.592-45.056-238.592-75.776s92.672-76.288 238.592-76.288z m0 525.824c-145.408 0-238.592-45.056-238.592-75.776v-1.536V791.04c12.8 8.192 28.16 15.872 46.08 22.528 51.712 19.456 120.32 30.208 192.512 30.208 72.192 0 140.8-10.752 192.512-30.208 17.92-6.656 33.28-14.336 46.08-22.528V844.8c0 30.72-93.184 75.776-238.592 75.776z m353.792-103.936c-24.064 0-47.616-1.024-70.144-3.584v-93.184c23.04 2.56 46.08 3.584 70.144 3.584 72.192 0 140.8-10.752 192.512-30.208 17.92-6.656 33.28-14.336 46.08-22.528v70.656c0 30.208-92.672 75.264-238.592 75.264z"  p-id="5802"></path>
+    </svg>
+    <svg  id="toutiao" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>头条</title>
+        <path d="M896 960 128 960c-70.592 0-128-57.408-128-128L0 192c0-70.592 57.408-128 128-128l640 0c70.592 0 128 57.408 128 128l0 576-64 0L832 192c0-35.264-28.672-64-64-64L128 128C92.736 128 64 156.736 64 192l0 640c0 35.328 28.736 64 64 64l768 0c35.328 0 64-28.672 64-64L960 192l64 0 0 640C1024 902.592 966.592 960 896 960z" p-id="5973"></path><path d="M192 320l512 0 0 64-512 0 0-64Z" p-id="5974"></path><path d="M192 512l512 0 0 64-512 0 0-64Z" p-id="5975"></path><path d="M192 704l512 0 0 64-512 0 0-64Z" p-id="5976"></path>
+    </svg>
+    <svg  id="hongbao" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>红包</title>
+        <path d="M603.967282 606.795259c16.903868 0 30.575761-13.679893 30.575761-30.583761s-13.671893-30.583761-30.575761-30.583761h-18.591855l21.935828-36.687713a30.631761 30.631761 0 0 0-10.543917-41.967672 30.66376 30.66376 0 0 0-41.959672 10.543917l-40.727682 68.111468h-4.095968l-40.719682-68.111468a30.655761 30.655761 0 0 0-41.951672-10.543917 30.607761 30.607761 0 0 0-10.559918 41.967672l21.935829 36.687713h-18.623855c-16.887868 0-30.583761 13.679893-30.583761 30.583761s13.687893 30.583761 30.583761 30.583761h61.351521v38.231702h-61.351521c-16.887868 0-30.583761 13.679893-30.583761 30.583761s13.687893 30.583761 30.583761 30.583761h61.351521v132.550964a30.575761 30.575761 0 1 0 61.167522 0V706.194483h61.383521c16.903868 0 30.575761-13.679893 30.575761-30.583761s-13.671893-30.583761-30.575761-30.583761h-61.383521V606.795259h61.383521z"  p-id="6930"></path><path d="M796.973774 0H227.026226c-65.31149 0-118.431075 53.135585-118.431074 118.463075v787.08185c0 65.28749 53.119585 118.455075 118.431074 118.455075h569.947548c65.28749 0 118.431075-53.167585 118.431074-118.455075V118.463075C915.404848 53.135585 862.261264 0 796.973774 0zM227.026226 61.167522h569.947548c31.567753 0 57.255553 25.703799 57.255552 57.287553v19.935844c-0.639995 1.199991-1.32799 2.367982-1.823985 3.671971C812.565652 247.774064 672.454746 321.597488 511.640003 321.597488c-159.662753 0-299.53366-73.167428-340.157343-177.894611-0.463996-1.207991-1.119991-2.271982-1.719986-3.383973v-21.855829c0.008-31.591753 25.695799-57.295552 57.263552-57.295553z m569.947548 901.656956H227.026226c-31.567753 0-57.255553-25.687799-57.255552-57.279553v-653.834891c75.255412 80.063375 202.550418 131.062976 341.869329 131.062976 140.046906 0 267.50191-51.2476 342.589323-131.766971v654.538886c0 31.591753-25.687799 57.279553-57.255552 57.279553z"  p-id="6931"></path>
+    </svg>
+    <svg id="hk-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" enable-background="new 0 0 30 30" xml:space="preserve">  <image id="image0" width="30" height="30" x="0" y="0"xlink:href="data:image/png;base64,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" ></image>
+        <title>获客大师icon</title>
+    </svg>
+
+</svg>
+<header class="flex-column" style="width:100%;height:280px;">
+    <div class="flex-column vip-img" alt="">
+        <div class="flex-column" style="align-items: flex-end;margin-top:20px;margin-right:20px;">
+            <img class="vip-img-icon update_head_url" src="{$newUserData.avatar_url}"/>
+            <div class="vip-img-nickname">{$newUserData.nickname}</div>
+            <div class="vip-img-expirydate"><eq name="is_vip"  value="1">{$newUserData.member_expire_time|date='Y-m-d ',###}到期<else/><font style="color:red">您的会员已过期</font></eq></div>
+            <div class="flex-row" style="opacity: .6;position: absolute;bottom:10px;right:10px;">
+                <svg style="width:15px;height:15px">
+                    <use xlink:href="#hk-icon"></use>
+                </svg>
+                <span style="font-size: 12px;color: #fff;margin-left:3px;">获客大师</span>
+            </div>
+        </div>
+
+    </div>
+    <img src="http://files.yunxinsky.com/vip-bg.png" class="vip-bg">
+
+</header>
+<div class="item-container">
+    <ul style="width:100%; background-color: #fff">
+        <!--<li class="item-content flex-column" style="align-items: flex-start;justify-content: center;opacity: 1">-->
+            <!--<div class="flex-row">-->
+                <!--<svg class="item-icon" style="fill:#1b6bf4">-->
+                    <!--<use xlink:href="#vip"/>-->
+                <!--</svg>-->
+                <!--<span class="item-text">VIP有效期至：</span>-->
+            <!--</div>-->
+            <!--<span class="item-text" style="margin-left:35px;color:#888"><eq name="is_vip"  value="1">{$newUserData.member_expire_time|date='Y-m-d H:i:s',###}<else/><font style="color:red">您的会员已过期</font></eq></span>-->
+            <!--<a href="{:U('Index/WeChatPay/payPage')}" class="flex-row buy-vip">立即续费</a>-->
+        <!--</li>-->
+
+
+
+
+        <!--<li class="item-content flex-row">-->
+            <!--<svg class="item-icon" style="fill:#f6b37f">-->
+                <!--<use xlink:href="#jinbi"/>-->
+            <!--</svg>-->
+            <!--<span class="item-text">金币余额：</span>-->
+            <!--<span class="item-text">120</span>-->
+            <!--<span class="recharge">立即充值</span>-->
+        <!--</li>-->
+        <!--<li class="item-content flex-row">-->
+            <!--<svg class="item-icon">-->
+                <!--<use xlink:href="#toutiao"/>-->
+            <!--</svg>-->
+            <!--<span class="item-text">我收藏的头条</span>-->
+            <!--<div class="flex-row">-->
+                <!--<svg class="item-more" style="position: absolute;right:0">-->
+                    <!--<use xlink:href="#arrow-right"/>-->
+                <!--</svg>-->
+            <!--</div>-->
+        <!--</li>-->
+        <!--<li class="item-content flex-row" style="border:none">-->
+            <!--<svg class="item-icon" style="fill:#f6383a">-->
+                <!--<use xlink:href="#hongbao"/>-->
+            <!--</svg>-->
+            <!--<span class="item-text">我的红包</span>-->
+            <!--<div class="flex-row">-->
+                <!--<svg class="item-more" style="position: absolute;right:0">-->
+                    <!--<use xlink:href="#arrow-right"/>-->
+                <!--</svg>-->
+            <!--</div>-->
+        <!--</li>-->
+
+
+
+
+        <li style="width:100%;height:10px;background-color: #f5f5f5"></li>
+
+        <li class="space-between item-content flex-row" id="update_head_url">
+            <span class="item-text">头像</span>
+            <div class="flex-row">
+                <image class="my-icon update_head_url"  src="{$newUserData.avatar_url}"/>
+                <svg class="item-more">
+                    <use xlink:href="#arrow-right"/>
+                </svg>
+            </div>
+        </li>
+
+        <li class="space-between item-content flex-row" id="name">
+            <span class="item-text" >姓名</span>
+            <div class="flex-row">
+                <span class="item-val">{$newUserData.nickname}</span>
+                <svg class="item-more">
+                    <use xlink:href="#arrow-right"/>
+                </svg>
+            </div>
+        </li>
+        <li class="space-between item-content flex-row" id="company">
+            <span class="item-text" >公司</span>
+            <div class="flex-row">
+                <span class="item-val">{$newUserData.company_name|default="-"}</span>
+                <svg class="item-more">
+                    <use xlink:href="#arrow-right"/>
+                </svg>
+            </div>
+        </li>
+        <li class="space-between item-content flex-row" id="job">
+            <span class="item-text" >职位</span>
+            <div class="flex-row">
+                <span class="item-val">{$newUserData.title|default="-"}</span>
+                <svg class="item-more">
+                    <use xlink:href="#arrow-right"/>
+                </svg>
+            </div>
+        </li>
+        <li class="space-between item-content flex-row" id="phone-num">
+            <span class="item-text">手机号</span>
+            <div class="flex-row">
+                <span class="item-val">{$newUserData.phone_number|default="-"}</span>
+                <svg class="item-more">
+                    <use xlink:href="#arrow-right"/>
+                </svg>
+            </div>
+        </li>
+        <li class="space-between item-content flex-row" id="people-num">
+            <span class="item-text" >已服务客户(位)</span>
+            <div class="flex-row">
+                <span class="item-val">{$newUserData.customer_num|default="3527"}</span>
+                <svg class="item-more">
+                    <use xlink:href="#arrow-right"/>
+                </svg>
+            </div>
+        </li>
+        <li class="space-between item-content flex-row" id="wechat-code">
+            <span class="item-text">微信二维码</span>
+            <div class="flex-row">
+                <image class="qr-code wechat-code"  src="{$newUserData.wechat_qrcode|default='http://statics.yunxinsky.com/qrcode_hkds.jpg'}"/>
+                <svg class="item-more">
+                    <use xlink:href="#arrow-right"/>
+                </svg>
+            </div>
+        </li>
+        <!--<li class="space-between item-content flex-row" style="opacity: 1">-->
+            <!--<span class="item-text">开启金牌顾问标识</span>-->
+            <!--<span class="ios-btn-container">-->
+                <!--<svg class="item-ios-btn" style="fill:#ccc" onclick="clickIOSBtn(0,this)">-->
+                <!--<use xlink:href="#btn-close"/>-->
+            <!--</svg>-->
+            <!--<svg class="item-ios-btn" style="fill:#1b6bf4;display: none" onclick="clickIOSBtn(1,this)">-->
+                <!--<use xlink:href="#btn-open"/>-->
+            <!--</svg>-->
+            <!--</span>-->
+        <!--</li>-->
+    </ul>
+</div>
+
+
+<script src="http://statics.yunxinsky.com/jquery-3.0.0.min.js"></script>
+<script src="http://statics.yunxinsky.com/jquery-weui.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    window.onload = function () {
+        initBtn()
+    };
+    function initBtn() {
+        $(".item-container ul").on('click',"li",function(){
+
+            var id = $(this).attr("id");
+            if(id === "name111111"){
+                alertInput("姓名","请输入姓名",function(input){
+                    setData({nickname:input}, input ,id);
+                })
+                $("#weui-prompt-input").attr("maxlength","10");
+
+            }else if(id === "company") {
+                alertInput("公司","请输入公司名称",function(input){
+                    setData({company_name:input}, input ,id);
+                })
+                $("#weui-prompt-input").attr("maxlength","20");
+
+            }else if(id === "job"){
+                alertInput("职位","请输入职位名称",function(input){
+                    setData({title:input}, input ,id);
+                })
+                $("#weui-prompt-input").attr("maxlength","10");
+
+            }else if(id === "people-num"){
+                alertInput("已服务客户","请输入人数",function(input){
+                    setData({customer_num:input}, input ,id);
+                })
+                $("#weui-prompt-input").attr({"type":"number","maxlength":"5"});
+            }else if(id === "phone-num") {
+                alertInput("手机号","请输入手机号",function(input){
+                    var myreg=/^[1][3,4,5,6,7,8][0-9]{9}$/;
+                    if(!myreg.test(input)){
+                        return $.toast("手机号格式错误", "cancel");
+                    }
+                    setData({phone_number:input}, input ,id);
+                });
+                $("#weui-prompt-input").attr({"type":"number","maxlength":"11"});
+            }
+        });
+
+        var alertInput = function(title,note,callback){
+            $.prompt({
+                title: title,
+                text: note,
+                input: '',
+                empty: false, // 是否允许为空
+                onOK: function (input) {
+                    //点击确认
+                    callback(input)
+                },
+                onCancel: function () {
+                    //点击取消
+                }
+            });
+        }
+
+        var setData = function(dataObj, dataStr, id) {
+            var post_url = "{:U('Index/User/updateHkdsUserDetail')}";
+            var post_data = dataObj;
+            post_data.uid = "{$newUserData.uid}";
+            $.post(post_url,post_data,function(res){
+                if(res.status === 0) {
+                    // 失败
+                    $.toast("上传失败,稍后重试", "forbidden");
+                }else if(res.status === 1) {
+                    //成功
+                    $.toast("修改成功！");
+                    $("#"+id).find(".item-val").text(dataStr)
+                }
+                console.log(res);
+
+            });
+        }
+    }
+    function clickIOSBtn(val,_this) {
+        $(_this).css('display','none').siblings(".item-ios-btn").css("display",'block');
+        if(val === 0) {
+            // 开
+        }else if(val === 1) {
+            //关
+        }
+    }
+
+
+    $(function(){
+
+        wx.config({
+                debug: false,
+                appId: '{$wechat_jssdk_config.appid}',
+                timestamp: '{$wechat_jssdk_config.timestamp}',
+                nonceStr: '{$wechat_jssdk_config.noncestr}',
+                signature: '{$wechat_jssdk_config.signature}',
+                jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'chooseImage',
+                'uploadImage',
+        ]
+    });
+
+        wx.ready(function() {
+            var images = {
+                localId: [],
+                serverId: []
+            };
+            document.getElementById('update_head_url').onclick = function () {
+                wx.chooseImage({
+                    count: 1,
+                    sizeType: ['compressed'],
+                    success: function(res) {
+                        images.localId = res.localIds;
+                        if (images.localId.length == 0) {
+                            return;
+                        }
+                        $('.update_head_url').attr('src', res.localIds);
+                        var i = 0, length = images.localId.length;
+                        images.serverId = [];
+                        function setup_avatar() {
+                            wx.uploadImage({
+                                localId: images.localId[i],
+                                success: function(res) {
+                                    i++;
+                                    images.serverId.push(res.serverId); //serverId（即media_id）
+                                    if (i < length) {
+                                        setup_avatar();
+                                    }
+                                    $('.update_head_url').attr('src', res.serverId);
+                                    localStorage.setItem('head_img_url', res.serverId);
+
+                                    var post_url = "{:U('Index/User/setWxQiniuPic')}";
+                                    var post_data = {};
+                                    post_data.uid = "{$newUserData.uid}";
+                                    post_data.type = 1;
+                                    post_data.serverId = res.serverId;
+                                    $.ajax({
+                                        url:post_url,
+                                        data:post_data,
+                                        async:true,
+                                        type:'post',
+                                        dataType:'json',
+                                        success:function(result){
+                                            $('.update_head_url').attr('src',result.src);
+                                        },
+                                        error:function(result){
+
+                                        }
+
+                                    });
+
+
+                                },
+                                fail: function(res) {
+                                    $.toast("上传失败,稍后重试", "forbidden");
+                                }
+                            });
+                        }
+                       setup_avatar();
+                    }
+                });
+            }
+            //二维码
+            document.getElementById('wechat-code').onclick = function () {
+                wx.chooseImage({
+                    count: 1,
+                    sizeType: ['compressed'],
+                    success: function(res) {
+                        images.localId = res.localIds;
+                        if (images.localId.length == 0) {
+                            return;
+                        };
+                        $('.wechat-code').attr('src', res.localIds);
+                        var i = 0, length = images.localId.length;
+                        images.serverId = [];
+                        function setup_image() {
+
+                            wx.uploadImage({
+                                localId: images.localId[i],
+                                success: function(res) {
+                                    i++;
+                                    images.serverId.push(res.serverId); //serverId（即media_id）
+                                    if (i < length) {
+                                        setup_image();
+                                    };
+                                    $('.wechat-code').attr('src', res.serverId);
+                                    localStorage.setItem('wechat_code', res.serverId);
+
+                                    var post_url = "{:U('Index/User/setWxQiniuPic')}";
+                                    var post_data = {};
+                                    post_data.uid = "{$newUserData.uid}";
+                                    post_data.type = 2;
+                                    post_data.serverId = res.serverId;
+                                    $.ajax({
+                                        url:post_url,
+                                        data:post_data,
+                                        async:true,
+                                        type:'post',
+                                        dataType:'json',
+                                        success:function(result){
+                                            //alert(JSON.stringify(result));
+
+                                            $('.wechat-code').attr('src',result.src);
+                                        },
+                                        error:function(result){
+
+                                        }
+
+                                    });
+
+
+                                },
+                                fail: function(res) {
+                                    $.toast("上传失败,稍后重试", "forbidden");
+                                }
+                            });
+                        }
+                        setup_image();
+                    }
+                });
+            }
+        });
+
+        wx.error(function(res){
+            alert(res.errMsg);
+        });
+
+    });
+
+</script>
+</body>
+</html>
