@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.setAttribute('style', 'font-size:' + document.documentElement.clientWidth / 375 * 100 + 'px !important');
+    </script>
+    <title>保险测一测</title>
+    <link rel="stylesheet" href="public/css/weui.min.css">
+    <link rel="stylesheet" href="public/css/jquery-weui.min.css">
+    <style>
+        body, html {
+            -webkit-tap-highlight-color: transparent;
+            width:100%;
+            background-color: #f3f3f3;
+        }
+        .flex-row{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: row;
+        }
+        .flex-column{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: column;
+        }
+        textarea{
+            outline:none;
+            resize:none;
+            border:none;
+        }
+        textarea::placeholder, textarea::-webkit-input-placeholder{
+            color:#ccc;
+            font-size:.15rem;
+        }
+
+        .container{
+
+            height:100%;
+            background-color: #f3f3f3;
+            margin:0 auto;
+            justify-content: flex-start;
+            font-size: .16rem;
+            align-items: flex-start;
+        }
+
+
+
+        .item-content{
+            width:calc(100% - .4rem);
+            height:.8rem;
+            background-color: #fff;
+            align-self: center;
+            border-radius: .05rem;
+            margin-top:.1rem;
+            box-shadow: 1px 1px 5px #aaa;
+
+        }
+        .item-middle{
+            justify-content: flex-start;
+            width: 100%;
+        }
+        .item-icon{
+            width:.4rem;
+            height:.4rem;
+            background-color: #ccc;
+            border-radius: .2rem;
+            margin-left: .2rem;
+
+
+        }
+        .item-title{
+            margin-left: .1rem;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+        <svg  id="msg-temp" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>保险测一测</title>
+            <path d="M256.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C320.070562 395.713341 291.281147 365.794928 256.282249 365.794928L256.282249 365.794928 256.282249 365.794928 256.282249 365.794928zM512 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C575.788313 395.713341 547.563396 365.794928 512 365.794928L512 365.794928 512 365.794928 512 365.794928zM768.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C832.070562 395.713341 803.281147 365.794928 768.282249 365.794928L768.282249 365.794928 768.282249 365.794928 768.282249 365.794928zM895.858875 32.176406 128.141125 32.176406C57.578831 32.176406 0 91.448732 0 164.833517l0 499.016538c0 73.384785 58.707828 141.124587 130.963616 141.124587l195.316428 0c33.869901 36.127894 174.994487 182.332966 174.994487 182.332966 6.209482 6.77398 16.370452 6.77398 22.579934 0 0 0 103.303197-116.851158 170.478501-182.332966l199.832415 0c72.255788 0 130.963616-67.739802 130.963616-141.124587L1025.128997 164.833517C1024 91.448732 966.985667 32.176406 895.858875 32.176406L895.858875 32.176406 895.858875 32.176406 895.858875 32.176406zM960.211687 662.15656c0 36.127894-30.482911 74.513782-66.610805 74.513782l-196.445424 0c-23.708931 0-45.159868 24.273429-45.159868 24.273429L513.693495 903.197354l-137.737596-141.689085c0 0-25.966924-24.273429-48.546858-24.273429L130.963616 737.23484c-36.127894 0-66.610805-38.385888-66.610805-74.513782L64.352811 168.220507c0-36.127894 28.789416-66.046307 63.788313-66.046307l768.282249 0c35.563396 0 63.788313 29.353914 63.788313 66.046307L960.211687 662.15656 960.211687 662.15656 960.211687 662.15656 960.211687 662.15656zM960.211687 662.15656" p-id="3204"></path>
+        </svg>
+
+    </svg>
+
+    <script src="public/js/jquery-2.1.4.js"></script>
+    <script src="public/js/jquery-weui.min.js"></script>
+    <!--<script src="public/js/clipboard.min.js"></script>-->
+    <!--<script src="public/js/fastclick.js"></script>-->
+    <script>
+        $(function() {
+            //FastClick.attach(document.body);
+        });
+    </script>
+    <script>
+        window.onload = function () {
+            initMenu();
+        };
+        function initMenu() {
+            var menuStr = "";
+            for(var i = 0; i < ceyiceData.length; i++) {
+                menuStr += getMenuTemp(ceyiceData[i],i);
+            }
+            $('.container').html(menuStr);
+        }
+
+        function goToCeYiCe(index) {
+            sessionStorage.setItem('ceyiceData',JSON.stringify(ceyiceData[index]))
+            window.location.href = 'ceyice.html'
+        }
+
+        function getMenuTemp(item,index) {
+            return `
+                <a class="flex-column item-content" data-value=${index} onclick="goToCeYiCe(${index})">
+                    <div class="flex-row item-middle">
+                        <span class="item-icon"></span>
+                        <span class="item-title">${item.title}</span>
+                    </div>
+                </a>
+                `
+        }
+
+        var ceyiceData =[
+            {
+                title: "测测你人生第一份保险类型",
+                questions: [
+                    {
+                        q_title: "你喜欢独自一人旅行",
+                        options: ["是", "不是", "看情况"]
+                    },
+                    {
+                        q_title: "如果出行，你都会提前规划",
+                        options: ["是", "不是", "看情况"]
+                    },
+                    {
+                        q_title: "如果外出遇到下雨，你会怎么做",
+                        options: ["附近买把伞", "等雨停", "冒雨离开"]
+                    },
+                    {
+                        q_title: "路上有陌生人特别热情的向你搭讪，你的态度是",
+                        options: ["假装没看见", "训斥TA", "熟络地与TA攀谈"]
+                    },
+                    {
+                        q_title: "你会定期做理财规划吗？",
+                        options: ["会", "不会", "看心情"]
+                    },
+
+
+                ],
+                sum: [
+                    {
+                        options_result:[1, 2, 1, 1, 3],
+                        s_title: "财产保险",
+                        describe: "你是一个凡事都喜欢率性而为的人，对未来有自己明确的规划和想法，只是在实践的时候，苦于外界干扰，总被打乱计划，所以，一份财产保险将为你的未来保“价”护航。",
+
+                    },
+                    {
+                        options_result:[1, 2, 3, 3, 2],
+                        s_title: "人身保险",
+                        describe: "你的生活虽然很平淡但却很幸福，虽然不是事事如意，但也是一帆风顺。其实你的内心特别渴望打破束缚，总想尝试新鲜事物，所以一份人身保险将为你的冒险提供一份心安。",
+
+                    },
+
+                ]
+            },
+            {
+                title: "测测能提升你未来身价的保险类型",
+                questions: [
+                    {
+                        q_title: "你经常会忧心自己的事业",
+                        options: ["是", "不是", "偶尔"]
+                    },
+                    {
+                        q_title: "你有没有做过发财的美梦",
+                        options: ["是", "不是", "偶尔"]
+                    },
+                    {
+                        q_title: "买保险和买彩票，你会选择哪个",
+                        options: ["保险", "彩票", "不知道"]
+                    },
+                    {
+                        q_title: "你是",
+                        options: ["70后", "80后", "90后", "其它"]
+                    },
+                    {
+                        q_title: "如果马路上给你发的保险传单，是否接受？",
+                        options: ["会", "不会", "看心情"]
+                    },
+
+
+                ],
+                sum: [
+                    {
+                        options_result:[3,1,2,1,3],
+                        s_title: "财产损失险",
+                        describe: "你是一个事业小有成就的人，无论家庭还是工作，都是相当顺心，没有大起大落，但你内心其实很富有冒险精神，所以财产损失险将为你的“钱”途助大力。",
+
+                    },
+                    {
+                        options_result:[2,2,1,1,1],
+                        s_title: "财富传承险",
+                        describe: "在周围人眼中的你，是一个事业家庭双丰收的人，有稳定的经济来源，同时也有极强的理财能力，投资了很多产品，而财富传承险更是为你名下资产合理避税，真正让你的人生财富不断升值。",
+
+                    },
+
+                ]
+            },
+        ]
+
+    </script>
+
+    <div class="flex-column container">
+        <!--<div class="flex-column header">-->
+            <!--<span class="progress-text">1/6</span>-->
+        <!--</div>-->
+        <!--<div class="flex-row question-container">-->
+
+            <!--<div class="flex-row question-content">-->
+                <!--<div class="flex-column content" data-value="1">-->
+                    <!--<div class="flex-column title-content">-->
+                        <!--<p class="title">你喜欢独自一人旅行</p>-->
+                    <!--</div>-->
+
+                    <!--<ul class="flex-column" style="width:100%">-->
+                        <!--<li class="flex-row option-btn" data-option="1">是</li>-->
+                        <!--<li class="flex-row option-btn" data-option="2">不是</li>-->
+                        <!--<li class="flex-row option-btn" data-option="3">看情况</li>-->
+                    <!--</ul>-->
+                    <!--<div class="prev-btn">上一题</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <!--<div class="flex-column item-content">-->
+            <!--<div class="flex-row item-middle">-->
+                <!--<span class="item-icon"></span>-->
+                <!--<span class="item-title">测测你人生第一份保险类型</span>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    </div>
+
+</body>
+</html>

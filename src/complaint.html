@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.setAttribute('style', 'font-size:' + document.documentElement.clientWidth / 375 * 100 + 'px !important');
+    </script>
+    <title>投诉</title>
+    <link rel="stylesheet" href="public/css/weui.min.css">
+    <link rel="stylesheet" href="public/css/jquery-weui.min.css">
+    <style>
+        body, html {
+            -webkit-tap-highlight-color: transparent;
+            width:100%;
+        }
+        .flex-row{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: row;
+        }
+        .flex-column{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: column;
+        }
+        textarea{
+            outline:none;
+            resize:none;
+            border:none;
+        }
+        textarea::placeholder, textarea::-webkit-input-placeholder{
+            color:#ccc;
+            font-size:.15rem;
+        }
+
+        .container{
+            width:100%;
+            background-color: #f3f3f3;
+            margin:0 auto;
+            justify-content: flex-start;
+            font-size: .14rem;
+        }
+        .list-content{
+            color: #000000;
+            font-size: .16rem;
+            width:100%;
+            background-color: #fff;
+            border-top: 1px solid #d9d9d9;
+            border-bottom: 1px solid #d9d9d9;
+        }
+        .desc{
+            color:#9d9d9d;
+            margin-left:.1rem;
+            line-height: .4rem;
+        }
+        .list-content li{
+            height:.45rem;
+            background-color: #fff;
+            line-height: .45rem;
+            width:calc(100% - .2rem);
+            border-bottom:1px solid #d9d9d9;
+            margin:0 auto;
+            position: relative;
+        }
+        .active::after{
+            content:'√';
+            position:absolute;
+            right:.1rem;
+            color:#1aac19;
+            font-weight: bold;
+            font-size: .18rem;
+            height:.45rem;
+
+        }
+        .list-content li:last-child{
+            border:none;
+        }
+        .list-content li:active, .commit-btn:active{
+            opacity: .7;
+        }
+        .input{
+            width:calc(100% - .2rem);
+            padding:.1rem .1rem 0 .1rem;
+            height:.8rem;
+            font-size: .16rem;
+        }
+        .input-limit{
+            color:#d9d9d9;margin-right: .1rem;
+        }
+        .upload-img{
+            width: .6rem;
+            height: .6rem;
+            border: 1px solid #d9d9d9;
+            font-size: .6rem;
+            line-height: .6rem;
+            text-align: center;
+            color:#d9d9d9;
+            margin-left: .1rem;
+        }
+        .img-content{
+            width:100%;
+            height:.8rem;
+            background-color: #fff;
+            justify-content: flex-start;
+        }
+        .commit-btn{
+            width:calc(100% - .2rem);
+            height:.4rem;
+            background-color: #1aac19;
+            margin: .1rem auto;
+            border-radius: .05rem;
+            color:#fff;
+            text-align: center;
+            line-height: .4rem;
+            font-size: .16rem;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+        <svg  id="add" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>加</title>
+            <path d="M800 496 528 496 528 223.36 496 223.36 496 496 222.72 496 222.72 528 496 528 496 800.64 528 800.64 528 528 800 528Z" p-id="3580"></path>
+        </svg>
+
+    </svg>
+
+    <script src="public/js/jquery-2.1.4.js"></script>
+    <script src="public/js/jquery-weui.min.js"></script>
+    <script src="public/js/clipboard.min.js"></script>
+    <!--<script src="public/js/fastclick.js"></script>-->
+    <script>
+        $(function() {
+            //FastClick.attach(document.body);
+        });
+    </script>
+    <script>
+        window.onload = function () {
+            $(".list-content").on('click',"li",function(){
+                $(this).addClass('active').siblings('.list-content li').removeClass('active');
+//                var selectStr = '<style>.list-content li::after{content:"√"}</style>';
+//                var unselectStr = '<style>.list-content li::after{content:""}</style>';
+//                $(this).append(selectStr).siblings(".list-content li").append(unselectStr);
+
+            })
+        };
+
+        // 字数限制
+        function limitTextarea(self,nowleng) {
+            var limitLength = 200;
+            $(self).on('input propertychange', function(event) {
+                var _val = $(self).val();
+                _val = _val < limitLength ? _val : _val.substr(0,limitLength);
+                $(self).val(_val);
+                $(nowleng).text(_val.length+"/"+limitLength)
+            });
+            $(self).blur(function(){
+                $(self).off('input propertychange');
+            });
+        }
+
+    </script>
+
+    <div class="flex-column container" style="align-items: flex-start">
+        <span class="desc">请选择投诉原因</span>
+        <ul class="list-content">
+            <li class="active">欺诈</li>
+            <li>色情</li>
+            <li>诱导行为</li>
+            <li>不实信息</li>
+            <li>违法犯罪</li>
+            <li>骚扰</li>
+            <li>内容未经授权/滥用原创</li>
+            <li>其它</li>
+        </ul>
+        <span class="desc">投诉描述</span>
+        <textarea class="input" placeholder="请输入投诉内容" onfocus="limitTextarea(this,'.input-limit')"></textarea>
+        <div style="width:100%;height:.3rem;border-bottom: 1px solid #d9d9d9;
+        background-color: #fff;display: flex;justify-content: flex-end;align-items: center">
+            <span class="input-limit">0/200</span>
+        </div>
+        <div class="flex-row" style="width:100%;justify-content: space-between;
+        background-color: #fff;height:.3rem;">
+            <span style="margin-left: .1rem;">证据截图</span>
+            <span style="margin-right: .1rem;color:#d9d9d9">0/4</span>
+        </div>
+        <div class="flex-row img-content">
+            <div class="upload-img">
+                <svg style="fill:#d9d9d9;width:.6rem;height:.6rem;">
+                    <use xlink:href="#add"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="commit-btn">提交</div>
+
+    </div>
+
+</body>
+</html>
