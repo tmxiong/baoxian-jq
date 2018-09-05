@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    </script>
+    <title>垂直行业资源群</title>
+    <link rel="stylesheet" href="http://statics.yunxinsky.com/weui.min.css">
+    <link rel="stylesheet" href="http://statics.yunxinsky.com/jquery-weui.min.css">
+    <style>
+        body, html {
+            -webkit-tap-highlight-color: transparent;
+            width:100%;
+            height:100%;
+            position: fixed;
+        }
+        .flex-row{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: row;
+        }
+        textarea,div{
+            outline:none;
+            resize:none;
+            border:none;
+        }
+        textarea::placeholder, textarea::-webkit-input-placeholder{
+            color:#ccc;
+            font-size:.15rem;
+        }
+        .flex-column{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: column;
+        }
+        .container{
+            width:100%;
+            height:100%;
+            background-color: #ebebeb;
+            margin:0 auto;
+            justify-content: flex-start;
+        }
+        .header{
+            width: 100%;
+            height: .5rem;
+            background-color: #302f34;
+            justify-content: space-between;
+            color: #eee;
+            /* position: fixed; */
+            /* top: 0; */
+            /* bottom: 0; */
+            /* flex: 1; */
+            display: block;
+            /* vertical-align: middle; */
+            position: relative;
+        }
+        .copy-nick-name{
+            color: #aaa;
+            font-size: .14rem;
+            padding: 0 .05rem;
+            border-radius: .05rem;
+            border: 1px solid #aaa;
+            cursor: pointer;
+            position: absolute;
+            right: .1rem;
+            top: .1rem;
+            height: .3rem;
+            line-height: .3rem;
+        }
+        .copy-nick-name:active{
+            opacity: 0.7;
+            color:#302f34;
+            background-color: #aaa;
+        }
+        .chat-content{
+            width:100%;
+            margin-bottom: .5rem;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+        .icon{
+            width:.5rem;
+            height:.5rem;
+            background-color: #ddd;
+            margin-left:.1rem;
+            margin-right:.1rem;
+            border-radius: .25rem;
+            position:relative;
+            border:1px solid #fff
+        }
+        .hide-v{
+            display:none;
+        }
+        .jinpai-icon{
+            width: .2rem;
+            height: .2rem;
+            position: absolute;
+            bottom: -.04rem;
+            right: -.04rem;
+        }
+        .msg-container-l{
+            justify-content: flex-start;
+            width:100%;
+            margin:.15rem 0;
+            align-items: flex-start;
+            position:relative;
+
+        }
+        .msg-container-r{
+            justify-content: flex-end;
+            width:100%;
+            margin:.15rem 0;
+            align-items: flex-start;
+            position:relative
+
+        }
+        .text-content{
+            background-color: #fff;
+            border:1px solid #d4d4d4;
+            border-radius: .05rem;
+            padding:.05rem .08rem;
+            font-size: .14rem;
+            max-width: calc(100% - 1.5rem);
+            word-break: break-all;
+            margin-top: .2rem;
+        }
+        .nick-name{
+            font-size: .12rem;
+            position: absolute;
+            color:#888;
+        }
+        .footer{
+            width:100%;
+            min-height:.5rem;
+            position:fixed;
+            bottom:0;
+            left:0;
+            background-color: #f5f5f7;
+            border-top:1px solid #d1d1d3;
+            align-items:flex-end;
+        }
+        .msg-temp-btn{
+            width:.3rem;
+            height:.3rem;
+            border-radius: .15rem;
+            box-sizing: border-box;
+            border:1px solid #8c8d91;
+            margin:.09rem 0;
+        }
+        .input{
+            width:calc(100% - .4rem - .6rem - .2rem);
+            border:1px solid #dadadc;
+            border-radius: .05rem;
+            min-height:.36rem;
+            max-height: 3rem;
+            margin:.05rem .05rem;
+            box-sizing: border-box;
+            font-size: .16rem;
+            padding:.08rem .05rem;
+            overflow-y: scroll;
+            background-color: #fff;
+            line-height:.20rem;
+        }
+        .send-btn{
+            border:1px solid #8c8d91;
+            border-radius: .05rem;
+            color:#8c8d91;
+            font-size: .16rem;
+            width:.6rem;
+            height:.3rem;
+            box-sizing: border-box;
+            line-height: .3rem;
+            text-align: center;
+            margin:.09rem 0;
+        }
+        .send-btn:active{
+            opacity: 0.7;
+            background-color: #8c8d91;
+            color:#f5f5f7;
+        }
+        .msg-temp-content{
+            width:100%;
+            max-height:3rem;
+            background-color: #fff;
+            overflow: hidden;
+
+        }
+        .msg-temp-top{
+            height:.3rem;
+            width:100%;
+            border:1px solid #ddd;
+            justify-content: space-between;
+        }
+        .msg-temp{
+            width:100%;
+            border-bottom: 1px dashed #ddd;
+            font-size: .14rem;
+            color:#666;
+            padding:.1rem 0
+        }
+
+
+    </style>
+
+
+</head>
+
+<body>
+<audio autoplay  preload="auto" id="audio" style="width:0;height:0">
+    <source src="http://statics.yunxinsky.com/chat_hint.ogg" type="audio/ogg">
+    <!--<source src="http://www.w3school.com.cn/i/song.ogg" type="audio/ogg">-->
+    <!--<embed height="100" width="100" src="http://www.w3school.com.cn/i/song.mp3" /> &lt;!&ndash; for the browser which not supports 'audio' tag &ndash;&gt;-->
+</audio>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+    <svg  id="msg-temp" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>对话模板</title>
+        <path d="M256.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C320.070562 395.713341 291.281147 365.794928 256.282249 365.794928L256.282249 365.794928 256.282249 365.794928 256.282249 365.794928zM512 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C575.788313 395.713341 547.563396 365.794928 512 365.794928L512 365.794928 512 365.794928 512 365.794928zM768.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C832.070562 395.713341 803.281147 365.794928 768.282249 365.794928L768.282249 365.794928 768.282249 365.794928 768.282249 365.794928zM895.858875 32.176406 128.141125 32.176406C57.578831 32.176406 0 91.448732 0 164.833517l0 499.016538c0 73.384785 58.707828 141.124587 130.963616 141.124587l195.316428 0c33.869901 36.127894 174.994487 182.332966 174.994487 182.332966 6.209482 6.77398 16.370452 6.77398 22.579934 0 0 0 103.303197-116.851158 170.478501-182.332966l199.832415 0c72.255788 0 130.963616-67.739802 130.963616-141.124587L1025.128997 164.833517C1024 91.448732 966.985667 32.176406 895.858875 32.176406L895.858875 32.176406 895.858875 32.176406 895.858875 32.176406zM960.211687 662.15656c0 36.127894-30.482911 74.513782-66.610805 74.513782l-196.445424 0c-23.708931 0-45.159868 24.273429-45.159868 24.273429L513.693495 903.197354l-137.737596-141.689085c0 0-25.966924-24.273429-48.546858-24.273429L130.963616 737.23484c-36.127894 0-66.610805-38.385888-66.610805-74.513782L64.352811 168.220507c0-36.127894 28.789416-66.046307 63.788313-66.046307l768.282249 0c35.563396 0 63.788313 29.353914 63.788313 66.046307L960.211687 662.15656 960.211687 662.15656 960.211687 662.15656 960.211687 662.15656zM960.211687 662.15656" p-id="3204"></path>
+    </svg>
+    <svg id="jinpai" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">  <image id="image0" width="40" height="40" x="0" y="0"xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABWVBMVEUAAAD/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+/P/4aj/y2f/uzf/sBb/qgf/89v/ymT/rAv/qAD//Pf/0Xf/qgb/0Hb/89z/uDD/7s3/sBf/rxX//Pb/uC//uC7/qgX/ymP/+/L/57r/4qr/tCT//v3/6Lv/uTP///7//vv/sRn/25b/ymX/4af/1ID/rxT/tCP//fr/9ub/qQT/0nz/2pP/xVb/2pT/6b//yF7/tir/7s7/rA3/9+n/25X/vkD/zWz/rAz/5bT/xln/xlj/qAH/qwr/wEX/8tr/uTL/0HX/4ab//PX/qwn/y2b/uja94BLNAAAAK3RSTlMAAjd4rNLt+ByH4hOV+VbrVwSXCrOxmFkVHvrjedPsOFhamQa2tAUUiOTurET7DQAAAAFiS0dEAf8CLd4AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfiCBQNKzVQSDE5AAACVElEQVQ4y4VVaUMaMRANsCAoVEVFRaRWrRciuhgLCthdvGkrovZutbWe9NL//6Ezkz2yB/V9CJPJY3YzeXnLmIxAMKSEI11dkbASCgZYJ0Rj3TkJ3bGoL60nnsi5kIj3eHlPenM+6O1z0fqTYmExv1RYXllZLizlF0Um2S/zBgYpqRZXuYXVokrJwQGp3hBm1l6UuAOl8hrmh+yaKZyvb3APNqhoyuT14axS5T6oVnBt2OgL7letcV/UsGZkhIi44c2XvAO0TfPho2mIyrwjyrCcHgViDDeidybq+PAY6GAMfov8P6gDYSzAgvCzRX3epv7uGMu7ezDZp85vQRRkGRjztHTQQOKr14L4BuLGAYV5CENMgfFQrDWp5BHFLdxsU+QPIVTYOIwFkTg+QeLpW4zfQXRyLPIFiMdZFsaW8V7vqeQHPOZTCD4a6RbEWYZqNcVQxdfOfYLoM27RPNQSathB5EdU8gvnX62XtYjyo/nZORK/8e8wnp9xx6OlzQAuSOY/LmG8sJJiM1J78LzWqWTDcaqiPXbDCVfmtbq2c6LhT60jJNxUBK9yY6VuxRGSKOr23+8E8c4jCpKZKsmMtLEtyawtZMaiCadwURuNn/b8F3aRzCWOV0GzV0Abv+2Z9gddQFyu7GOXK2tY0MRj1/WZwwBUzcvTyAAmLaeYEpZSdl0x3bCUKcmkpql57eKtTftbb1PyuWRSjM2kDNtr3j/UdL32cN80bC8143LICX8jHfZa7mzSa83JWX+zn5uXafNz/mYvPh8ZJbyQTi+ElYzr8/EP6On6BY5erBMAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDgtMjBUMTM6NDM6NTMrMDg6MDDZMI2iAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTA4LTIwVDEzOjQzOjUzKzA4OjAwqG01HgAAAABJRU5ErkJggg==" />
+        </svg>
+
+</svg>
+
+<script src="http://statics.yunxinsky.com/jquery-2.1.4.js"></script>
+<script src="http://statics.yunxinsky.com/jquery-weui.min.js"></script>
+<!--<script src="http://statics.yunxinsky.com/clipboard.min.js"></script>-->
+<!--<script src="http://statics.yunxinsky.com/fastclick.js"></script>-->
+<script>
+    $(function() {
+        //FastClick.attach(document.body);
+    });
+</script>
+<script>
+    window.onload = function () {
+        //initSendBtn();
+//        initClipBorad();
+        initMsgTempBtn();
+    };
+
+    function initMsgTempBtn() {
+        $(".msg-temp-btn").click(function(){
+            navigator.vibrate(1000);
+
+            $('#audio')[0].play();
+            $("#msg-temp-container").popup();
+        })
+        $('#msg-temp-container, .close-popup').click(function(){
+            $.closePopup();
+        })
+    }
+
+
+    function initClipBorad() {
+        var clipboard = new ClipboardJS('.copy-nick-name');
+        clipboard.on('success', function(e) {
+            $.toast("复制成功","text");
+
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function(e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+    }
+
+    function inputMsg(self) {
+        var footerHeight = $(".footer").height();
+        var _checkHeight = function() {
+            var cFooterHeight = $(".footer").height();
+            if(cFooterHeight !== footerHeight) {
+                $(".chat-content").css("margin-bottom",cFooterHeight+"px");
+                var $chatContent = $(".chat-content");
+                var scrollTop = $chatContent.scrollTop()
+                $chatContent.animate({"scrollTop":cFooterHeight-footerHeight+scrollTop+"px"},200)
+                footerHeight = cFooterHeight;
+
+            }
+        }
+
+        $(self).on('input propertychange', function(event) {
+
+            _checkHeight();
+
+        });
+        $(self).blur(function(){
+            $(self).off('input propertychange');
+        });
+
+    }
+
+    function initSendBtn() {
+
+        var footerHeight = $(".footer").height();
+        var windowHeight = $(window).height();
+//        $(".send-btn").click(function(){
+//            // ios $('body').scrollTop() 为 0 键盘未弹出, 大于0 键盘弹出
+//            // android $('body').scrollTop() 键盘弹出高度会变化
+//            //alert($(window).height()+","+$('body').scrollTop())
+//
+//            var $input = $(".input");
+//            if(_isShowkeyBoard()){
+//                $input.focus();
+//            }
+//
+//            var val = $input.text();
+//            if(val.trim() === "") return;
+//
+//            var msgTemp = `
+//                <section class="flex-row msg-container-r">
+//                <div class="text-content" style="background-color: #a0e858;border-color:#96c96d">${val} </div>
+//                <img class="icon" src="http://www.ghost64.com/qqtupian/zixunImg/local/2017/11/24/15114947943450.jpg"/>
+//                </section>`;
+//            $input.text("");
+//            var $chatContent = $(".chat-content");
+//            $chatContent.append(msgTemp);
+//            var marginBottom = $chatContent.css("margin-bottom");
+//            $chatContent.css("margin-bottom",footerHeight);
+//            var containerHeight = $chatContent.height();
+//            $chatContent.animate({"scrollTop":containerHeight+marginBottom},300)
+//        })
+
+        $(".msg-temp span").click(function(){
+            var text = $(this).text();
+            inputMsg(".input")
+            $(".input").text(text);
+            $.closePopup();
+        })
+
+        var _isShowkeyBoard = function() {
+            var bodyST = $('body').scrollTop();
+            var windowH = $(window).height();
+            if(bodyST > 0 || windowHeight - windowH > 0) {
+                return true;
+            }else {
+                return false;
+            }
+        }
+    }
+
+
+</script>
+
+<div class="flex-column container">
+    <!--<header class="flex-row header">-->
+        <!--<span class="nick-name" style="margin-left:.2rem;line-height:.5rem">马化腾</span>-->
+        <!--<span class="copy-nick-name" data-clipboard-target=".nick-name">复制昵称</span>-->
+    <!--</header>-->
+    <div class="chat-content">
+        <section class="flex-row msg-container-l" id="first-msg" style="display: none">
+            <span class="nick-name" style="left: .7rem;">观众：{$target_read_user.nickname|default="神秘客户"}</span>
+            <div class="icon">
+                <img style="width:.5rem;height:.5rem;border-radius: .25rem;"  src="{$target_read_user.avatar_url|default=' http://img.mp.itc.cn/upload/20161020/a4423d2f990d49d297e0380df6cebc7b_th.jpg'}"/>
+                <svg class="jinpai-icon hide-v">
+                    <use xlink:href="#jinpai"/>
+                </svg>
+            </div>
+            <div class="text-content">我正在阅读你分享的文章《{$article_info.article_title}》</div>
+        </section>
+        <!--<section class="flex-row msg-container-r">-->
+            <!--<span class="nick-name" style="right:.7rem">群众：冷浪漫</span>-->
+            <!--<div class="text-content" style="background-color: #a0e858;border-color:#96c96d">就知道坑小学生! </div>-->
+            <!--<div class="icon">-->
+                <!--<img style="width:.5rem;height:.5rem;border-radius: .25rem;" src="http://www.ghost64.com/qqtupian/zixunImg/local/2017/11/24/15114947943450.jpg"/>-->
+                <!--<svg class="jinpai-icon">-->
+                    <!--<use xlink:href="#jinpai"/>-->
+                <!--</svg>-->
+            <!--</div>-->
+        <!--</section>-->
+
+    </div>
+    <footer class="flex-row footer">
+        <div class="flex-row msg-temp-btn">
+            <svg style="width:.2rem;height:.2rem;fill:#8c8d91"><use xlink:href="#msg-temp"></use></svg>
+        </div>
+        <!--<textarea class="input" onfocus="inputMsg(this,'.input')"></textarea>-->
+        <div class="input" contenteditable="true" onfocus="inputMsg(this,'.input')"></div>
+        <span class="send-btn">发送</span>
+    </footer>
+
+</div>
+
+<div id="msg-temp-container" class="weui-popup__container popup-bottom">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal msg-temp-content">
+        <div class="flex-row msg-temp-top">
+            <span style="margin-left: .1rem">常用语:</span>
+            <a class="close-popup" data-target="#msg-temp-container" style="margin-right:.1rem;color:#00a0e9">取消</a>
+        </div>
+        <div style="overflow-y: scroll;height:calc(3rem - .3rem)">
+            <div style="width:calc(100% - .2rem);margin:.1rem auto">
+                <p class="msg-temp">
+                        <span>
+                            永远都不会多余，可是等风险出现了，需要救命时，我们没钱是不是就不动手术了？或者医院就不收费了？
+                        </span>
+                </p>
+                <p class="msg-temp">
+                        <span>
+                            既然早晚都会生病，干嘛不买份保险，到时候保险公司刚给我送来几十万理赔款，不用花存款、不用担心收入损失。
+                        </span>
+                </p>
+                <p class="msg-temp">
+                        <span>
+                            你知道风险和明天谁先到吗？在考虑的过程中出险了怎么办？家里人专业还是保险公司专业？
+                        </span>
+                </p>
+                <p class="msg-temp">
+                        <span>
+                            正式不能提前预测，所以就没什么考虑的，怕就怕万一下班路上遇到点事怎么办，所以从来不让风险等到明天。
+                        </span>
+                </p>
+                <p class="msg-temp">
+                        <span>
+                            越是方便就越存不下钱，更何况最近爆出好几期钱在银行、卡和密码在身上，可账户的存款没了的事情。
+                        </span>
+                </p>
+                <p class="msg-temp">
+                        <span>
+                            银行里的钱你存进去多少，拿出来多少，就多那么点利息。保险的钱，你存一部分保几倍的保障，总有一天派上大用场。更何况2018年开始连存款都得买保险了。
+                        </span>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    var is_qunzhu = "{$is_qunzhu}";
+
+    function getMsgTempL(pre_name,nick_name,avatar,hide_v_class,msg) {
+        return`
+                <section class="flex-row msg-container-l">
+                <span class="nick-name" style="left:.7rem">${pre_name}${nick_name}</span>
+                <div class="icon">
+                <img style="width:.5rem;height:.5rem;border-radius: .25rem;"  src="${avatar}"/>
+                <svg class="jinpai-icon ${hide_v_class}">
+                    <use xlink:href="#jinpai"/>
+                </svg>
+            </div>
+                <div class="text-content" >${msg} </div>
+                </section>`
+    }
+    function getMsgTempR(pre_name,nick_name,avatar,hide_v_class,msg) {
+        return `
+                <section class="flex-row msg-container-r">
+                <span class="nick-name" style="right:.7rem">${pre_name}${nick_name}</span>
+                <div class="text-content" style="background-color: #a0e858;border-color:#96c96d">${msg}</div>
+                <div class="icon">
+                <img style="width:.5rem;height:.5rem;border-radius: .25rem;"  src="${avatar}"/>
+                <svg class="jinpai-icon ${hide_v_class}">
+                    <use xlink:href="#jinpai"/>
+                </svg>
+            </div>
+                </section>`;
+    }
+
+    function getChatMsg() {
+        var data = sessionStorage.getItem('chatMsg');
+        if(data){ //观众
+            data = JSON.parse(data);
+            var msgEle = '';
+            for(var i = 0; i < data.length; i++){
+                var pre_name  = "";
+                var hide_v_class = "";
+                if(data[i].is_host==1){
+                    pre_name = "群主: ";
+                    hide_v_class = "";
+
+                }else{
+                    pre_name = "观众: ";
+                    hide_v_class = "hide-v";
+                }
+                msgEle += getMsgTempL(pre_name,data[i].msger_nickname,data[i].msger_avatar,hide_v_class,data[i].message)
+            }
+            $(".chat-content").append(msgEle);
+
+        }
+        if(is_qunzhu == 1) { //群主
+            $("#first-msg").css('display','flex');
+        }
+    }
+    $(function(){
+
+        getChatMsg();
+
+        var chatPageUrl = '{$chatWxRedirectUri}';   //跳转聊天界面
+        var regular_greeting = '{$regular_greeting}';
+        var verify_code = "{$verify_code}";
+        regular_greeting = JSON.parse(regular_greeting);
+        console.log(regular_greeting);
+
+        var footerHeight = $(".footer").height();
+        var windowHeight = $(window).height();
+        if (!window.WebSocket){
+            alert("当前浏览器不支持WebSocket");
+        }else{
+            var chatData = {};
+            var chatDataString = '';
+            var wsServer = 'ws://hkds.yunxinsky.com/wechat?timestamp='+'{$customer}'+'&date='+'{$agent}'+'&second='+'{$article_id}';
+            var websocket = new WebSocket(wsServer);
+            websocket.onmessage = function (evt) {
+                var data = JSON.parse(evt.data);
+                console.log(data);
+
+
+
+                var val = data.message;
+                var $input = $(".input");
+                var pre_name  = "";
+                var hide_v_class = "";
+                if(data.is_host==1){
+                    pre_name = "群主: ";
+                    hide_v_class = "";
+
+                }else{
+                    pre_name = "观众: ";
+                    hide_v_class = "hide-v";
+                }
+                if(verify_code!=data.verify_code){
+
+                    var msgTemp = getMsgTempL(pre_name,data.msger_nickname,data.msger_avatar,hide_v_class,val);
+
+                    //$input.text("");
+                    var $chatContent = $(".chat-content");
+                    $chatContent.append(msgTemp);
+                    var marginBottom = $chatContent.css("margin-bottom");
+                    $chatContent.css("margin-bottom",footerHeight);
+                    var containerHeight = $chatContent.height();
+                    $chatContent.animate({"scrollTop":containerHeight+marginBottom},300);
+
+                }
+                var new_num = parseInt(16784)+parseInt(data.conn_number);
+                var new_title = "垂直行业资源群（"+new_num+")";
+                console.log(new_title);
+               // $("title").text(new_title);
+                document.title=new_title;
+
+            };
+            websocket.onopen = function (evt) {
+                console.log('连接成功');
+                chatData.type="connect";
+                chatData.second="{$article_id}";
+                chatData.timestamp='{$customer}';
+                chatData.date='{$agent}';
+                chatData.message='hi';
+                chatDataString = JSON.stringify(chatData);
+                var nickname = '{$readUser.nickname}';
+                if(nickname){
+                   websocket.send(chatDataString);
+                }else{
+                    alert('参数错误');
+                }
+
+//
+//                document.onkeydown = function(e){
+//                    var ev = document.all ? window.event : e;
+//                    if(ev.keyCode==13) {
+//                        var msg = $('textarea').val();
+//                        if(msg.length>1){
+//                            msg = $('input[name="nickname"]').val()+'~'+msg;
+//                            websocket.send(msg);
+//                            $('textarea').val('');
+//                        }else{
+//
+//                            $('textarea').val('');
+//                        }
+//
+//                    }
+//                }
+
+                var footerHeight = $(".footer").height();
+                var windowHeight = $(window).height();
+                $(".send-btn").click(function(){
+                    // ios $('body').scrollTop() 为 0 键盘未弹出, 大于0 键盘弹出
+                    // android $('body').scrollTop() 键盘弹出高度会变化
+                    //alert($(window).height()+","+$('body').scrollTop())
+                    var $input = $(".input");
+
+                   var bodyST = $('body').scrollTop();
+                   var windowH = $(window).height();
+                   if(bodyST > 0 || windowHeight - windowH > 0) {
+                       $input.focus();
+                   }else {
+
+                   }
+
+
+                    var thisAvatar = "{$readUser.avatar_url}";
+                    var nickname = "{$readUser.nickname}";
+                    var val = $input.text();
+                    if(val.trim() === "") return;
+
+                    var hide_v_class = is_qunzhu == 1 ? "" : "hide-v";
+                    var msgTemp = getMsgTempR('',nickname,thisAvatar,hide_v_class,val);
+                    $input.text("");
+                    var $chatContent = $(".chat-content");
+                    $chatContent.append(msgTemp);
+                    var marginBottom = $chatContent.css("margin-bottom");
+                    $chatContent.css("margin-bottom",footerHeight);
+                    var containerHeight = $chatContent.height();
+                    $chatContent.animate({"scrollTop":containerHeight+marginBottom},300);
+
+                    chatData.second="{$article_id}";
+                    chatData.timestamp='{$customer}';
+                    chatData.date='{$agent}';
+                    chatData.message=val;
+                    chatDataString = JSON.stringify(chatData);
+                    websocket.send(chatDataString);
+
+                });
+
+
+
+//                $('#phone-ask').on('click',function(){
+//                    chatData.type="connect";
+//                    chatData.timestamp='{$customer}';
+//                    chatData.date='{$agent}';
+//                    chatData.message='哈哈哈哈';
+//                    chatDataString = JSON.stringify(chatData);
+//                    websocket.send(chatDataString);
+//                });
+            };
+            websocket.onclose = function (evt) {
+                //alert('连接已断开,请重新连接!!');
+                window.location.reload();
+            };
+            websocket.onerror = function (evt) {
+                 alert('连接异常,请重新连接');
+            };
+        }
+
+
+
+
+        wx.config({
+            debug: false,
+            appId: '{$wechat_jsshkb_config.appid}',
+            timestamp: '{$wechat_jsshkb_config.timestamp}',
+            nonceStr: '{$wechat_jsshkb_config.noncestr}',
+            signature: '{$wechat_jsshkb_config.signature}',
+            jsApiList: [
+                'checkJsApi',
+                'onMenuShareAppMessage',
+                'onMenuShareTimeline'
+            ]
+        });
+
+        wx.ready(function () {
+            var title = "{$wechat_jsshkb_config.title}";
+            // var desc = "{$wechat_jsshkb_config.desc}";
+            var desc = "{$readUser.nickname} | 顶级保险顾问"+"\n"+"咨询电话：{$readUser.phone_number}";
+            var link = "{$wechat_jsshkb_config.url}";
+            var imgUrl = "{$article_info['article_pic_url']}";
+
+            wx.showMenuItems({
+                menuList: [
+                    'menuItem:share:appMessage',
+                    'menuItem:share:timeline'
+                ],
+                success:function () {
+
+                },
+                fail:function (res) {
+
+                }
+            });
+            wx.hideMenuItems({
+                menuList: ["menuItem:copyUrl"]
+            });
+            wx.onMenuShareAppMessage({ //分享给朋友
+                title: title,
+                desc: desc,
+                link: link,
+                imgUrl: imgUrl,
+                success: function (res) {
+
+
+
+
+                },
+                cancel: function () {
+
+                }
+            });
+            wx.onMenuShareTimeline({  //分享朋友圈
+                title: title,
+                desc: desc,
+                link: link,
+                imgUrl: imgUrl,
+                success: function (res) {
+
+
+
+                },
+                cancel: function () {
+
+                }
+            });
+        });
+
+        wx.error(function(res){
+
+        });
+
+    })
+</script>
+
+</body>
+</html>

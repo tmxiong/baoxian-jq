@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="http://statics.yunxinsky.com/weui.min.css">
     <link rel="stylesheet" href="http://statics.yunxinsky.com/jquery-weui.min.css">
     <title>会员中心</title>
+    <script type="text/javascript">
+        document.documentElement.setAttribute('style', 'font-size:' + document.documentElement.clientWidth / 375 * 100 + 'px !important');
+    </script>
     <style>
         html,body{
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -55,13 +58,14 @@
         }
         .item-content{
             justify-content: flex-start;
-            width:calc(100% - 40px);
-            height:60px;
+            width:calc(100% - .4rem);
+            height:.5rem;
             border-bottom: 1px solid #eee;
             align-items: center;
             margin: 0 auto;
             position:relative;
             background-color: #fff;
+            font-size: .16rem;
         }
         .item-content:active{
             opacity: 0.6;
@@ -82,8 +86,8 @@
             opacity:0.6
         }
         .my-icon{
-            width:50px;
-            height:50px;
+            width:.5rem;
+            height:.5rem;
             background-color: #eee;
             border-radius: 40px;
         }
@@ -94,6 +98,7 @@
             margin-right:10px;
         }
         .item-text{
+            font-size:.16rem;
 
         }
         .item-more{
@@ -114,8 +119,8 @@
             color:#aaa
         }
         .qr-code{
-            width:50px;
-            height:50px;
+            width:.5rem;
+            height:.5rem;
             background-color: #eee;
         }
         .item-ios-btn{
@@ -125,19 +130,18 @@
 
         .vip-bg{
             width:100%;
-            height:160px;
+            height:1.6rem;
             position: absolute;
             z-index: -1;
             top:0;
 
         }
 
-        .vip-img{
+        .vip-content{
             width:85%;
-            height:180px;
+            height:1.8rem;
             border-radius: 10px;
             box-shadow: 0px 4px 8px #858585;
-            background-image: url("http://files.yunxinsky.com/vip-tiyan.png");
             background-size: 100% 180px;
             background-repeat: no-repeat;
             align-items: flex-end;
@@ -147,7 +151,7 @@
         .vip-img-icon{
             width:40px;
             height:40px;
-            background-color: #e34;
+            background-color: #fff;
             border-radius: 20px;
         }
         .vip-img-nickname{
@@ -157,6 +161,23 @@
         .vip-img-expirydate{
             color:#e4e4e4;
             font-size:12px;
+        }
+
+        .weui-dialog__btn{
+            color: #00a0e9
+        }
+        .renew{
+            border: 1px solid #eee;
+            color:#eee;
+            border-radius: .1rem;
+            height:.20rem;
+            width:.7rem;
+            text-align: center;
+            font-size: .12rem;
+            position:absolute;
+            right:.2rem;
+            bottom:.4rem;
+            z-index: 3;
         }
     </style>
 </head>
@@ -196,69 +217,87 @@
     </svg>
 
 </svg>
-<header class="flex-column" style="width:100%;height:280px;">
-    <div class="flex-column vip-img" alt="">
-        <div class="flex-column" style="align-items: flex-end;margin-top:20px;margin-right:20px;">
+<header class="flex-column" style="width:100%;height:2.8rem;">
+    <div class="flex-column vip-content" alt="">
+        <div class="flex-column" style="align-items: flex-end;top:20px;right:20px;position:absolute;z-index:2">
             <img class="vip-img-icon update_head_url" src="{$newUserData.avatar_url}"/>
             <div class="vip-img-nickname">{$newUserData.nickname}</div>
             <div class="vip-img-expirydate"><eq name="is_vip"  value="1">{$newUserData.member_expire_time|date='Y-m-d ',###}到期<else/><font style="color:red">您的会员已过期</font></eq></div>
-            <div class="flex-row" style="opacity: .6;position: absolute;bottom:10px;right:10px;">
-                <svg style="width:15px;height:15px">
-                    <use xlink:href="#hk-icon"></use>
-                </svg>
-                <span style="font-size: 12px;color: #fff;margin-left:3px;">获客大师</span>
-            </div>
         </div>
-
+        <a class="flex-row renew" href="{:U('Index/WeChatPay/payPage')}">我要续费</a>
+        <div class="flex-row" style="opacity: .5;position: absolute;bottom:10px;right:10px;z-index: 3">
+            <svg style="width:15px;height:15px">
+                <use xlink:href="#hk-icon"></use>
+            </svg>
+            <span style="font-size: 12px;color: #fff;margin-left:3px;">获客大师</span>
+        </div>
+        <div style="position:absolute;z-index: 1;width:100%;height:1.8rem;border-radius: 10px;">
+            <img id="rank-img" src="" style="width:100%;height:100%;border-radius: 10px;" alt="">
+            <!--<eq name="vip-rank" value="1">-->
+            <!--<img src="http://files.yunxinsky.com/vip-guoqi.png" class="vip-guoqi">-->
+            <!--</eq>-->
+            <!--<eq name="vip-rank" value="2">-->
+            <!--<img src="http://files.yunxinsky.com/vip-tiyan.png" class="vip-tiyan">-->
+            <!--</eq>-->
+            <!--<eq name="vip-rank" value="3">-->
+            <!--<img src="http://files.yunxinsky.com/vip-huangjin.png" class="vip-huangjin">-->
+            <!--</eq>-->
+            <!--<eq name="vip-rank" value="4">-->
+            <!--<img src="http://files.yunxinsky.com/vip-bojin.png" class="vip-bojin">-->
+            <!--</eq>-->
+            <!--<eq name="vip-rank" value="5">-->
+            <!--<img src="http://files.yunxinsky.com/vip-zuanshi.png" class="vip-zuanshi">-->
+            <!--</eq>-->
+        </div>
     </div>
-    <img src="http://files.yunxinsky.com/vip-bg.png" class="vip-bg">
 
+    <img src="http://files.yunxinsky.com/vip-bg.png" class="vip-bg">
 </header>
 <div class="item-container">
     <ul style="width:100%; background-color: #fff">
         <!--<li class="item-content flex-column" style="align-items: flex-start;justify-content: center;opacity: 1">-->
-            <!--<div class="flex-row">-->
-                <!--<svg class="item-icon" style="fill:#1b6bf4">-->
-                    <!--<use xlink:href="#vip"/>-->
-                <!--</svg>-->
-                <!--<span class="item-text">VIP有效期至：</span>-->
-            <!--</div>-->
-            <!--<span class="item-text" style="margin-left:35px;color:#888"><eq name="is_vip"  value="1">{$newUserData.member_expire_time|date='Y-m-d H:i:s',###}<else/><font style="color:red">您的会员已过期</font></eq></span>-->
-            <!--<a href="{:U('Index/WeChatPay/payPage')}" class="flex-row buy-vip">立即续费</a>-->
+        <!--<div class="flex-row">-->
+        <!--<svg class="item-icon" style="fill:#1b6bf4">-->
+        <!--<use xlink:href="#vip"/>-->
+        <!--</svg>-->
+        <!--<span class="item-text">VIP有效期至：</span>-->
+        <!--</div>-->
+        <!--<span class="item-text" style="margin-left:35px;color:#888"><eq name="is_vip"  value="1">{$newUserData.member_expire_time|date='Y-m-d H:i:s',###}<else/><font style="color:red">您的会员已过期</font></eq></span>-->
+        <!--<a href="{:U('Index/WeChatPay/payPage')}" class="flex-row buy-vip">立即续费</a>-->
         <!--</li>-->
 
 
 
 
         <!--<li class="item-content flex-row">-->
-            <!--<svg class="item-icon" style="fill:#f6b37f">-->
-                <!--<use xlink:href="#jinbi"/>-->
-            <!--</svg>-->
-            <!--<span class="item-text">金币余额：</span>-->
-            <!--<span class="item-text">120</span>-->
-            <!--<span class="recharge">立即充值</span>-->
+        <!--<svg class="item-icon" style="fill:#f6b37f">-->
+        <!--<use xlink:href="#jinbi"/>-->
+        <!--</svg>-->
+        <!--<span class="item-text">金币余额：</span>-->
+        <!--<span class="item-text">120</span>-->
+        <!--<span class="recharge">立即充值</span>-->
         <!--</li>-->
         <!--<li class="item-content flex-row">-->
-            <!--<svg class="item-icon">-->
-                <!--<use xlink:href="#toutiao"/>-->
-            <!--</svg>-->
-            <!--<span class="item-text">我收藏的头条</span>-->
-            <!--<div class="flex-row">-->
-                <!--<svg class="item-more" style="position: absolute;right:0">-->
-                    <!--<use xlink:href="#arrow-right"/>-->
-                <!--</svg>-->
-            <!--</div>-->
+        <!--<svg class="item-icon">-->
+        <!--<use xlink:href="#toutiao"/>-->
+        <!--</svg>-->
+        <!--<span class="item-text">我收藏的头条</span>-->
+        <!--<div class="flex-row">-->
+        <!--<svg class="item-more" style="position: absolute;right:0">-->
+        <!--<use xlink:href="#arrow-right"/>-->
+        <!--</svg>-->
+        <!--</div>-->
         <!--</li>-->
         <!--<li class="item-content flex-row" style="border:none">-->
-            <!--<svg class="item-icon" style="fill:#f6383a">-->
-                <!--<use xlink:href="#hongbao"/>-->
-            <!--</svg>-->
-            <!--<span class="item-text">我的红包</span>-->
-            <!--<div class="flex-row">-->
-                <!--<svg class="item-more" style="position: absolute;right:0">-->
-                    <!--<use xlink:href="#arrow-right"/>-->
-                <!--</svg>-->
-            <!--</div>-->
+        <!--<svg class="item-icon" style="fill:#f6383a">-->
+        <!--<use xlink:href="#hongbao"/>-->
+        <!--</svg>-->
+        <!--<span class="item-text">我的红包</span>-->
+        <!--<div class="flex-row">-->
+        <!--<svg class="item-more" style="position: absolute;right:0">-->
+        <!--<use xlink:href="#arrow-right"/>-->
+        <!--</svg>-->
+        <!--</div>-->
         <!--</li>-->
 
 
@@ -266,7 +305,7 @@
 
         <li style="width:100%;height:10px;background-color: #f5f5f5"></li>
 
-        <li class="space-between item-content flex-row" id="update_head_url">
+        <li class="space-between item-content flex-row" id="update_head_url" style="height:.6rem">
             <span class="item-text">头像</span>
             <div class="flex-row">
                 <image class="my-icon update_head_url"  src="{$newUserData.avatar_url}"/>
@@ -280,9 +319,9 @@
             <span class="item-text" >姓名</span>
             <div class="flex-row">
                 <span class="item-val">{$newUserData.nickname}</span>
-                <svg class="item-more">
-                    <use xlink:href="#arrow-right"/>
-                </svg>
+                <!--<svg class="item-more">-->
+                <!--<use xlink:href="#arrow-right"/>-->
+                <!--</svg>-->
             </div>
         </li>
         <li class="space-between item-content flex-row" id="company">
@@ -321,7 +360,7 @@
                 </svg>
             </div>
         </li>
-        <li class="space-between item-content flex-row" id="wechat-code">
+        <li class="space-between item-content flex-row" id="wechat-code" style="height:.6rem">
             <span class="item-text">微信二维码</span>
             <div class="flex-row">
                 <image class="qr-code wechat-code"  src="{$newUserData.wechat_qrcode|default='http://statics.yunxinsky.com/qrcode_hkds.jpg'}"/>
@@ -331,15 +370,15 @@
             </div>
         </li>
         <!--<li class="space-between item-content flex-row" style="opacity: 1">-->
-            <!--<span class="item-text">开启金牌顾问标识</span>-->
-            <!--<span class="ios-btn-container">-->
-                <!--<svg class="item-ios-btn" style="fill:#ccc" onclick="clickIOSBtn(0,this)">-->
-                <!--<use xlink:href="#btn-close"/>-->
-            <!--</svg>-->
-            <!--<svg class="item-ios-btn" style="fill:#1b6bf4;display: none" onclick="clickIOSBtn(1,this)">-->
-                <!--<use xlink:href="#btn-open"/>-->
-            <!--</svg>-->
-            <!--</span>-->
+        <!--<span class="item-text">开启金牌顾问标识</span>-->
+        <!--<span class="ios-btn-container">-->
+        <!--<svg class="item-ios-btn" style="fill:#ccc" onclick="clickIOSBtn(0,this)">-->
+        <!--<use xlink:href="#btn-close"/>-->
+        <!--</svg>-->
+        <!--<svg class="item-ios-btn" style="fill:#1b6bf4;display: none" onclick="clickIOSBtn(1,this)">-->
+        <!--<use xlink:href="#btn-open"/>-->
+        <!--</svg>-->
+        <!--</span>-->
         <!--</li>-->
     </ul>
 </div>
@@ -350,8 +389,39 @@
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
     window.onload = function () {
+        initVipImg();
         initBtn()
     };
+    function initVipImg() {
+        var vip_rank = "{$vip_rank}";
+        // todo
+//        vip_rank = 1;
+        //alert(vip_rank)
+        var _setImg = function(rank) {
+            $('#rank-img').attr('src',`http://files.yunxinsky.com/vip-${rank}.png`)
+        };
+
+        if(vip_rank==0){ // 非会员
+            _setImg('guoqi');
+        }
+        else if(vip_rank==1){ // 过期
+            _setImg('guoqi')
+        }
+        else if(vip_rank==2){ // 三天体验
+            _setImg('tiyan')
+        }
+        else if(vip_rank==3){
+            _setImg('huangjin')
+        }
+        else if(vip_rank==4){
+            _setImg('bojin')
+        }
+        else if(vip_rank==5){
+            _setImg('zuanshi')
+        }
+
+
+    }
     function initBtn() {
         $(".item-container ul").on('click',"li",function(){
 
@@ -376,6 +446,9 @@
 
             }else if(id === "people-num"){
                 alertInput("已服务客户","请输入人数",function(input){
+                    if(input < 0 || String(input).indexOf(".") >= 0  ){
+                        return $.toast("需大于0的整数", "cancel");
+                    }
                     setData({customer_num:input}, input ,id);
                 })
                 $("#weui-prompt-input").attr({"type":"number","maxlength":"5"});
@@ -438,19 +511,19 @@
     $(function(){
 
         wx.config({
-                debug: false,
-                appId: '{$wechat_jssdk_config.appid}',
-                timestamp: '{$wechat_jssdk_config.timestamp}',
-                nonceStr: '{$wechat_jssdk_config.noncestr}',
-                signature: '{$wechat_jssdk_config.signature}',
-                jsApiList: [
+            debug: false,
+            appId: '{$wechat_jssdk_config.appid}',
+            timestamp: '{$wechat_jssdk_config.timestamp}',
+            nonceStr: '{$wechat_jssdk_config.noncestr}',
+            signature: '{$wechat_jssdk_config.signature}',
+            jsApiList: [
                 'checkJsApi',
                 'onMenuShareTimeline',
                 'onMenuShareAppMessage',
                 'chooseImage',
                 'uploadImage',
-        ]
-    });
+            ]
+        });
 
         wx.ready(function() {
             var images = {
@@ -508,7 +581,7 @@
                                 }
                             });
                         }
-                       setup_avatar();
+                        setup_avatar();
                     }
                 });
             }

@@ -7,12 +7,13 @@
         document.documentElement.setAttribute('style', 'font-size:' + document.documentElement.clientWidth / 375 * 100 + 'px !important');
     </script>
     <title>投诉</title>
-    <link rel="stylesheet" href="public/css/weui.min.css">
-    <link rel="stylesheet" href="public/css/jquery-weui.min.css">
+    <!--<link rel="stylesheet" href="public/css/weui.min.css">-->
+    <!--<link rel="stylesheet" href="public/css/jquery-weui.min.css">-->
     <style>
         body, html {
             -webkit-tap-highlight-color: transparent;
-            width:100%;
+            padding:0;
+            margin:0
         }
         .flex-row{
             display: flex;
@@ -50,6 +51,8 @@
             background-color: #fff;
             border-top: 1px solid #d9d9d9;
             border-bottom: 1px solid #d9d9d9;
+            padding:0;
+            margin:0;
         }
         .desc{
             color:#9d9d9d;
@@ -57,13 +60,14 @@
             line-height: .4rem;
         }
         .list-content li{
-            height:.45rem;
+            height:.4rem;
             background-color: #fff;
-            line-height: .45rem;
+            line-height: .4rem;
             width:calc(100% - .2rem);
             border-bottom:1px solid #d9d9d9;
-            margin:0 auto;
             position: relative;
+            display: flex;
+            margin:0 auto;
         }
         .active::after{
             content:'√';
@@ -72,7 +76,7 @@
             color:#1aac19;
             font-weight: bold;
             font-size: .18rem;
-            height:.45rem;
+            height:.4rem;
 
         }
         .list-content li:last-child{
@@ -90,7 +94,7 @@
         .input-limit{
             color:#d9d9d9;margin-right: .1rem;
         }
-        .upload-img{
+        .upload-btn{
             width: .6rem;
             height: .6rem;
             border: 1px solid #d9d9d9;
@@ -100,11 +104,20 @@
             color:#d9d9d9;
             margin-left: .1rem;
         }
-        .img-content{
+        .img-container{
             width:100%;
             height:.8rem;
             background-color: #fff;
             justify-content: flex-start;
+        }
+        .img-content{
+            width:.6rem;
+            height:.6rem;
+            overflow: hidden;
+            margin-left:.1rem;
+        }
+        .upload-img{
+            width:.6rem;
         }
         .commit-btn{
             width:calc(100% - .2rem);
@@ -133,9 +146,7 @@
 
     </svg>
 
-    <script src="public/js/jquery-2.1.4.js"></script>
-    <script src="public/js/jquery-weui.min.js"></script>
-    <script src="public/js/clipboard.min.js"></script>
+    <script src="http://statics.yunxinsky.com/jquery-3.0.0.min.js"></script>
     <!--<script src="public/js/fastclick.js"></script>-->
     <script>
         $(function() {
@@ -146,10 +157,23 @@
         window.onload = function () {
             $(".list-content").on('click',"li",function(){
                 $(this).addClass('active').siblings('.list-content li').removeClass('active');
-//                var selectStr = '<style>.list-content li::after{content:"√"}</style>';
-//                var unselectStr = '<style>.list-content li::after{content:""}</style>';
-//                $(this).append(selectStr).siblings(".list-content li").append(unselectStr);
-
+            })
+            $('.commit-btn').click(function(){
+                var post_url = "{:U('Index/Complaint/setComplaint')}";
+                var post_data = {};
+                var content = $(".input").val().trim();
+                if(content === "") {
+                    return alert('请输入投诉内容');
+                }
+                post_data.type = $(".active").text();
+                post_data.uid="{$readUser.uid}";
+                post_data.openid="{$readUser.hkb_openid}";
+                post_data.unionid="{$readUser.unionid}";
+                post_data.nickname="{$readUser.nickname}";
+                post_data.content=content;
+                $.post(post_url,post_data,function(res,error){
+                    alert('投诉成功！我们将及时为您处理！')
+                })
             })
         };
 
@@ -192,11 +216,20 @@
             <span style="margin-left: .1rem;">证据截图</span>
             <span style="margin-right: .1rem;color:#d9d9d9">0/4</span>
         </div>
-        <div class="flex-row img-content">
-            <div class="upload-img">
+        <div class="flex-row img-container">
+            <div class="upload-btn">
                 <svg style="fill:#d9d9d9;width:.6rem;height:.6rem;">
                     <use xlink:href="#add"></use>
                 </svg>
+            </div>
+            <div class="img-content">
+                <img class="upload-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535521414880&di=2fe6c1b3b8af76803993b65868e58fc1&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201506%2F20%2F230031j4kx1fsp3611ktkz.png" alt="">
+            </div>
+            <div class="img-content">
+                <img class="upload-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535521414880&di=2fe6c1b3b8af76803993b65868e58fc1&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201506%2F20%2F230031j4kx1fsp3611ktkz.png" alt="">
+            </div>
+            <div class="img-content">
+                <img class="upload-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535521414880&di=2fe6c1b3b8af76803993b65868e58fc1&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201506%2F20%2F230031j4kx1fsp3611ktkz.png" alt="">
             </div>
         </div>
         <div class="commit-btn">提交</div>

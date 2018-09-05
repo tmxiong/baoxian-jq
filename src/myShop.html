@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.setAttribute('style', 'font-size:' + document.documentElement.clientWidth / 375 * 100 + 'px !important');
+    </script>
+    <title>我的微站</title>
+    <link rel="stylesheet" href="http://statics.yunxinsky.com/weui.min.css">
+    <link rel="stylesheet" href="http://statics.yunxinsky.com/jquery-weui.min.css">
+    <style>
+        body, html {
+            -webkit-tap-highlight-color: transparent;
+            width:100%;
+        }
+        .flex-row{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: row;
+        }
+        .flex-column{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: column;
+        }
+        textarea{
+            outline:none;
+            resize:none;
+            border:none;
+        }
+        textarea::placeholder, textarea::-webkit-input-placeholder{
+            color:#ccc;
+            font-size:.15rem;
+        }
+
+        .container{
+            width:100%;
+            background-color: #e8d9cb;
+            margin:0 auto;
+            justify-content: flex-start;
+            font-size: .16rem;
+        }
+        .header{
+            width:100%;
+            min-height:3.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .header-img{
+            position:absolute;
+            z-index: 0;
+            width:100%;
+            height:3.1rem;
+        }
+        .change-theme{
+            width:.8rem;
+            height: .3rem;
+            background-color: #000;
+            color:#eee;
+            position:absolute;
+            right:.1rem;
+            top:.1rem;
+            z-index: 3;
+            font-size: .14rem;
+            line-height: .3rem;
+            text-align: center;
+            border-radius: .15rem;
+            opacity: .4;
+            padding: 0 .1rem;
+        }
+        .my-icon{
+            width:.5rem;
+            height:.5rem;
+            border-radius: .25rem;
+            background-color: #fff;
+            border:2px solid #fff;
+            position: relative;
+            margin-top: .1rem;
+        }
+        .my-icon img{
+            width:inherit;
+            height:inherit;
+            border-radius: inherit;
+        }
+
+        .jinpai{
+            width:.18rem;
+            height:.18rem;
+            position: absolute;
+            right: -.02rem;
+            bottom: -.02rem;
+        }
+        .nick-name{
+            margin-top:.1rem;
+            line-height: .16rem;
+        }
+        .location{
+            font-size: .1rem;
+            line-height: .1rem;
+        }
+        .my-tag{
+            font-size: .12rem;
+            line-height: .12rem;
+
+        }
+        .h-line1, .h-line2{
+            width:100%;
+            background-color: #fff;
+            height:.8rem;
+        }
+        .h-line1 div{
+            width:calc(100% / 3);
+        }
+        .h-line2 {
+            align-items: flex-start;
+            height:1rem;
+            border-bottom: 1px solid #e9e9e9;
+        }
+        .user-icon{
+            width:.22rem;
+            height:.22rem;
+            border-radius: .11rem;
+            margin-right:.05rem;
+        }
+        .zan{
+            width:.4rem;
+            height:.4rem;
+            border-radius: .2rem;
+            background-color: #d43030;
+            position: absolute;
+            right:.1rem;
+        }
+        
+        .section-container{
+            width:calc(100% - .2rem);
+            border-radius: .05rem;
+            justify-content: flex-start;
+            background-color: #fff;
+            margin-top:.1rem;
+            border:1px solid #e9e9e9;
+        }
+        .section-container:last-child{
+            margin-bottom: .1rem;
+        }
+        .section-title-container{
+            width:100%;
+            justify-content: space-between;
+        }
+        .section-title{
+            height:.3rem;
+            background-color: #d43030;
+            margin-top:.1rem;
+            padding:0 .2rem;
+            font-size:.14rem;
+            font-weight: bold;
+            color:#eee;
+            border-top-right-radius: .2rem;
+            box-shadow: 1px 2px 5px #aaa;
+            margin-left:-.05rem;
+            margin-bottom: .1rem;
+        }
+        .item-content{
+            width:calc(100% - .2rem);
+            border-bottom:1px solid #e9e9e9;
+            justify-content: flex-start;
+            height:.64rem;
+        }
+        .item-content:last-child{
+            border:none
+        }
+        .item-img{
+            width:.6rem;
+            height:.44rem;
+        }
+        .item-text{
+            width:calc(100% - .7rem);
+            margin-left:.1rem;
+            font-size: .14rem;
+            height:.44rem;
+            overflow: hidden;
+        }
+        .my-introduce{
+            width:calc(100% - .2rem);
+            padding:.1rem;
+            font-size: .14rem;
+        }
+        .honor-item{
+            width:100%;
+            justify-content: flex-start;
+            margin-bottom:.1rem;
+            height:.3rem;
+        }
+
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+        <svg  id="msg-temp" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>我的微站</title>
+            <path d="M256.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C320.070562 395.713341 291.281147 365.794928 256.282249 365.794928L256.282249 365.794928 256.282249 365.794928 256.282249 365.794928zM512 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C575.788313 395.713341 547.563396 365.794928 512 365.794928L512 365.794928 512 365.794928 512 365.794928zM768.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C832.070562 395.713341 803.281147 365.794928 768.282249 365.794928L768.282249 365.794928 768.282249 365.794928 768.282249 365.794928zM895.858875 32.176406 128.141125 32.176406C57.578831 32.176406 0 91.448732 0 164.833517l0 499.016538c0 73.384785 58.707828 141.124587 130.963616 141.124587l195.316428 0c33.869901 36.127894 174.994487 182.332966 174.994487 182.332966 6.209482 6.77398 16.370452 6.77398 22.579934 0 0 0 103.303197-116.851158 170.478501-182.332966l199.832415 0c72.255788 0 130.963616-67.739802 130.963616-141.124587L1025.128997 164.833517C1024 91.448732 966.985667 32.176406 895.858875 32.176406L895.858875 32.176406 895.858875 32.176406 895.858875 32.176406zM960.211687 662.15656c0 36.127894-30.482911 74.513782-66.610805 74.513782l-196.445424 0c-23.708931 0-45.159868 24.273429-45.159868 24.273429L513.693495 903.197354l-137.737596-141.689085c0 0-25.966924-24.273429-48.546858-24.273429L130.963616 737.23484c-36.127894 0-66.610805-38.385888-66.610805-74.513782L64.352811 168.220507c0-36.127894 28.789416-66.046307 63.788313-66.046307l768.282249 0c35.563396 0 63.788313 29.353914 63.788313 66.046307L960.211687 662.15656 960.211687 662.15656 960.211687 662.15656 960.211687 662.15656zM960.211687 662.15656" p-id="3204"></path>
+        </svg>
+        <svg  id="zan" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>赞</title>
+            <path d="M125.231701 863.127056l140.471288 0 0-421.36577-140.471288 0L125.231701 863.127056zM897.74397 476.896504c0-38.601156-31.578206-70.211085-70.206992-70.211085l-221.224474 0 35.07689-161.53093 0-10.547217c0-14.068414-6.996344-28.084639-13.991666-38.60525l-38.676881-35.131125-231.718479 231.746108c-14.040784 10.547217-21.089317 28.080545-21.089317 49.14428l0 351.155708c0 38.601156 31.632441 70.210062 70.260204 70.210062l316.024583 0c28.080545 0 52.668547-17.541515 63.215764-42.153052l105.337093-249.282506c3.497661-6.995321 3.497661-17.539468 3.497661-24.583908l0-70.211085L897.74397 476.896504C897.74397 480.420771 897.74397 476.896504 897.74397 476.896504" p-id="3159"></path>
+        </svg>
+        <svg  id="phone" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>电话</title>
+            <path d="M636.288 689.024l-45.184 33.216c0 0-45.248 21.056-99.52-27.136-54.272-48.256-150.656-158.464-177.792-221.632C286.656 410.176 340.928 383.04 340.928 383.04S411.776 324.288 414.72 313.728c3.008-10.56 42.24-52.736-42.176-165.76C288.192 34.944 268.608 57.536 223.36 92.224 178.176 126.848 114.752 194.688 101.312 273.088 87.744 351.424 78.72 447.872 193.28 619.712s287.808 302.912 384.256 324.032c96.576 21.056 164.352 34.624 260.672-43.712 96.512-78.4 113.152-85.888 69.376-141.632-43.648-55.808-139.84-122.688-154.24-125.44-14.336-2.88-35.008-7.68-67.456 16.32C653.376 673.28 636.288 689.024 636.288 689.024z" p-id="3691"></path>
+        </svg>
+        <svg  id="wechat" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>微信</title>
+            <path d="M693.12 347.264c11.776 0 23.36 0.896 35.008 2.176-31.36-146.048-187.456-254.528-365.696-254.528C163.2 94.912 0 230.656 0 403.136c0 99.52 54.272 181.248 145.024 244.736L108.8 756.864l126.72-63.488c45.312 8.896 81.664 18.112 126.912 18.112 11.392 0 22.656-0.512 33.792-1.344-7.04-24.256-11.2-49.6-11.2-76.032C385.088 475.776 521.024 347.264 693.12 347.264zM498.304 249.024c27.392 0 45.376 17.984 45.376 45.248 0 27.136-17.984 45.312-45.376 45.312-27.072 0-54.336-18.176-54.336-45.312C443.968 266.944 471.168 249.024 498.304 249.024zM244.672 339.584c-27.2 0-54.592-18.176-54.592-45.312 0-27.264 27.392-45.248 54.592-45.248S289.92 266.944 289.92 294.272C289.92 321.408 271.872 339.584 244.672 339.584zM1024 629.76c0-144.896-145.024-262.976-307.904-262.976-172.48 0-308.224 118.144-308.224 262.976 0 145.28 135.808 262.976 308.224 262.976 36.096 0 72.512-9.024 108.736-18.112l99.392 54.528-27.264-90.624C969.728 783.872 1024 711.488 1024 629.76zM616.128 584.384c-17.984 0-36.224-17.92-36.224-36.224 0-18.048 18.24-36.224 36.224-36.224 27.52 0 45.376 18.176 45.376 36.224C661.504 566.464 643.648 584.384 616.128 584.384zM815.488 584.384c-17.856 0-36.032-17.92-36.032-36.224 0-18.048 18.112-36.224 36.032-36.224 27.264 0 45.376 18.176 45.376 36.224C860.864 566.464 842.752 584.384 815.488 584.384z" p-id="4421"></path>
+        </svg>
+        <svg  id="location" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>定位</title>
+            <path d="M512 114.5c-165.7 0-300 134.3-300 300 0 227.9 206.7 429.9 277 489 13.5 11.3 33 11.7 46.9 0.9C606.8 849 812 658.9 812 414.5c0-165.7-134.3-300-300-300z m0 452.5c-82.8 0-150-67.2-150-150s67.2-150 150-150 150 67.2 150 150-67.2 150-150 150z" fill="" p-id="4517"></path>
+        </svg>
+        <svg  id="article" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>头条</title>
+            <path d="M895.582235 290.577005c-0.002047-0.040932-0.007163-0.080841-0.00921-0.121773-0.033769-0.627287-0.092098-1.251503-0.164752-1.87265-0.019443-0.165776-0.039909-0.331551-0.061398-0.49835-0.085958-0.649799-0.186242-1.297552-0.313132-1.938142-0.001023-0.007163-0.002047-0.013303-0.00307-0.020466-0.12996-0.652869-0.288572-1.299599-0.459464-1.941212-0.041956-0.156566-0.085958-0.312108-0.12996-0.468674-0.169869-0.596588-0.353041-1.190105-0.558725-1.774413-0.016373-0.046049-0.029676-0.092098-0.046049-0.138146-0.220011-0.61603-0.465604-1.222851-0.724501-1.823532-0.069585-0.162706-0.14224-0.323365-0.214894-0.485047-0.243547-0.540306-0.500397-1.075495-0.775666-1.601474-0.035816-0.067538-0.066515-0.137123-0.102331-0.204661-0.305969-0.575098-0.636496-1.136893-0.979304-1.692548-0.095167-0.153496-0.191358-0.305969-0.289596-0.457418-0.333598-0.518816-0.678452-1.030469-1.043772-1.529843-0.032746-0.044002-0.062422-0.091074-0.095167-0.135076-0.398066-0.539282-0.820692-1.061169-1.255597-1.574868-0.107447-0.12689-0.215918-0.251733-0.325411-0.3776-0.451278-0.515746-0.913812-1.023306-1.400906-1.5104L688.452781 72.233138c-0.485047-0.485047-0.989537-0.945535-1.503237-1.393743-0.12996-0.113587-0.260943-0.227174-0.39295-0.338714-0.509606-0.430812-1.028423-0.850367-1.562589-1.245364-0.053212-0.038886-0.107447-0.074701-0.160659-0.112564-0.48914-0.357134-0.99056-0.695848-1.49812-1.022283-0.158612-0.102331-0.318248-0.203638-0.477884-0.301875-0.550539-0.339738-1.107217-0.667196-1.676176-0.970094-0.076748-0.040932-0.155543-0.076748-0.232291-0.116657-0.514723-0.26913-1.038656-0.51984-1.566682-0.759293-0.168846-0.075725-0.336668-0.151449-0.506537-0.224104-0.595564-0.255827-1.197268-0.499373-1.807159-0.717338-0.056282-0.019443-0.112564-0.036839-0.168846-0.056282-0.573051-0.200568-1.153266-0.38067-1.738597-0.547469-0.162706-0.046049-0.325411-0.092098-0.48914-0.1361-0.63752-0.169869-1.278109-0.327458-1.926886-0.456395-0.016373-0.00307-0.033769-0.005117-0.050142-0.00921-0.630357-0.124843-1.267876-0.223081-1.907443-0.308015-0.169869-0.022513-0.339738-0.044002-0.51063-0.063445-0.61296-0.070608-1.227967-0.127913-1.847068-0.161682-0.048095-0.00307-0.097214-0.008186-0.145309-0.011256-0.51063-0.025583-1.023306-0.038886-1.537006-0.038886L159.900803 63.24237c-16.95516 0-30.699186 13.744026-30.699186 30.699186l0 834.942133c0 16.954137 13.744026 30.699186 30.699186 30.699186L864.922958 959.582875c16.954137 0 30.699186-13.745049 30.699186-30.699186L895.622144 292.119127C895.622144 291.603381 895.607818 291.089681 895.582235 290.577005zM697.444573 168.05553l93.363388 93.363388-93.363388 0L697.444573 168.05553zM190.599989 898.184503 190.599989 124.640742l445.446211 0 0 167.478386c0 16.954137 13.745049 30.699186 30.699186 30.699186L834.223772 322.818313l0 575.36619L190.599989 898.184503z" p-id="6735"></path><path d="M287.332101 381.480364l197.455117 0c16.954137 0 30.699186-13.745049 30.699186-30.699186s-13.745049-30.699186-30.699186-30.699186L287.332101 320.081992c-16.954137 0-30.699186 13.745049-30.699186 30.699186S270.377964 381.480364 287.332101 381.480364z" p-id="6736"></path><path d="M287.332101 542.235628l259.913635 0c16.954137 0 30.699186-13.745049 30.699186-30.699186s-13.745049-30.699186-30.699186-30.699186L287.332101 480.837256c-16.954137 0-30.699186 13.745049-30.699186 30.699186S270.377964 542.235628 287.332101 542.235628z" p-id="6737"></path><path d="M679.258375 640.444371l-391.926274 0c-16.954137 0-30.699186 13.745049-30.699186 30.699186s13.745049 30.699186 30.699186 30.699186l391.926274 0c16.954137 0 30.699186-13.745049 30.699186-30.699186S696.212512 640.444371 679.258375 640.444371z" p-id="6738"></path>
+        </svg>
+        <svg  id="introduce" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>介绍我</title>
+            <path d="M499.428571 499.642514c50.570971-40.250514 83.106743-102.142171 83.106743-171.642514 0-121.000229-98.428343-219.428571-219.428571-219.428571s-219.428571 98.428343-219.428571 219.428571c0 70.250057 33.322057 132.714057 84.821943 172.928C94.677943 555.320686 0 686.571886 0 839.678171L0 877.714286c0 20.214857 16.356571 36.571429 36.571429 36.571429l658.285714 0c20.214857 0 36.571429-16.356571 36.571429-36.571429l0-38.036114C731.428571 685.249829 635.072 553.179429 499.428571 499.642514zM216.821029 328c0-80.6784 65.607314-146.285714 146.285714-146.285714s146.285714 65.607314 146.285714 146.285714c0 79.643429-64.036571 144.356571-143.285029 146.000457-0.142629 0-0.250514-0.036571-0.393143-0.036571-1.285486 0-2.570971 0.1792-3.856457 0.1792C281.786514 473.464686 216.821029 408.250514 216.821029 328zM73.142857 841.142857l0-1.464686c0-159.8208 128.8576-289.892571 288.107886-292.320914 0.607086 0 1.214171 0.071314 1.857829 0.071314 1.499429 0 2.964114-0.213943 4.463543-0.213943C528.036571 548.214857 658.285714 678.999771 658.285714 839.678171L73.142857 841.142857z" p-id="3134"></path><path d="M693.392457 256l329.142857 0 0 73.142857-329.142857 0 0-73.142857Z" p-id="3135"></path><path d="M693.392457 438.857143l329.142857 0 0 73.142857-329.142857 0 0-73.142857Z" p-id="3136"></path><path d="M804.571429 621.714286l217.963886 0 0 73.142857-217.963886 0 0-73.142857Z" p-id="3137"></path>
+        </svg>
+        <svg  id="honor-c" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>荣誉彩色</title>
+            <path d="M330.147 727.583l-3.105-2.113c-23.995-16.366-56.736-10.206-73.12 13.753L120.381 934.43c-16.389 23.958-10.22 56.646 13.779 73.002l3.1 2.118c24 16.366 56.741 10.206 73.125-13.752l133.542-195.207c16.388-23.959 10.219-56.642-13.78-73.008z" fill="#E5594F" p-id="1943"></path><path d="M457.934 727.583l-3.1-2.113c-23.999-16.366-56.74-10.206-73.129 13.753L248.168 934.43c-16.388 23.958-10.22 56.646 13.775 73.002l3.109 2.118c23.995 16.366 56.736 10.206 73.12-13.752l133.537-195.207c16.394-23.959 10.225-56.642-13.775-73.008z" fill="#F0D043" p-id="1944"></path><path d="M895.09 934.213L761.813 740.007c-16.353-23.837-49.03-29.961-72.979-13.689l-3.101 2.108c-23.949 16.28-30.104 48.796-13.748 72.629L805.26 995.261c16.357 23.838 49.031 29.971 72.98 13.686l3.101-2.1c23.95-16.282 30.105-48.797 13.749-72.634z" fill="#E5594F" p-id="1945"></path><path d="M767.555 934.213L634.279 740.007c-16.357-23.837-49.031-29.961-72.985-13.689l-3.096 2.108c-23.954 16.28-30.109 48.796-13.752 72.629l133.275 194.206c16.357 23.838 49.03 29.971 72.984 13.686l3.096-2.1c23.955-16.282 30.11-48.797 13.754-72.634z" fill="#F0D043" p-id="1946"></path><path d="M712.252 364.688L577.453 338.78l-66.275-120.278-66.28 120.278-134.794 25.908 93.834 100.25-17.037 136.291 124.277-58.327 124.272 58.327-17.037-136.291z" fill="#F39A2B" p-id="1947"></path><path d="M803.625 434.496c-1.459 160.596-131.855 290.993-292.452 292.453-76.346 0.693-150.076-30.799-204.647-83.529-56.995-55.073-87.084-130.821-87.796-208.923-0.676-74.35-116.033-74.415-115.355 0 2.034 223.497 184.3 405.775 407.798 407.807 223.519 2.032 405.803-187.375 407.808-407.807 0.675-74.416-114.679-74.351-115.356-0.001z" fill="#4A5699" p-id="1948"></path><path d="M218.73 415.399c1.462-160.594 131.845-290.992 292.443-292.455 76.347-0.696 150.079 30.801 204.647 83.531 56.997 55.075 87.093 130.822 87.805 208.923 0.677 74.35 116.031 74.416 115.355 0C916.948 191.905 734.669 9.624 511.173 7.589c-223.518-2.035-405.793 187.38-407.798 407.81-0.678 74.415 114.679 74.35 115.355 0z" fill="#C45FA0" p-id="1949"></path>
+        </svg>
+        <svg  id="honor-c" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>荣誉彩色</title>
+            <path d="M330.147 727.583l-3.105-2.113c-23.995-16.366-56.736-10.206-73.12 13.753L120.381 934.43c-16.389 23.958-10.22 56.646 13.779 73.002l3.1 2.118c24 16.366 56.741 10.206 73.125-13.752l133.542-195.207c16.388-23.959 10.219-56.642-13.78-73.008z" fill="#E5594F" p-id="1943"></path><path d="M457.934 727.583l-3.1-2.113c-23.999-16.366-56.74-10.206-73.129 13.753L248.168 934.43c-16.388 23.958-10.22 56.646 13.775 73.002l3.109 2.118c23.995 16.366 56.736 10.206 73.12-13.752l133.537-195.207c16.394-23.959 10.225-56.642-13.775-73.008z" fill="#F0D043" p-id="1944"></path><path d="M895.09 934.213L761.813 740.007c-16.353-23.837-49.03-29.961-72.979-13.689l-3.101 2.108c-23.949 16.28-30.104 48.796-13.748 72.629L805.26 995.261c16.357 23.838 49.031 29.971 72.98 13.686l3.101-2.1c23.95-16.282 30.105-48.797 13.749-72.634z" fill="#E5594F" p-id="1945"></path><path d="M767.555 934.213L634.279 740.007c-16.357-23.837-49.031-29.961-72.985-13.689l-3.096 2.108c-23.954 16.28-30.109 48.796-13.752 72.629l133.275 194.206c16.357 23.838 49.03 29.971 72.984 13.686l3.096-2.1c23.955-16.282 30.11-48.797 13.754-72.634z" fill="#F0D043" p-id="1946"></path><path d="M712.252 364.688L577.453 338.78l-66.275-120.278-66.28 120.278-134.794 25.908 93.834 100.25-17.037 136.291 124.277-58.327 124.272 58.327-17.037-136.291z" fill="#F39A2B" p-id="1947"></path><path d="M803.625 434.496c-1.459 160.596-131.855 290.993-292.452 292.453-76.346 0.693-150.076-30.799-204.647-83.529-56.995-55.073-87.084-130.821-87.796-208.923-0.676-74.35-116.033-74.415-115.355 0 2.034 223.497 184.3 405.775 407.798 407.807 223.519 2.032 405.803-187.375 407.808-407.807 0.675-74.416-114.679-74.351-115.356-0.001z" fill="#4A5699" p-id="1948"></path><path d="M218.73 415.399c1.462-160.594 131.845-290.992 292.443-292.455 76.347-0.696 150.079 30.801 204.647 83.531 56.997 55.075 87.093 130.822 87.805 208.923 0.677 74.35 116.031 74.416 115.355 0C916.948 191.905 734.669 9.624 511.173 7.589c-223.518-2.035-405.793 187.38-407.798 407.81-0.678 74.415 114.679 74.35 115.355 0z" fill="#C45FA0" p-id="1949"></path>
+        </svg>
+        <svg  id="honor" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>荣誉</title>
+            <path d="M509 718.3l-54.3 33.8c-14.1 8.8-32.6 4.5-41.3-9.6-0.1-0.2-0.3-0.5-0.4-0.7l-32.3-55.2-63.8 4.7c-16.5 1.2-30.9-11.2-32.1-27.7v-0.8l-3-63.9-58.8-25.3c-15.2-6.6-22.2-24.3-15.6-39.5 0.1-0.3 0.2-0.5 0.3-0.8l27-58-40.1-49.8c-10.4-12.9-8.4-31.8 4.5-42.2 0.2-0.2 0.4-0.3 0.6-0.5l50.9-38.7-12.4-62.7c-3.2-16.3 7.4-32 23.6-35.2 0.3-0.1 0.5-0.1 0.8-0.1l63.1-10.7 18.3-61.3c4.7-15.9 21.4-24.9 37.3-20.2 0.3 0.1 0.5 0.2 0.8 0.2l60.8 19.9 44.6-45.8c11.6-11.9 30.5-12.1 42.4-0.6l0.6 0.6 44.6 45.8 60.8-19.9c15.7-5.1 32.7 3.5 37.8 19.2 0.1 0.3 0.2 0.5 0.2 0.8l18.2 61.3 63.1 10.7c16.3 2.8 27.3 18.2 24.6 34.6 0 0.3-0.1 0.5-0.1 0.8l-12.4 62.7 50.9 38.7c13.2 10 15.7 28.9 5.7 42-0.2 0.2-0.3 0.4-0.5 0.6l-40.1 49.8 27 58c7 15 0.5 32.9-14.5 39.9-0.2 0.1-0.5 0.2-0.8 0.3L736.3 599l-3 63.9c-0.8 16.6-14.8 29.3-31.4 28.6h-0.8l-63.8-4.7-32.3 55.1c-8.4 14.3-26.8 19.1-41.1 10.7-0.2-0.1-0.5-0.3-0.7-0.4L509 718.3z m0-44.3c133.7 0 242-108.3 242-242S642.7 190 509 190 267 298.3 267 432s108.3 242 242 242z" fill="" p-id="2082"></path><path d="M509 645c-117.4 0-213-95.6-213-213s95.6-213 213-213 213 95.6 213 213-95.6 213-213 213z m0-396c-100.9 0-183 82.1-183 183s82.1 183 183 183 183-82.1 183-183-82.1-183-183-183z" fill="" p-id="2083"></path><path d="M509.3 511l-79.9 40.8 15.3-86.4-64.7-61.2 89.4-12.6 39.9-78.6 40 78.6 89.4 12.6-64.7 61.2 15.3 86.4zM311.5 632.6l110.9 64-128 221.7-22.7-88.7-88.2 24.7zM706.9 633L596 697l128 221.7 22.7-88.7 88.2 24.7z" fill="" p-id="2084"></path>
+        </svg>
+
+        <svg id="jinpai" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">  <image id="image0" width="40" height="40" x="0" y="0"xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABWVBMVEUAAAD/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+/P/4aj/y2f/uzf/sBb/qgf/89v/ymT/rAv/qAD//Pf/0Xf/qgb/0Hb/89z/uDD/7s3/sBf/rxX//Pb/uC//uC7/qgX/ymP/+/L/57r/4qr/tCT//v3/6Lv/uTP///7//vv/sRn/25b/ymX/4af/1ID/rxT/tCP//fr/9ub/qQT/0nz/2pP/xVb/2pT/6b//yF7/tir/7s7/rA3/9+n/25X/vkD/zWz/rAz/5bT/xln/xlj/qAH/qwr/wEX/8tr/uTL/0HX/4ab//PX/qwn/y2b/uja94BLNAAAAK3RSTlMAAjd4rNLt+ByH4hOV+VbrVwSXCrOxmFkVHvrjedPsOFhamQa2tAUUiOTurET7DQAAAAFiS0dEAf8CLd4AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfiCBQNKzVQSDE5AAACVElEQVQ4y4VVaUMaMRANsCAoVEVFRaRWrRciuhgLCthdvGkrovZutbWe9NL//6Ezkz2yB/V9CJPJY3YzeXnLmIxAMKSEI11dkbASCgZYJ0Rj3TkJ3bGoL60nnsi5kIj3eHlPenM+6O1z0fqTYmExv1RYXllZLizlF0Um2S/zBgYpqRZXuYXVokrJwQGp3hBm1l6UuAOl8hrmh+yaKZyvb3APNqhoyuT14axS5T6oVnBt2OgL7letcV/UsGZkhIi44c2XvAO0TfPho2mIyrwjyrCcHgViDDeidybq+PAY6GAMfov8P6gDYSzAgvCzRX3epv7uGMu7ezDZp85vQRRkGRjztHTQQOKr14L4BuLGAYV5CENMgfFQrDWp5BHFLdxsU+QPIVTYOIwFkTg+QeLpW4zfQXRyLPIFiMdZFsaW8V7vqeQHPOZTCD4a6RbEWYZqNcVQxdfOfYLoM27RPNQSathB5EdU8gvnX62XtYjyo/nZORK/8e8wnp9xx6OlzQAuSOY/LmG8sJJiM1J78LzWqWTDcaqiPXbDCVfmtbq2c6LhT60jJNxUBK9yY6VuxRGSKOr23+8E8c4jCpKZKsmMtLEtyawtZMaiCadwURuNn/b8F3aRzCWOV0GzV0Abv+2Z9gddQFyu7GOXK2tY0MRj1/WZwwBUzcvTyAAmLaeYEpZSdl0x3bCUKcmkpql57eKtTftbb1PyuWRSjM2kDNtr3j/UdL32cN80bC8143LICX8jHfZa7mzSa83JWX+zn5uXafNz/mYvPh8ZJbyQTi+ElYzr8/EP6On6BY5erBMAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDgtMjBUMTM6NDM6NTMrMDg6MDDZMI2iAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTA4LTIwVDEzOjQzOjUzKzA4OjAwqG01HgAAAABJRU5ErkJggg==" />
+        </svg>
+        <svg  id="toTop" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>回顶部</title>
+            <path d="M542.800839 213.559308c-5.525732-5.525732-11.665434-8.18627-17.805136-9.618867-4.093135-2.046567-8.902568-2.762866-13.712002-2.762866-4.809433 0-9.618867 0.716299-13.712002 2.762866-6.139702 1.330269-12.381733 4.093135-17.805136 9.618867L143.617867 549.605676c-15.04227 15.04227-15.04227 38.373139 0 53.517738 15.04227 15.04227 38.373139 15.04227 53.517738 0L476.901369 323.35765l0 598.006995c0 19.237734 15.04227 34.280004 34.280004 34.280004 19.237734 0 34.280004-15.04227 34.280004-34.280004L545.461377 323.35765l279.765764 279.765764c15.04227 15.04227 38.373139 15.04227 53.517738 0 15.04227-15.04227 15.04227-38.373139 0-53.517738L542.800839 213.559308 542.800839 213.559308zM922.746078 64.05756 99.718997 64.05756c-19.237734 0-34.280004 15.04227-34.280004 34.280004 0 19.237734 15.04227 34.280004 34.280004 34.280004l822.924753 0c19.237734 0 34.280004-15.04227 34.280004-34.280004C957.026082 79.202158 941.881483 64.05756 922.746078 64.05756L922.746078 64.05756z" p-id="2036"></path>
+        </svg>
+
+    </svg>
+
+    <script src="http://statics.yunxinsky.com/jquery-3.0.0.min.js"></script>
+    <script src="http://statics.yunxinsky.com/jquery-weui.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+    <script>
+        window.onload = function () {
+
+        };
+
+    </script>
+
+    <div class="flex-column container">
+        <section class="header">
+            <div class="flex-column" style="position: absolute;z-index: 1;width:100%;height:100%;">
+                <div class="flex-column" style="height:100%;width:100%">
+                    <span class="change-theme">更换主题</span>
+                    <div class="flex-column my-icon">
+                        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535610438&di=46de53ac80627b6d3044c8d89b351215&src=http://attach.bbs.miui.com/forum/201205/10/205439w5qipq0ss4xcpsh3.jpg" alt="">
+                        <svg class="jinpai">
+                            <use xlink:href="#jinpai"></use>
+                        </svg>
+                    </div>
+                    <div class="nick-name">冷浪漫</div>
+                    <div class="flex-row" style="height:.30rem">
+                        <svg style="width:.13rem;height:.13rem;fill: #333">
+                            <use xlink:href="#location"></use>
+                        </svg>
+                        <span class="location">广东深圳</span>
+                    </div>
+                    <div class="my-tag">平安保险 | CEO</div>
+                    <div class="flex-row" style="width:100%;margin-top:.1rem;">
+                        <div class="flex-row" style="height:.23rem;background-color: #00a0e9;padding: 0 .1rem;border-radius: .1rem">
+                            <svg style="fill:#eee;width:.15rem;height:.15rem;">
+                                <use xlink:href="#phone"></use>
+                            </svg>
+                            <span style="font-size: .12rem;color:#eee;margin-left: .1rem">打电话</span>
+                        </div>
+                        <div class="flex-row" style="height:.23rem;background-color: #1aac19;padding: 0 .1rem;border-radius: .1rem;margin-left:.2rem">
+                            <svg style="fill:#eee;width:.15rem;height:.15rem;">
+                                <use xlink:href="#wechat"></use>
+                            </svg>
+                            <span style="font-size: .12rem;color:#eee;margin-left: .1rem">加微信</span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="flex-row h-line1">
+                    <div class="flex-column">
+                        <span>8年</span>
+                        <span style="font-size: .12rem;color:#aaa">从事保险业</span>
+                    </div>
+                    <div class="flex-column">
+                        <span>999人</span>
+                        <span style="font-size: .12rem;color:#aaa">已服务客户</span>
+                    </div>
+                    <div class="flex-column">
+                        <span>100%</span>
+                        <span style="font-size: .12rem;color:#aaa">满意度</span>
+                    </div>
+                </div>
+                <div style="width:100%;height:1px;background-color: #ffffff">
+                    <div style="width:calc(100% - .2rem);background-color: #E9E9E9;height:1px;margin:0 auto"></div>
+                </div>
+                <div class="flex-column h-line2">
+                    <span style="margin-left: .1rem;font-size: .14rem">已有999人赞过我</span>
+                    <div class="flex-row" style="margin-left:.1rem;margin-top:.05rem;width:calc(100% - .8rem);overflow: hidden;justify-content: flex-start">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                        <img class="user-icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535612110&di=f29da883a5d43583b7c46ad08c893535&src=http://www.quazero.com/uploads/allimg/140306/1-140306213246-50.jpg" alt="">
+                    </div>
+                    <div class="flex-column zan">
+                        <svg style="fill:#eee;width:.3rem;height:.3rem;">
+                            <use xlink:href="#zan"></use>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <img class="header-img" src="http://img2.cache.netease.com/house/2014/3/7/20140307214520b5c7f_550.png"/>
+        </section>
+        <section class="flex-column section-container">
+            <div class="flex-row section-title-container">
+                <div class="flex-row section-title">
+                    <svg style="fill:#eee;width:.2rem;height:.2rem;">
+                        <use xlink:href="#article"></use>
+                    </svg>
+                    <span style="margin-left: .05rem;">我推荐的保险知识</span>
+                </div>
+                <span style="margin-right:.1rem;color:#aaa;font-size: .14rem;">更多>></span>
+            </div>
+            <div class="flex-row item-content" >
+                <img class="item-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535616727&di=4983089cefba41245dc557cedca95f7e&src=http://www.quazero.com/uploads/allimg/140306/1-140306212625-50.jpg" alt="">
+                <span class="item-text">不能道歉了事！滴滴5天被10余城约谈责令整改</span>
+            </div>
+            <div class="flex-row item-content" >
+                <img class="item-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535616727&di=4983089cefba41245dc557cedca95f7e&src=http://www.quazero.com/uploads/allimg/140306/1-140306212625-50.jpg" alt="">
+                <span class="item-text">不能道歉了事！滴滴5天被10余城约谈责令整改</span>
+            </div>
+            <div class="flex-row item-content" >
+                <img class="item-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1535616727&di=4983089cefba41245dc557cedca95f7e&src=http://www.quazero.com/uploads/allimg/140306/1-140306212625-50.jpg" alt="">
+                <span class="item-text">不能道歉了事！滴滴5天被10余城约谈责令整改滴滴5天被10余城约谈责令整改滴滴5天被10余城约谈责令整改滴滴5天被10余城约谈责令整改</span>
+            </div>
+        </section>
+
+        <section class="flex-column section-container">
+            <div class="flex-row section-title-container">
+                <div class="flex-row section-title">
+                    <svg style="fill:#eee;width:.2rem;height:.2rem;">
+                        <use xlink:href="#introduce"></use>
+                    </svg>
+                    <span style="margin-left: .05rem;">关于我</span>
+                </div>
+                <span style="margin-right:.1rem;color:#aaa;font-size: .14rem;">编辑>></span>
+            </div>
+            <span class="my-introduce">
+                开学季到了，新的学期，新的起点，又一批青年学生开始了新的人生航程。
+                党的十八大以来，习近平总书记在祖国各地考察时多次到高校和师生交流，给优秀的学生个人及群体复信，谈勤于学习、谈理想担当、谈人生价值、谈做人做事， 鼓励广大学生为实现中华民族伟大复兴的中国梦而不懈努力。在新学期来临之际，党建网微平台 与大家共同学习感悟习近平总书记对广大青年学生的用心教诲和无限期待。同学们好好学吧！
+                希望同学们珍惜宝贵的青春年华，坚持理想，脚踏实地，既勤于学习、善于学习 ，打牢知识功底、积蓄前进能量，又勇于探索、勇于突破，不断认识科技世界新领地，立志报效祖国、服务人民。
+                ——2013年7月17日，习近平视察中国科学院大学时指出幸福不是从天降，中国人民取得的成就是很了不起的，不要妄自菲薄，同时要自强不息。年青人在学校要心无旁骛，学成文武艺，报效祖国和人民，报效中华民族。同学们好好学吧！
+            </span>
+        </section>
+
+        <section class="flex-column section-container">
+            <div class="flex-row section-title-container">
+                <div class="flex-row section-title">
+                    <svg style="fill:#eee;width:.2rem;height:.2rem;">
+                        <use xlink:href="#honor"></use>
+                    </svg>
+                    <span style="margin-left: .05rem;">我的荣誉</span>
+                </div>
+                <span style="margin-right:.1rem;color:#aaa;font-size: .14rem;">编辑>></span>
+            </div>
+
+            <div class="flex-row honor-item">
+                <svg style="width:.2rem;height:.2rem;margin-left:.1rem;">
+                    <use xlink:href="#honor-c"></use>
+                </svg>
+                <span style="margin-left: .05rem;color:#222;font-size: .14rem;">三好学生</span>
+            </div>
+            <div class="flex-row honor-item">
+                <svg style="width:.2rem;height:.2rem;margin-left:.1rem;">
+                    <use xlink:href="#honor-c"></use>
+                </svg>
+                <span style="margin-left: .05rem;color:#222;font-size: .14rem;">学习积极分子</span>
+            </div>
+            <div class="flex-row honor-item">
+                <svg style="width:.2rem;height:.2rem;margin-left:.1rem;">
+                    <use xlink:href="#honor-c"></use>
+                </svg>
+                <span style="margin-left: .05rem;color:#222;font-size: .14rem;">优秀少先队员</span>
+            </div>
+
+        </section>
+    </div>
+
+</body>
+</html>
