@@ -42,6 +42,91 @@
             margin:0 auto;
             justify-content: flex-start;
         }
+        .item-content{
+            display:flex;
+            flex-direction: row;
+            width:100%;
+            height:.8rem;
+            background-color:#fff;
+            border-bottom:1px solid #eee;
+            align-items:center;
+            color:#000;
+            margin:0 auto;
+            position:relative;
+            overflow: hidden;
+        }
+        .item-title{
+            font-size:.15rem;
+            margin-top:.1rem;
+            height:.4rem;
+            overflow: hidden;
+            line-height: .2rem;
+            width:calc(100% - .13rem)
+        }
+        .item-img{
+            min-width:1rem;
+            max-width:1rem;
+            height:.6rem;
+            background-size: 1rem .6rem;
+            background-repeat:no-repeat;
+            margin-left:.1rem;
+            margin-right:.1rem;
+            display:block;
+        }
+        .item-right{
+            display:flex;
+            flex-direction:column;
+            height:100%;
+            justify-content:space-between;
+            position: relative;
+        }
+        .item-counts{
+            height:.3rem;
+            display:flex;
+            flex-direction: row;
+            width:100%;
+            align-items:center;
+            margin-bottom: .05rem;
+        }
+        .item-text{
+            color:#ccc;
+            font-size:.12rem;
+            margin: 0 .02rem;
+        }
+        .item-overlayout{
+            width:100%;
+            height:100%;
+            background-color: rgba(0,0,0,0.5);
+            position:absolute;
+            bottom:-8rem;
+        }
+        .delete-s{
+            font-size: .18rem;
+            color: #aaa;
+            border-radius: .06rem;
+            background-color: #eee;
+            width: .35rem;
+            height: .2rem;
+            text-align: center;
+            line-height: .2rem;
+            position:absolute;
+            right:.1rem;
+            bottom:.1rem;
+        }
+        .back, .delete{
+            width:.5rem;
+            height:.5rem;
+            border-radius: .25rem;
+            background-color: #eee;
+        }
+        .back:active, .delete:active{
+            opacity:.6;
+        }
+        .delete-icon, .back-icon{
+            width:.3rem;
+            height:.3rem;
+            fill:#333;
+        }
 
     </style>
 
@@ -55,7 +140,14 @@
             <title>对话模板</title>
             <path d="M256.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C320.070562 395.713341 291.281147 365.794928 256.282249 365.794928L256.282249 365.794928 256.282249 365.794928 256.282249 365.794928zM512 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C575.788313 395.713341 547.563396 365.794928 512 365.794928L512 365.794928 512 365.794928 512 365.794928zM768.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C832.070562 395.713341 803.281147 365.794928 768.282249 365.794928L768.282249 365.794928 768.282249 365.794928 768.282249 365.794928zM895.858875 32.176406 128.141125 32.176406C57.578831 32.176406 0 91.448732 0 164.833517l0 499.016538c0 73.384785 58.707828 141.124587 130.963616 141.124587l195.316428 0c33.869901 36.127894 174.994487 182.332966 174.994487 182.332966 6.209482 6.77398 16.370452 6.77398 22.579934 0 0 0 103.303197-116.851158 170.478501-182.332966l199.832415 0c72.255788 0 130.963616-67.739802 130.963616-141.124587L1025.128997 164.833517C1024 91.448732 966.985667 32.176406 895.858875 32.176406L895.858875 32.176406 895.858875 32.176406 895.858875 32.176406zM960.211687 662.15656c0 36.127894-30.482911 74.513782-66.610805 74.513782l-196.445424 0c-23.708931 0-45.159868 24.273429-45.159868 24.273429L513.693495 903.197354l-137.737596-141.689085c0 0-25.966924-24.273429-48.546858-24.273429L130.963616 737.23484c-36.127894 0-66.610805-38.385888-66.610805-74.513782L64.352811 168.220507c0-36.127894 28.789416-66.046307 63.788313-66.046307l768.282249 0c35.563396 0 63.788313 29.353914 63.788313 66.046307L960.211687 662.15656 960.211687 662.15656 960.211687 662.15656 960.211687 662.15656zM960.211687 662.15656" p-id="3204"></path>
         </svg>
-
+        <svg  id="back" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>撤销</title>
+            <path d="M289.6384 256H614.4a307.2 307.2 0 1 1 0 614.4H204.8a51.2 51.2 0 0 1 0-102.4h409.6a204.8 204.8 0 1 0 0-409.6H286.0032l59.2384 59.2384A51.2 51.2 0 1 1 272.7936 489.984L128 345.2416a51.2 51.2 0 0 1 0-72.448L272.7936 128a51.2 51.2 0 0 1 72.448 72.3968L289.6384 256z" p-id="937"></path>
+        </svg>
+        <svg  id="delete" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>删除</title>
+            <path d="M580.352 747.648V388.672c0-41.856 65.344-41.856 65.344 0v358.912c0.064 41.856-65.344 41.856-65.344 0.064z m-196.032 0V388.672c0-41.856 65.344-41.856 65.344 0v358.912c0 41.856-65.344 41.856-65.344 0.064z m555.584-522.112h-163.392v-65.28c0-54.08-43.968-97.856-97.088-97.856H351.616a97.92 97.92 0 0 0-98.048 97.856v65.28H90.176c-41.856 0-41.856 65.216 0 65.216h849.664c41.92 0 41.92-65.216 0.064-65.216z m-620.928-65.28c0-17.344 15.296-32.64 32.64-32.64h327.808c17.344 0 31.68 13.312 31.68 32.64v65.28H318.976v-65.28z m424.832 815.744H286.272a97.92 97.92 0 0 1-97.984-97.856V388.672c0-19.392 15.296-32.64 32.64-32.64s32.704 13.248 32.704 32.64v489.408c0 17.344 15.36 32.64 32.64 32.64h457.536a33.6 33.6 0 0 0 32.704-32.64V389.696c0-42.816 65.344-42.816 65.344 0v488.448a97.984 97.984 0 0 1-98.048 97.856z m0 0" p-id="3412"></path>
+        </svg>
     </svg>
 
     <script src="public/js/jquery-2.1.4.js"></script>
@@ -69,13 +161,221 @@
     </script>
     <script>
         window.onload = function () {
-
+            initItemBtn();
         };
+
+        function initItemBtn() {
+            $(".item-content").on('click','.delete, .back',function(){
+                var $btn = $(this);
+                var btnText = $btn.attr('class');
+                if(btnText.match('back')){ // 取消
+                    $btn.parent().animate({'bottom':'-.8rem'},200);
+                }else if(btnText.match('delete')){ // 删除
+                    var $item = $btn.parent().parent();
+                    $item.animate({'height':'0'},200);
+                    setTimeout(function(){
+                        $item.remove();
+                    },201)
+                }
+            });
+
+            // 弹出 取消和删除按钮
+            $(".delete-s").click(function(){
+                var $this = $(this);
+                $this.parent().siblings('.item-overlayout').animate({'bottom':'0'},200,function(){
+                    $this.parent().parent().siblings('.item-content').find('.item-overlayout').animate({'bottom':'-.8rem'},200)
+                });
+            })
+        }
 
     </script>
 
     <div class="flex-column container">
+        <div class="item-content">
+            <img class="item-img" alt="${list.article_title}" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536162734219&di=a2a0499d2311b822b44a4cb7b33841bf&imgtype=0&src=http%3A%2F%2Fimg.suiauto.com%2Fattachment%2Fblock%2F47%2F474e7ddaf1cea2e0b6b6317249f5f8da.jpg">
+            <div class="item-right">
+                <span class="item-title">标题标题标题标题标题标题标题标题标题标题标题标题标题标题</span>
+                <div class="item-counts">
+                    <!--<svg class="item-icon">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">阅读:111</span>
 
+                    <!--<svg class="item-icon" style="margin-left:5px">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">分享:111</span>
+                </div>
+                <span class="delete-s">×</span>
+            </div>
+            <div class="flex-row item-overlayout">
+                <div class="flex-column back">
+                    <svg class="back-icon">
+                        <use xlink:href="#back"></use>
+                    </svg>
+                </div>
+                <div class="flex-column delete" style="background-color: #d6401e;margin-left:1rem">
+                    <svg class="delete-icon" style="fill:#eee">
+                        <use xlink:href="#delete"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-content">
+            <img class="item-img" alt="${list.article_title}" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536162734219&di=a2a0499d2311b822b44a4cb7b33841bf&imgtype=0&src=http%3A%2F%2Fimg.suiauto.com%2Fattachment%2Fblock%2F47%2F474e7ddaf1cea2e0b6b6317249f5f8da.jpg">
+            <div class="item-right">
+                <span class="item-title">标题标题标题标题标题标题标题标题标题标题标题标题标题标题</span>
+                <div class="item-counts">
+                    <!--<svg class="item-icon">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">阅读:111</span>
+
+                    <!--<svg class="item-icon" style="margin-left:5px">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">分享:111</span>
+                </div>
+                <span class="delete-s">×</span>
+            </div>
+            <div class="flex-row item-overlayout">
+                <div class="flex-column back">
+                    <svg class="back-icon">
+                        <use xlink:href="#back"></use>
+                    </svg>
+                </div>
+                <div class="flex-column delete" style="background-color: #d6401e;margin-left:1rem">
+                    <svg class="delete-icon" style="fill:#eee">
+                        <use xlink:href="#delete"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-content">
+            <img class="item-img" alt="${list.article_title}" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536162734219&di=a2a0499d2311b822b44a4cb7b33841bf&imgtype=0&src=http%3A%2F%2Fimg.suiauto.com%2Fattachment%2Fblock%2F47%2F474e7ddaf1cea2e0b6b6317249f5f8da.jpg">
+            <div class="item-right">
+                <span class="item-title">标题标题标题标题标题标题标题标题标题标题标题标题标题标题</span>
+                <div class="item-counts">
+                    <!--<svg class="item-icon">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">阅读:111</span>
+
+                    <!--<svg class="item-icon" style="margin-left:5px">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">分享:111</span>
+                </div>
+                <span class="delete-s">×</span>
+            </div>
+            <div class="flex-row item-overlayout">
+                <div class="flex-column back">
+                    <svg class="back-icon">
+                        <use xlink:href="#back"></use>
+                    </svg>
+                </div>
+                <div class="flex-column delete" style="background-color: #d6401e;margin-left:1rem">
+                    <svg class="delete-icon" style="fill:#eee">
+                        <use xlink:href="#delete"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-content">
+            <img class="item-img" alt="${list.article_title}" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536162734219&di=a2a0499d2311b822b44a4cb7b33841bf&imgtype=0&src=http%3A%2F%2Fimg.suiauto.com%2Fattachment%2Fblock%2F47%2F474e7ddaf1cea2e0b6b6317249f5f8da.jpg">
+            <div class="item-right">
+                <span class="item-title">标题标题标题标题标题标题标题标题标题标题标题标题标题标题</span>
+                <div class="item-counts">
+                    <!--<svg class="item-icon">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">阅读:111</span>
+
+                    <!--<svg class="item-icon" style="margin-left:5px">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">分享:111</span>
+                </div>
+                <span class="delete-s">×</span>
+            </div>
+            <div class="flex-row item-overlayout">
+                <div class="flex-column back">
+                    <svg class="back-icon">
+                        <use xlink:href="#back"></use>
+                    </svg>
+                </div>
+                <div class="flex-column delete" style="background-color: #d6401e;margin-left:1rem">
+                    <svg class="delete-icon" style="fill:#eee">
+                        <use xlink:href="#delete"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-content">
+            <img class="item-img" alt="${list.article_title}" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536162734219&di=a2a0499d2311b822b44a4cb7b33841bf&imgtype=0&src=http%3A%2F%2Fimg.suiauto.com%2Fattachment%2Fblock%2F47%2F474e7ddaf1cea2e0b6b6317249f5f8da.jpg">
+            <div class="item-right">
+                <span class="item-title">标题标题标题标题标题标题标题标题标题标题标题标题标题标题</span>
+                <div class="item-counts">
+                    <!--<svg class="item-icon">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">阅读:111</span>
+
+                    <!--<svg class="item-icon" style="margin-left:5px">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">分享:111</span>
+                </div>
+                <span class="delete-s">×</span>
+            </div>
+            <div class="flex-row item-overlayout">
+                <div class="flex-column back">
+                    <svg class="back-icon">
+                        <use xlink:href="#back"></use>
+                    </svg>
+                </div>
+                <div class="flex-column delete" style="background-color: #d6401e;margin-left:1rem">
+                    <svg class="delete-icon" style="fill:#eee">
+                        <use xlink:href="#delete"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-content">
+            <img class="item-img" alt="${list.article_title}" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536162734219&di=a2a0499d2311b822b44a4cb7b33841bf&imgtype=0&src=http%3A%2F%2Fimg.suiauto.com%2Fattachment%2Fblock%2F47%2F474e7ddaf1cea2e0b6b6317249f5f8da.jpg">
+            <div class="item-right">
+                <span class="item-title">标题标题标题标题标题标题标题标题标题标题标题标题标题标题</span>
+                <div class="item-counts">
+                    <!--<svg class="item-icon">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">阅读:111</span>
+
+                    <!--<svg class="item-icon" style="margin-left:5px">-->
+                    <!--<use xlink:href="../assets/svgs.svg"/>-->
+                    <!--</svg>-->
+                    <span class="item-text">分享:111</span>
+                </div>
+                <span class="delete-s">×</span>
+            </div>
+            <div class="flex-row item-overlayout">
+                <div class="flex-column back">
+                    <svg class="back-icon">
+                        <use xlink:href="#back"></use>
+                    </svg>
+                </div>
+                <div class="flex-column delete" style="background-color: #d6401e;margin-left:1rem">
+                    <svg class="delete-icon" style="fill:#eee">
+                        <use xlink:href="#delete"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
