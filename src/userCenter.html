@@ -10,19 +10,31 @@
         document.documentElement.setAttribute('style', 'font-size:' + document.documentElement.clientWidth / 375 * 100 + 'px !important');
     </script>
     <style>
+        input,textarea{
+            -webkit-appearance: none;
+            outline: none;
+            resize:none;
+            border:none;
+        }
+        textarea::-webkit-input-placeholder{color:#ccc;}
         html,body{
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
+        li{
+            list-style: none;
+        }
         html{
             -ms-text-size-adjust:100%;
             -webkit-text-size-adjust:100%;
+
         }
         body{
             line-height:1.6;
             width:100%;
             overflow-x:hidden;
             font-family:-apple-system-font, "Helvetica Neue", sans-serif;
+            position:relative;
         }
         *{
             margin:0;
@@ -55,6 +67,10 @@
             width:100%;
             height:100%;
             background-color: #f5f5f5;
+        }
+        .item-content li:last-child{
+            margin-bottom:.2rem!important;
+            border-bottom:none;
         }
         .item-content{
             justify-content: flex-start;
@@ -179,6 +195,156 @@
             bottom:.4rem;
             z-index: 3;
         }
+        .split{
+            width:100%;height:10px;
+            background-color: #f5f5f5;
+            border-top:1px solid #e9e9e9;
+            border-bottom:1px solid #e9e9e9;
+        }
+        .profile-content{
+            outline:none;
+            width:100%;
+            min-height: .2rem;
+            font-size: .14rem;
+            padding:0 .1rem .1rem .1rem;
+            color:#888;
+            resize:none;
+        }
+        .input-limit{
+            font-size:.14rem;
+            color:#aaa;
+            margin-right:.1rem;
+        }
+
+
+        .profile-content-alert{
+            width:calc(100% - .2rem);
+            height:3rem;
+            padding:.1rem .1rem 0 .1rem;
+            font-size:.14rem;
+        }
+
+        .honor-content{
+            font-size:.14rem;
+            width:100%;
+            padding:0 .1rem .1rem .1rem;
+            align-items: flex-start;
+        }
+        .honor-item{
+            min-height:.5rem;
+            width:100%;
+            justify-content: flex-start;
+            border-bottom:1px dashed #e9e9e9;
+            position:relative;
+        }
+        .honor-name{
+            margin-left: .05rem;
+            color:#222;
+            font-size: .14rem;
+            width:1.6rem;
+        }
+        .delete-honor{
+            width:.6rem;
+            height:.3rem;
+            background-color: #f6383a;
+            line-height:.3rem;
+            border-radius: .05rem;
+            text-align: center;
+            color:#eee;
+            position:absolute;
+            right:.05rem;
+        }
+        .delete-honor:active,  .save-honor:active{
+            opacity:0.8;
+        }
+        .add-honor-content, .add-honor-btn{
+            width:100%;
+            border:1px dashed #e9d9d9;
+            text-align: center;
+            color:#ccc;
+            margin-top:.1rem;
+        }
+        .add-honor-content{
+            align-items: flex-start;
+            color:#666;
+            display: none;
+        }
+        .save-honor{
+            width:calc(100% - .2rem);
+            height:.4rem;
+            background-color: #00a0e9;
+            line-height:.4rem;
+            text-align: center;
+            color:#eee;
+            margin-top:.1rem;
+            margin-bottom:.1rem;
+            align-self:center
+        }
+        .time-input{
+            height:.3rem;
+            font-size: .16rem;
+            color:#666;
+            border-bottom:1px solid #e9e9e9;
+        }
+        .name-input{
+            border-bottom:1px solid #e9e9e9;
+            height:.3rem;
+            width:calc(100% - .65rem);
+            font-size:.16rem;
+        }
+        .overlayout{
+            width:100%;
+            height:100%;
+            background-color: rgba(0,0,0,0.7);
+            position: fixed;
+            top:0;
+            left:0;
+            z-index: 999;
+            transition: all 0.2s ease-in 0s;
+            display: none;
+        }
+        .alert-content{
+            width:85%;
+            min-height:.5rem;
+            background-color: #fff;
+            border-radius: 5px;
+            font-size: .16rem;
+            justify-content: flex-start;
+            padding:.1rem;
+            box-shadow: 2px 2px 7px #333;
+        }
+        #edit-honor-container{
+            width:100%;
+            height:100%;
+            background-color: #fff;
+            top:0;
+            left:0;
+            z-index: 998;
+            display: none;
+        }
+        #edit-honor-container .btn{
+            width:40%;
+            height:.4rem;
+            border-radius: .1rem;
+            text-align: center;
+            background-color: #ccc;
+            line-height:.4rem;
+            color:#888;
+        }
+        .alert-btn{
+            line-height:.4rem;
+            text-align:center;
+            color:#00b1ff;
+            height:.4rem;
+            width:100%;
+        }
+        .alert-btn:active{
+            opacity: .6;
+        }
+
+        .picker-items{
+            font-size:.16rem!important;
+        }
     </style>
 </head>
 
@@ -215,9 +381,94 @@
     <svg id="hk-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" enable-background="new 0 0 30 30" xml:space="preserve">  <image id="image0" width="30" height="30" x="0" y="0"xlink:href="data:image/png;base64,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" ></image>
         <title>获客大师icon</title>
     </svg>
+    <svg  id="honor-c" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>荣誉彩色</title>
+        <path d="M330.147 727.583l-3.105-2.113c-23.995-16.366-56.736-10.206-73.12 13.753L120.381 934.43c-16.389 23.958-10.22 56.646 13.779 73.002l3.1 2.118c24 16.366 56.741 10.206 73.125-13.752l133.542-195.207c16.388-23.959 10.219-56.642-13.78-73.008z" fill="#E5594F" p-id="1943"></path><path d="M457.934 727.583l-3.1-2.113c-23.999-16.366-56.74-10.206-73.129 13.753L248.168 934.43c-16.388 23.958-10.22 56.646 13.775 73.002l3.109 2.118c23.995 16.366 56.736 10.206 73.12-13.752l133.537-195.207c16.394-23.959 10.225-56.642-13.775-73.008z" fill="#F0D043" p-id="1944"></path><path d="M895.09 934.213L761.813 740.007c-16.353-23.837-49.03-29.961-72.979-13.689l-3.101 2.108c-23.949 16.28-30.104 48.796-13.748 72.629L805.26 995.261c16.357 23.838 49.031 29.971 72.98 13.686l3.101-2.1c23.95-16.282 30.105-48.797 13.749-72.634z" fill="#E5594F" p-id="1945"></path><path d="M767.555 934.213L634.279 740.007c-16.357-23.837-49.031-29.961-72.985-13.689l-3.096 2.108c-23.954 16.28-30.109 48.796-13.752 72.629l133.275 194.206c16.357 23.838 49.03 29.971 72.984 13.686l3.096-2.1c23.955-16.282 30.11-48.797 13.754-72.634z" fill="#F0D043" p-id="1946"></path><path d="M712.252 364.688L577.453 338.78l-66.275-120.278-66.28 120.278-134.794 25.908 93.834 100.25-17.037 136.291 124.277-58.327 124.272 58.327-17.037-136.291z" fill="#F39A2B" p-id="1947"></path><path d="M803.625 434.496c-1.459 160.596-131.855 290.993-292.452 292.453-76.346 0.693-150.076-30.799-204.647-83.529-56.995-55.073-87.084-130.821-87.796-208.923-0.676-74.35-116.033-74.415-115.355 0 2.034 223.497 184.3 405.775 407.798 407.807 223.519 2.032 405.803-187.375 407.808-407.807 0.675-74.416-114.679-74.351-115.356-0.001z" fill="#4A5699" p-id="1948"></path><path d="M218.73 415.399c1.462-160.594 131.845-290.992 292.443-292.455 76.347-0.696 150.079 30.801 204.647 83.531 56.997 55.075 87.093 130.822 87.805 208.923 0.677 74.35 116.031 74.416 115.355 0C916.948 191.905 734.669 9.624 511.173 7.589c-223.518-2.035-405.793 187.38-407.798 407.81-0.678 74.415 114.679 74.35 115.355 0z" fill="#C45FA0" p-id="1949"></path>
+    </svg>
 
 </svg>
-<header class="flex-column" style="width:100%;height:2.8rem;">
+
+<!--编辑我的简介-->
+<div class="flex-column overlayout">
+    <div class="flex-column alert-content">
+        <p style="width:100%;height:.3rem;
+        text-align: center;line-height: .3rem;color:#222;font-weight: bold">编辑简介</p>
+        <p class="flex-column" style="align-items: flex-end;width:100%;border:1px solid #e9e9e9;border-radius:.05rem;margin-top:.1rem;">
+            <textarea placeholder="写下你的简介，让客户更了解你" class="profile-content-alert" onfocus="limitTextarea(this,'.input-limit')"></textarea>
+            <span class="input-limit">0/300</span>
+        </p>
+
+
+        <p class="flex-row" style="width:100%;">
+            <span class="alert-btn" onclick="showAlert(false,'overlayout')" style="color: #ccc;border:none">取消</span>
+            <span class="alert-btn" onclick="saveProfile()">保存</span>
+        </p>
+    </div>
+</div>
+
+<!--编辑荣誉-->
+<div id="edit-honor-container" class="weui-popup__container">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal flex-column" style="background-color: #fff;justify-content: flex-start;s">
+        <ul style="width:calc(100% - .2rem)">
+            <li class="flex-row honor-item">
+                <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
+                    <use xlink:href="#honor-c"></use>
+                </svg>
+                <span>2018.1.1</span>
+                <span class="honor-name">三好学生</span>
+                <span class="delete-honor">删除</span>
+            </li>
+            <li class="flex-row honor-item">
+                <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
+                    <use xlink:href="#honor-c"></use>
+                </svg>
+                <span>2018.2.2</span>
+                <span class="honor-name">学习积极分子</span>
+            </li>
+            <li class="flex-row honor-item">
+                <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
+                    <use xlink:href="#honor-c"></use>
+                </svg>
+                <span>2018.3.3</span>
+                <span style="margin-left: .05rem;color:#222;font-size: .14rem;">优秀少先队员</span>
+            </li>
+            <li class="flex-row honor-item">
+                <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
+                    <use xlink:href="#honor-c"></use>
+                </svg>
+                <span>2018.1.1</span>
+                <span style="margin-left: .05rem;color:#222;font-size: .14rem;">三好学生</span>
+            </li>
+            <li class="flex-row add-honor-btn" style="height:.5rem;line-height:.5rem;">
+                + 添加荣誉
+            </li>
+            <li class="flex-column add-honor-content" style="">
+                <div class="flex-row" style="margin-left:.1rem;height:.4rem;width: calc(100% - .2rem);justify-content: flex-start">
+                    <span>时间:</span>
+                    <input class="time-input" type="month" max="2018-09" style="margin-left:.1rem;">
+                </div>
+                <div class="flex-row" style="margin-left:.1rem;height:.4rem;width: calc(100% - .2rem);justify-content: flex-start">
+                    <span>名称:</span>
+                    <input maxlength="25" class="name-input" type="text" style="margin-left:.1rem;" placeholder="输入荣誉名称">
+                </div>
+                <div class="save-honor">
+                    保存
+                </div>
+            </li>
+
+            <li class="flex-row" style="position: fixed;bottom: 0;width: calc(100% - .2rem);height: .5rem;
+            justify-content: space-between;background-color: #fff;left: 0;padding: .1rem;">
+                <span class="btn btn-back" >返回</span>
+                <span class="btn btn-ok" style="background-color: #00a0e9;color:#eee">完成</span>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+
+<header class="flex-column" style="width:100%;height:2.8rem;margin-top:-30px;">
     <div class="flex-column vip-content" alt="">
         <div class="flex-column" style="align-items: flex-end;top:20px;right:20px;position:absolute;z-index:2">
             <img class="vip-img-icon update_head_url" src="{$newUserData.avatar_url}"/>
@@ -254,7 +505,7 @@
     <img src="http://files.yunxinsky.com/vip-bg.png" class="vip-bg">
 </header>
 <div class="item-container">
-    <ul style="width:100%; background-color: #fff">
+    <ul style="width:100%; background-color: #fff;">
         <!--<li class="item-content flex-column" style="align-items: flex-start;justify-content: center;opacity: 1">-->
         <!--<div class="flex-row">-->
         <!--<svg class="item-icon" style="fill:#1b6bf4">-->
@@ -303,10 +554,10 @@
 
 
 
-        <li style="width:100%;height:10px;background-color: #f5f5f5"></li>
+        <li class="split"></li>
 
         <li class="space-between item-content flex-row" id="update_head_url" style="height:.6rem">
-            <span class="item-text">头像</span>
+            <span class="item-text">我的头像</span>
             <div class="flex-row">
                 <image class="my-icon update_head_url"  src="{$newUserData.avatar_url}"/>
                 <svg class="item-more">
@@ -315,8 +566,20 @@
             </div>
         </li>
 
+        <li class="space-between item-content flex-row" id="wechat-code" style="height:.6rem">
+            <span class="item-text">我的微信二维码</span>
+            <div class="flex-row">
+                <image class="qr-code wechat-code"  src="{$newUserData.wechat_qrcode|default='http://statics.yunxinsky.com/qrcode_hkds.jpg'}"/>
+                <svg class="item-more">
+                    <use xlink:href="#arrow-right"/>
+                </svg>
+            </div>
+        </li>
+
+        <li class="split"></li>
+
         <li class="space-between item-content flex-row" id="name">
-            <span class="item-text" >姓名</span>
+            <span class="item-text" >昵称</span>
             <div class="flex-row">
                 <span class="item-val">{$newUserData.nickname}</span>
                 <!--<svg class="item-more">-->
@@ -351,6 +614,15 @@
                 </svg>
             </div>
         </li>
+        <li class="space-between item-content flex-row" id="work-year">
+            <span class="item-text" >工作年限(年)</span>
+            <div class="flex-row">
+                <span class="item-val">{$newUserData.work_year|default="1"}</span>
+                <svg class="item-more">
+                    <use xlink:href="#arrow-right"/>
+                </svg>
+            </div>
+        </li>
         <li class="space-between item-content flex-row" id="people-num">
             <span class="item-text" >已服务客户(位)</span>
             <div class="flex-row">
@@ -360,13 +632,59 @@
                 </svg>
             </div>
         </li>
-        <li class="space-between item-content flex-row" id="wechat-code" style="height:.6rem">
-            <span class="item-text">微信二维码</span>
-            <div class="flex-row">
-                <image class="qr-code wechat-code"  src="{$newUserData.wechat_qrcode|default='http://statics.yunxinsky.com/qrcode_hkds.jpg'}"/>
-                <svg class="item-more">
-                    <use xlink:href="#arrow-right"/>
-                </svg>
+
+        <li class="item-content" style="flex-direction: column;height:auto" id="profile">
+            <div class="flex-column" style="width:100%;">
+                <div class="space-between flex-row"  style="border-bottom:none;width:100%;height:.4rem">
+                    <span class="item-text" >我的简介</span>
+                    <div class="flex-row">
+                        <span style="color:#aaa">编辑</span>
+                        <svg class="item-more">
+                        <use xlink:href="#arrow-right"/>
+                        </svg>
+                    </div>
+                </div>
+                <div max-length="300" contenteditable="false" class="profile-content item-val"><empty name="newUserData.personal_introduce">写下你的简介，让客户更了解你<else/>{$newUserData.personal_introduce}</empty></div>
+            </div>
+
+            <!--字段名 personal_introduce-->
+            <!--<textarea max-length="300" contenteditable="false" class="profile-content" style="height:auto;min-height:100px;" placeholder="写下你的简介，让客户更了解你"><empty name="newUserData.personal_introduce"><else/>{$newUserData.personal_introduce}</empty></textarea>-->
+        </li>
+        <li class="space-between item-content flex-row" id="honor" style="height:auto">
+            <div class="flex-column" style="width:100%;">
+                <div class="space-between flex-row"  style="border-bottom:none;width:100%;height:.4rem">
+                    <span class="item-text" >我的荣誉</span>
+                    <div class="flex-row">
+                        <span class="item-val">编辑</span>
+                        <svg class="item-more">
+                            <use xlink:href="#arrow-right"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="honor-content flex-column">
+                    <!--添加你的荣誉，让客户更信赖你-->
+                    <div class="flex-row honor-item">
+                        <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
+                            <use xlink:href="#honor-c"></use>
+                        </svg>
+                        <span>2018.1.1</span>
+                        <span style="margin-left: .05rem;color:#222;font-size: .14rem;">三好学生</span>
+                    </div>
+                    <div class="flex-row honor-item">
+                        <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
+                            <use xlink:href="#honor-c"></use>
+                        </svg>
+                        <span>2018.2.2</span>
+                        <span style="margin-left: .05rem;color:#222;font-size: .14rem;">学习积极分子</span>
+                    </div>
+                    <div class="flex-row honor-item">
+                        <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
+                            <use xlink:href="#honor-c"></use>
+                        </svg>
+                        <span>2018.3.3</span>
+                        <span style="margin-left: .05rem;color:#222;font-size: .14rem;">优秀少先队员</span>
+                    </div>
+                </div>
             </div>
         </li>
         <!--<li class="space-between item-content flex-row" style="opacity: 1">-->
@@ -390,13 +708,89 @@
 <script>
     window.onload = function () {
         initVipImg();
-        initBtn()
+        initBtn();
+        initStorage();
     };
+
+    function initPicker() {
+        var currentYear = new Date().getFullYear();
+        $("#inline").picker({
+            container: '#picker-container',
+            cols: [
+                {
+                    textAlign: 'center',
+                    values: ['iPhone 4', 'iPhone 4S', 'iPhone 5', 'iPhone 5S', 'iPhone 6', 'iPhone 6 Plus', 'iPad 2', 'iPad Retina', 'iPad Air', 'iPad mini', 'iPad mini 2', 'iPad mini 3']
+                }
+            ],
+            onChange: function(p, v, dv) {
+                //console.log(p, v, dv);
+            },
+            onClose: function(p, v, d) {
+                //console.log("close");
+            }
+        });
+
+    }
+
+    function initStorage() {
+        var isEditProfileData = sessionStorage.getItem('isEditProfile');
+        if(isEditProfileData) {
+            isEditProfileData = JSON.parse(isEditProfileData);
+            if(isEditProfileData.isEditProfile){
+                $("body").scrollTop($("body")[0].scrollHeight);
+                setTimeout(function(){
+                    editProfile();
+                },300);
+                isEditProfileData.isEditProfile = false;
+                sessionStorage.setItem('isEditProfile',JSON.stringify(isEditProfileData));
+
+            }
+
+        }
+
+    }
+
+    // 文章标题字数限制
+    function limitTextarea(self,nowleng) {
+        $(self).on('input propertychange', function(event) {
+            var _val = $(self).val();
+            _val = _val < 300 ? _val : _val.substr(0,300);
+            $(self).val(_val);
+            $(nowleng).text(_val.length+"/300")
+        });
+        $(self).blur(function(){
+            $(self).off('input propertychange');
+        });
+    }
+
+    function showAlert(isShow,className) {
+        if(isShow){
+            $("." + className).css('display','flex')
+            fixedBody();
+        }else{
+            $("." + className).css('display','none')
+            looseBody();
+        }
+    }
+
+    function editProfile() {
+        showAlert(true,'overlayout');
+        var val = $(".profile-content").text();
+        $(".profile-content-alert").val(val);
+    }
+
+    function saveProfile() {
+        showAlert(false,'overlayout');
+        var val = $(".profile-content-alert").val();
+        // if( val.trim()=== "") {
+        //     return $.toast('请输入简介','forbidden');
+        // }
+        setData({personal_introduce:val},val,'profile')
+    }
+
+
     function initVipImg() {
         var vip_rank = "{$vip_rank}";
-        // todo
-//        vip_rank = 1;
-        //alert(vip_rank)
         var _setImg = function(rank) {
             $('#rank-img').attr('src',`http://files.yunxinsky.com/vip-${rank}.png`)
         };
@@ -423,7 +817,41 @@
 
     }
     function initBtn() {
-        $(".item-container ul").on('click',"li",function(){
+
+        $('#edit-honor-container').on('click','.btn, .add-honor-btn, .delete-honor, .save-honor',function(){
+            var $btn = $(this);
+            var btnText = $btn.attr('class');
+            if(btnText.match('back')) { // 返回
+                looseBody();
+                $.closePopup();
+            }else if(btnText.match('ok')) { // 完成
+                looseBody();
+                $.closePopup();
+            }else if(btnText.match('delete')) {  // 删除
+                $btn.parent().remove();
+            }else if(btnText.match('add-honor-btn')) {  // 添加按钮
+
+                var y = new Date().getFullYear();
+                var m = new Date().getMonth() + 1;
+                m = "0" + m;
+                m = m.slice(-2);
+                var max = y + "-" + m;
+                var min = y - 20 + "-" + m;
+
+
+                $(".time-input").val(max).attr('max',max).attr('min',min);
+
+
+                $('.add-honor-btn').css('display','none');
+                $(".add-honor-content").css('display','flex')
+            }else if(btnText.match("save-honor")){ // 保存
+                console.log($(".time-input").val())
+                $('.add-honor-btn').css('display','flex');
+                $(".add-honor-content").css('display','none')
+            }
+        })
+
+        $(".item-container ul").on('click',".item-content",function(){
 
             var id = $(this).attr("id");
             if(id === "name111111"){
@@ -442,7 +870,16 @@
                 alertInput("职位","请输入职位名称",function(input){
                     setData({title:input}, input ,id);
                 })
-                $("#weui-prompt-input").attr("maxlength","10");
+                $("#weui-prompt-input").attr("maxlength","20");
+
+            }else if(id === "work-year"){
+                alertInput("工作年限","请输入工作年限",function(input){
+                    if(input < 0 || String(input).indexOf(".") >= 0  ){
+                        return $.toast("需大于0的整数", "cancel");
+                    }
+                    setData({work_year:input}, input ,id);
+                })
+                $("#weui-prompt-input").attr({"type":"number","maxlength":"5"});
 
             }else if(id === "people-num"){
                 alertInput("已服务客户","请输入人数",function(input){
@@ -461,6 +898,12 @@
                     setData({phone_number:input}, input ,id);
                 });
                 $("#weui-prompt-input").attr({"type":"number","maxlength":"11"});
+            }else if(id === "profile") {
+                editProfile();
+            }else if(id === 'honor'){
+                fixedBody();
+                $("#edit-honor-container").popup();
+
             }
         });
 
@@ -480,24 +923,26 @@
             });
         }
 
-        var setData = function(dataObj, dataStr, id) {
-            var post_url = "{:U('Index/User/updateHkdsUserDetail')}";
-            var post_data = dataObj;
-            post_data.uid = "{$newUserData.uid}";
-            $.post(post_url,post_data,function(res){
-                if(res.status === 0) {
-                    // 失败
-                    $.toast("上传失败,稍后重试", "forbidden");
-                }else if(res.status === 1) {
-                    //成功
-                    $.toast("修改成功！");
-                    $("#"+id).find(".item-val").text(dataStr)
-                }
-                console.log(res);
-
-            });
-        }
     }
+
+    function setData (dataObj, dataStr, id) {
+        var post_url = "{:U('Index/User/updateHkdsUserDetail')}";
+        var post_data = dataObj;
+        post_data.uid = "{$newUserData.uid}";
+        $.post(post_url,post_data,function(res){
+            if(res.status === 0) {
+                // 失败
+                $.toast("上传失败,稍后重试", "forbidden");
+            }else if(res.status === 1) {
+                //成功
+                $.toast("修改成功！");
+                $("#"+id).find(".item-val").text(dataStr)
+            }
+            console.log(res);
+
+        });
+    }
+
     function clickIOSBtn(val,_this) {
         $(_this).css('display','none').siblings(".item-ios-btn").css("display",'block');
         if(val === 0) {
@@ -505,6 +950,19 @@
         }else if(val === 1) {
             //关
         }
+    }
+
+    function fixedBody(){
+        var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        document.body.style.cssText += 'position:fixed;top:-'+scrollTop+'px;';
+    }
+
+    function looseBody() {
+        var body = document.body;
+        body.style.position = '';
+        var top = body.style.top;
+        document.body.scrollTop = document.documentElement.scrollTop = -parseInt(top);
+        body.style.top = '';
     }
 
 
