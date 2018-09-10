@@ -242,6 +242,7 @@
             color:#222;
             font-size: .14rem;
             width:1.6rem;
+            word-wrap: break-word;
         }
         .delete-honor{
             width:.6rem;
@@ -263,6 +264,7 @@
             text-align: center;
             color:#ccc;
             margin-top:.1rem;
+            box-sizing: border-box;
         }
         .add-honor-content{
             align-items: flex-start;
@@ -289,7 +291,7 @@
         .name-input{
             border-bottom:1px solid #e9e9e9;
             height:.3rem;
-            width:calc(100% - .65rem);
+            width:calc(100% - .55rem);
             font-size:.16rem;
         }
         .overlayout{
@@ -316,16 +318,15 @@
         #edit-honor-container{
             width:100%;
             height:100%;
-            background-color: #fff;
             top:0;
             left:0;
             z-index: 998;
             display: none;
         }
         #edit-honor-container .btn{
-            width:40%;
+            width:75%;
             height:.4rem;
-            border-radius: .1rem;
+            border-radius: .05rem;
             text-align: center;
             background-color: #ccc;
             line-height:.4rem;
@@ -387,85 +388,6 @@
     </svg>
 
 </svg>
-
-<!--编辑我的简介-->
-<div class="flex-column overlayout">
-    <div class="flex-column alert-content">
-        <p style="width:100%;height:.3rem;
-        text-align: center;line-height: .3rem;color:#222;font-weight: bold">编辑简介</p>
-        <p class="flex-column" style="align-items: flex-end;width:100%;border:1px solid #e9e9e9;border-radius:.05rem;margin-top:.1rem;">
-            <textarea placeholder="写下你的简介，让客户更了解你" class="profile-content-alert" onfocus="limitTextarea(this,'.input-limit')"></textarea>
-            <span class="input-limit">0/300</span>
-        </p>
-
-
-        <p class="flex-row" style="width:100%;">
-            <span class="alert-btn" onclick="showAlert(false,'overlayout')" style="color: #ccc;border:none">取消</span>
-            <span class="alert-btn" onclick="saveProfile()">保存</span>
-        </p>
-    </div>
-</div>
-
-<!--编辑荣誉-->
-<div id="edit-honor-container" class="weui-popup__container">
-    <div class="weui-popup__overlay"></div>
-    <div class="weui-popup__modal flex-column" style="background-color: #fff;justify-content: flex-start;s">
-        <ul style="width:calc(100% - .2rem)">
-            <li class="flex-row honor-item">
-                <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
-                    <use xlink:href="#honor-c"></use>
-                </svg>
-                <span>2018.1.1</span>
-                <span class="honor-name">三好学生</span>
-                <span class="delete-honor">删除</span>
-            </li>
-            <li class="flex-row honor-item">
-                <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
-                    <use xlink:href="#honor-c"></use>
-                </svg>
-                <span>2018.2.2</span>
-                <span class="honor-name">学习积极分子</span>
-            </li>
-            <li class="flex-row honor-item">
-                <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
-                    <use xlink:href="#honor-c"></use>
-                </svg>
-                <span>2018.3.3</span>
-                <span style="margin-left: .05rem;color:#222;font-size: .14rem;">优秀少先队员</span>
-            </li>
-            <li class="flex-row honor-item">
-                <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
-                    <use xlink:href="#honor-c"></use>
-                </svg>
-                <span>2018.1.1</span>
-                <span style="margin-left: .05rem;color:#222;font-size: .14rem;">三好学生</span>
-            </li>
-            <li class="flex-row add-honor-btn" style="height:.5rem;line-height:.5rem;">
-                + 添加荣誉
-            </li>
-            <li class="flex-column add-honor-content" style="">
-                <div class="flex-row" style="margin-left:.1rem;height:.4rem;width: calc(100% - .2rem);justify-content: flex-start">
-                    <span>时间:</span>
-                    <input class="time-input" type="month" max="2018-09" style="margin-left:.1rem;">
-                </div>
-                <div class="flex-row" style="margin-left:.1rem;height:.4rem;width: calc(100% - .2rem);justify-content: flex-start">
-                    <span>名称:</span>
-                    <input maxlength="25" class="name-input" type="text" style="margin-left:.1rem;" placeholder="输入荣誉名称">
-                </div>
-                <div class="save-honor">
-                    保存
-                </div>
-            </li>
-
-            <li class="flex-row" style="position: fixed;bottom: 0;width: calc(100% - .2rem);height: .5rem;
-            justify-content: space-between;background-color: #fff;left: 0;padding: .1rem;">
-                <span class="btn btn-back" >返回</span>
-                <span class="btn btn-ok" style="background-color: #00a0e9;color:#eee">完成</span>
-            </li>
-        </ul>
-
-    </div>
-</div>
 
 
 <header class="flex-column" style="width:100%;height:2.8rem;margin-top:-30px;">
@@ -640,7 +562,7 @@
                     <div class="flex-row">
                         <span style="color:#aaa">编辑</span>
                         <svg class="item-more">
-                        <use xlink:href="#arrow-right"/>
+                            <use xlink:href="#arrow-right"/>
                         </svg>
                     </div>
                 </div>
@@ -663,27 +585,18 @@
                 </div>
                 <div class="honor-content flex-column">
                     <!--添加你的荣誉，让客户更信赖你-->
-                    <div class="flex-row honor-item">
-                        <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
-                            <use xlink:href="#honor-c"></use>
-                        </svg>
-                        <span>2018.1.1</span>
-                        <span style="margin-left: .05rem;color:#222;font-size: .14rem;">三好学生</span>
-                    </div>
-                    <div class="flex-row honor-item">
-                        <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
-                            <use xlink:href="#honor-c"></use>
-                        </svg>
-                        <span>2018.2.2</span>
-                        <span style="margin-left: .05rem;color:#222;font-size: .14rem;">学习积极分子</span>
-                    </div>
-                    <div class="flex-row honor-item">
-                        <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
-                            <use xlink:href="#honor-c"></use>
-                        </svg>
-                        <span>2018.3.3</span>
-                        <span style="margin-left: .05rem;color:#222;font-size: .14rem;">优秀少先队员</span>
-                    </div>
+                    <empty name="honor_object">
+                        <span style="color:#bbb">添加你的荣誉，让客户更信赖你</span>
+                    </empty>
+                    <volist name="honor_object" id="ho">
+                        <div class="flex-row honor-item" data-date_time="{$ho.date_time}">
+                            <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
+                                <use xlink:href="#honor-c"></use>
+                            </svg>
+                            <span class="honor-date">{$ho.date_des}</span>
+                            <span class="honor-name">{$ho.honor_des}</span>
+                        </div>
+                    </volist>
                 </div>
             </div>
         </li>
@@ -702,33 +615,164 @@
 </div>
 
 
+
+
+
+
+
+
+
+
+
+<!--编辑我的简介-->
+<div class="flex-column overlayout">
+    <div class="flex-column alert-content">
+        <p style="width:100%;height:.3rem;
+        text-align: center;line-height: .3rem;color:#222;font-weight: bold">编辑简介</p>
+        <p class="flex-column" style="align-items: flex-end;width:100%;border:1px solid #e9e9e9;border-radius:.05rem;margin-top:.1rem;">
+            <textarea placeholder="写下你的简介，让客户更了解你" class="profile-content-alert" onfocus="limitTextarea(this,'.input-limit')"></textarea>
+            <span class="input-limit">0/300</span>
+        </p>
+
+
+        <p class="flex-row" style="width:100%;">
+            <span class="alert-btn" onclick="showAlert(false,'overlayout')" style="color: #ccc;border:none">取消</span>
+            <span class="alert-btn" onclick="saveProfile()">保存</span>
+        </p>
+    </div>
+</div>
+
+<!--编辑荣誉-->
+<div id="edit-honor-container" class="weui-popup__container">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal flex-column" style="background-color: #fff;justify-content: flex-start;">
+        <div style="height: calc(100% - .7rem);width:100%;overflow: scroll">
+            <ul style="width:calc(100% - .2rem);margin:0 auto">
+                <li class="flex-row add-honor-btn" style="height:.5rem;line-height:.5rem;">
+                    + 添加荣誉
+                </li>
+                <li class="flex-column add-honor-content" style="">
+                    <div class="flex-row" style="margin-left:.1rem;height:.4rem;width: calc(100% - .2rem);justify-content: flex-start">
+                        <span>时间:</span>
+                        <input class="time-input" type="month" max="2018-09" style="margin-left:.1rem;">
+                    </div>
+                    <div class="flex-row" style="margin-left:.1rem;height:.4rem;width: calc(100% - .2rem);justify-content: flex-start">
+                        <span>名称:</span>
+                        <input maxlength="25" class="name-input" type="text" style="margin-left:.1rem;" placeholder="输入荣誉名称">
+                    </div>
+                    <div class="save-honor">
+                        保存
+                    </div>
+                </li>
+                <!--<li class="flex-row honor-item">-->
+                <!--<svg style="width:.2rem;height:.2rem;margin-right:.1rem">-->
+                <!--<use xlink:href="#honor-c"></use>-->
+                <!--</svg>-->
+                <!--<span class="honor-date">2018.1.1</span>-->
+                <!--<span class="honor-name">三好学生</span>-->
+                <!--<span class="delete-honor">删除</span>-->
+                <!--</li>-->
+
+            </ul>
+        </div>
+
+        <div class="flex-row" style="width: calc(100% - .2rem);height: .5rem;
+            justify-content: space-between;background-color: #fff;left: 0;padding: .1rem;">
+            <span class="btn btn-back" style="width:22%">取消</span>
+            <span class="btn btn-ok" style="background-color: #00a0e9;color:#eee">完成</span>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 <script src="http://statics.yunxinsky.com/jquery-3.0.0.min.js"></script>
 <script src="http://statics.yunxinsky.com/jquery-weui.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
+    var honorList = [];
     window.onload = function () {
+
+        Date.prototype.format = function(format) {
+            var date = {
+                "M+": this.getMonth() + 1,
+                "d+": this.getDate(),
+                "h+": this.getHours(),
+                "m+": this.getMinutes(),
+                "s+": this.getSeconds(),
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                "S+": this.getMilliseconds()
+            };
+            if (/(y+)/i.test(format)) {
+                format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+            }
+            for (var k in date) {
+                if (new RegExp("(" + k + ")").test(format)) {
+                    format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                        ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+                }
+            }
+            return format;
+        }
+        getHonorList();
         initVipImg();
         initBtn();
         initStorage();
     };
 
-    function initPicker() {
-        var currentYear = new Date().getFullYear();
-        $("#inline").picker({
-            container: '#picker-container',
-            cols: [
-                {
-                    textAlign: 'center',
-                    values: ['iPhone 4', 'iPhone 4S', 'iPhone 5', 'iPhone 5S', 'iPhone 6', 'iPhone 6 Plus', 'iPad 2', 'iPad Retina', 'iPad Air', 'iPad mini', 'iPad mini 2', 'iPad mini 3']
-                }
-            ],
-            onChange: function(p, v, dv) {
-                //console.log(p, v, dv);
-            },
-            onClose: function(p, v, d) {
-                //console.log("close");
+    function getHonorList() {
+        var $item = $(".honor-content .honor-item");
+        if(!$item || $item.length == 0){
+            return;
+        }
+        for(var i = 0; i < $item.length; i++){
+            var obj = {};
+            obj.date_des = $item.eq(i).find(".honor-date").text();
+            obj.honor_des = $item.eq(i).find(".honor-name").text();
+            obj.date_time = $item.data().date_time;
+            honorList.push(obj);
+        }
+        console.log(honorList);
+    }
+
+    function setHonorList(list) {
+        var ele = '';
+        if(list.length > 0) {
+            for(var i = 0; i < list.length; i++) {
+                ele += (
+                    `
+                <li class="flex-row honor-item" data-date_time="${list[i].date_time}">
+                    <svg style="width:.2rem;height:.2rem;margin-right:.1rem">
+                        <use xlink:href="#honor-c"></use>
+                    </svg>
+                    <span class="honor-date">${list[i].date_des}</span>
+                    <span class="honor-name">${list[i].honor_des}</span>
+                    <span class="delete-honor">删除</span>
+                </li>
+                `
+                )
             }
-        });
+            // 刷新弹框内列表
+            $(".add-honor-content").nextAll().remove();
+            $(".add-honor-content").after(ele);
+
+            // 刷新列表
+            $(".honor-content").html(ele);
+            $(".honor-content .delete-honor").css('display','none');
+            $(".honor-content .honor-name").css('width',"calc(100% - .9rem)");
+        } else {
+            $(".add-honor-content").nextAll().remove();
+            $(".honor-content").html('<span style="color:#bbb">添加你的荣誉，让客户更信赖你</span>');
+        }
+
 
     }
 
@@ -816,6 +860,31 @@
 
 
     }
+
+
+    function setHonorData(name,date) {
+        var post_url = "{:U('Index/User/setUserHonor')}";
+        var honor_object = {
+            honor_des:name,
+            date_des:date,
+            date_time:new Date().getTime()
+        };
+        honorList.push(honor_object);
+        var post_data = {};
+        post_data.uid = "{$newUserData.uid}";
+        post_data.honor_object = honorList;
+        $.post(post_url,post_data,function(res){
+            // console.log(res);
+            if(res.status == 1) {
+                setHonorList(honorList);
+                alert("添加成功")
+            }else{
+                alert("添加失败,请稍后重试!");
+            }
+        })
+
+    }
+
     function initBtn() {
 
         $('#edit-honor-container').on('click','.btn, .add-honor-btn, .delete-honor, .save-honor',function(){
@@ -828,6 +897,14 @@
                 looseBody();
                 $.closePopup();
             }else if(btnText.match('delete')) {  // 删除
+                // todo;
+                var time = $btn.parent().data().date_time;
+                for(var i = 0; i < honorList.length; i++) {
+                    if(honorList[i].date_time == time) {
+                        honorList.slice(i,1);
+                        break;
+                    }
+                }
                 $btn.parent().remove();
             }else if(btnText.match('add-honor-btn')) {  // 添加按钮
 
@@ -838,18 +915,20 @@
                 var max = y + "-" + m;
                 var min = y - 20 + "-" + m;
 
-
-                $(".time-input").val(max).attr('max',max).attr('min',min);
-
+                $(".time-input").val(max).attr({'Max':max,'Min':min});
 
                 $('.add-honor-btn').css('display','none');
                 $(".add-honor-content").css('display','flex')
             }else if(btnText.match("save-honor")){ // 保存
-                console.log($(".time-input").val())
-                $('.add-honor-btn').css('display','flex');
-                $(".add-honor-content").css('display','none')
+                var name = $('.name-input').val().trim();
+                var date = $(".time-input").val();
+                if(name == "") {
+                    alert("请输入荣誉名称");
+                    return;
+                }
+                setHonorData(name, date);
             }
-        })
+        });
 
         $(".item-container ul").on('click',".item-content",function(){
 
@@ -898,12 +977,12 @@
                     setData({phone_number:input}, input ,id);
                 });
                 $("#weui-prompt-input").attr({"type":"number","maxlength":"11"});
-            }else if(id === "profile") {
+            }else if(id === "profile") { // 修改简介
                 editProfile();
             }else if(id === 'honor'){
+                setHonorList(honorList);
                 fixedBody();
                 $("#edit-honor-container").popup();
-
             }
         });
 
@@ -942,6 +1021,7 @@
 
         });
     }
+
 
     function clickIOSBtn(val,_this) {
         $(_this).css('display','none').siblings(".item-ios-btn").css("display",'block');
