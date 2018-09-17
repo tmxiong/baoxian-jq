@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.setAttribute('style', 'font-size:' + document.documentElement.clientWidth / 375 * 100 + 'px !important');
+    </script>
+    <title>我的奖励</title>
+    <link rel="stylesheet" href="public/css/weui.min.css">
+    <link rel="stylesheet" href="public/css/jquery-weui.min.css">
+    <style>
+        body, html {
+            -webkit-tap-highlight-color: transparent;
+            width:100%;
+            background-color: #f3f3f3;
+        }
+        .flex-row{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: row;
+        }
+        .flex-column{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: column;
+        }
+        textarea{
+            outline:none;
+            resize:none;
+            border:none;
+        }
+        textarea::placeholder, textarea::-webkit-input-placeholder{
+            color:#ccc;
+            font-size:.15rem;
+        }
+
+        .notice-container{
+            width:100%;
+            height:.3rem;
+            background-color: #1f80bf;
+            overflow: hidden;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position:fixed;
+            z-index: 3;
+            opacity: .9;
+        }
+        .notice-content{
+            justify-content: flex-start;
+            width:100%;
+            height:.3rem;
+            line-height: .3rem;
+        }
+        .notice-icon{
+            width:.25rem;
+            height:.25rem;
+            fill:#eee;
+            align-self: center;
+            margin-left: .05rem;
+            margin-right:.05rem;
+        }
+        .notice-text{
+            color:#fff;
+            font-size:.14rem;
+        }
+
+
+        .container{
+            width:100%;
+            background-color: #f3f3f3;
+            margin:0 auto;
+            justify-content: flex-start;
+        }
+        .header{
+            background-color: #49a9e9;
+            width:100%;
+            height:2rem;
+            color:#eee;
+            position:relative;
+        }
+        .tixian-btn{
+            width:1.0rem;
+            height:.3rem;
+            background-color: #fff;
+            border-radius: .15rem;
+            box-shadow: 0 2px 10px #656565;
+            line-height: .3rem;
+            text-align: center;
+            color:#00a0e9;
+            display: block;
+            font-size:.14rem;
+        }
+        .tixianjilu{
+            position:absolute;
+            right:.2rem;
+            font-size: .14rem;
+            bottom: 0;
+            opacity: .8;
+        }
+        .body{
+
+            width:100%;
+
+        }
+        .c-line{
+            width:1px;
+            height:.3rem;
+            background-color:#eaeaea;
+            display: block;
+        }
+
+        .item-container{
+            width:100%;
+            height:.4rem;
+            background-color: #fff;
+            border-bottom:1px solid #e9e9e9;
+            color:#555;
+            position:relative;
+            justify-content: flex-start;
+
+        }
+        .item-right{
+            position:absolute;
+            right:.1rem;
+            color:#aaa;
+            font-size: .14rem;
+        }
+        .arrow{
+            width: .22rem;
+            height: .15rem;
+            fill: #aaa;
+        }
+        .footer{
+            margin-top: .2rem;
+            background-color: #fff;
+            padding:.1rem;
+            width:calc(100% - .2rem)
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+        <svg  id="notice" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>喇叭</title>
+            <path d="M571.9 875.5c-13 0-26.1-3.5-37.9-10.6l-199.6-119c-0.9-0.6-1.9-1.2-2.7-1.8-8-4.1-16.4-6.2-25-6.2H167.9c-56 0-101.6-50.6-101.6-112.7V400.3c0-62.2 45.6-112.7 101.6-112.7h138.8c9.7 0 19.5-2.8 28.3-8.1l199.6-119c23.1-13.8 50.9-14.1 74.3-0.9 26.2 14.9 42.4 44.2 42.4 76.5l-0.3 130.6-0.3 422.6c0 32.3-16.3 61.6-42.4 76.5-11.5 6.5-23.9 9.7-36.4 9.7zM841.4 747.6c-9 0-18-3.4-24.9-10.3-13.7-13.7-13.7-36 0-49.7 46.7-46.7 72.4-108.8 72.4-174.9s-25.7-128.2-72.4-174.9c-13.7-13.7-13.7-36 0-49.7 13.7-13.7 36-13.7 49.7 0 60 60 93 139.7 93 224.6s-33 164.6-93 224.6c-6.8 6.9-15.8 10.3-24.8 10.3z" p-id="7246"></path><path d="M722.9 666.4c-9 0-18-3.4-24.9-10.3-13.7-13.7-13.7-36 0-49.7 51.7-51.7 51.7-135.8 0-187.5-13.7-13.7-13.7-36 0-49.7 13.7-13.7 36-13.7 49.7 0 79.1 79.1 79.1 207.8 0 286.9-6.8 6.9-15.8 10.3-24.8 10.3z" p-id="7247"></path>
+        </svg>
+        <svg  id="arrow" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>arrow</title>
+            <path d="M624.576 0 544.128 80.512 976.192 512.032 544.128 943.488 624.576 1024 1136.096 512.032Z" p-id="1825"></path>
+        </svg>
+
+    </svg>
+
+    <script src="public/js/jquery-2.1.4.js"></script>
+    <script src="public/js/jquery-weui.min.js"></script>
+    <script src="public/js/clipboard.min.js"></script>
+    <!--<script src="public/js/fastclick.js"></script>-->
+    <script>
+        $(function() {
+            //FastClick.attach(document.body);
+        });
+    </script>
+    <script>
+        var surname = ['熊','季','王','李','张','刘','陈','杨','周','黄','赵','吴','孙','徐','林','胡','朱','郭','梁','马','高','何','郑','罗','宋','谢','叶','韩','任','潘']; //30
+        var name = "***";
+        var phoneStart = new Array("150", "131", "158", "133", "159", "137", "138", "170", "187","188", "189");
+        var vipType = ['99元','79元','49元','99元'];
+        var count = 1; // 滚动次数
+
+        window.onload = function () {
+            initNoticeAnim();
+        };
+
+        function getRandom(start,end){
+            return Math.floor(Math.random()*end + start);
+        }
+
+        function getName() {
+            var xing = surname[getRandom(0,30)];
+            var ming = name.substring(0,getRandom(1,2));
+            return xing+ming;
+        }
+
+        function getPhoneNum() {
+            var start = phoneStart[getRandom(0,10)];
+            var end = getRandom(1000,8999);
+            return start + "****" + end;
+        }
+
+        function getVipType() {
+            return vipType[getRandom(0,4)];
+        }
+
+        function getMinute() {
+            var n = getRandom(count, count+5);
+            if(n > 59) {
+                return parseInt(n/60)+"小时前"
+            }
+            return n+"分钟前";
+        }
+
+        function getNoticeTemp() {
+            return '<li class="notice-content flex-row notice-text">' + "恭喜" + getPhoneNum() + "代理人获得" + getVipType() + "奖励金！" + "&nbsp&nbsp<span style='color:#f00'>" + getMinute() + "</span>" + '</li>';
+        }
+
+        function initNoticeAnim() {
+
+            var $animUL = $("#anim-ul");
+
+            $animUL.append(getNoticeTemp());
+            $animUL.append(getNoticeTemp());
+
+            var $item = $(".notice-content");
+            var itemHeight = $item.height();
+            startNoticeAnim($animUL, itemHeight)
+        }
+
+        function startNoticeAnim($animUL, itemHeight) {
+            var constItemHeight = itemHeight;
+            var _anim = function ($animUL, itemHeight) {
+                count++;
+                $animUL.stop().animate({marginTop: -itemHeight},1000,function () {
+                    setTimeout(function () {
+                        itemHeight += constItemHeight;
+                        var currentText = $(".notice-content").eq(1).html();
+                        //console.log(currentText)
+                        var currentItem = itemTemp(currentText);
+                        var newItems = _getNewItems(currentItem);
+                        //console.log(newItems)
+                        $animUL.html(newItems);
+                        $animUL.css("margin-top",0)
+                        itemHeight = constItemHeight;
+                        _anim($animUL, itemHeight);
+                    },3000)
+
+                })
+            };
+            var itemTemp = function (text) {
+                return '<li class="notice-content flex-row notice-text">'+ text +'</li>'
+            }
+            var _getNewItems = function(oldList) {
+
+                return oldList + getNoticeTemp();
+            };
+            _anim($animUL, itemHeight);
+
+        }
+
+
+
+    </script>
+
+    <section class="notice-container flex-row">
+        <svg class="notice-icon">
+            <!--<use xlink:href="./public/images/buyVip.svg#notice"/>-->
+            <use xlink:href="#notice"/>
+        </svg>
+        <ul id="anim-ul" style="height:.3rem">
+            <!--<li class="notice-content flex-row notice-text">-->
+            <!--恭喜孙**在18:08开通获客大师钻石VIP!-->
+            <!--</li>-->
+            <!--<li class="notice-content flex-row notice-text">-->
+            <!--恭喜熊**在18:08开通获客大师钻石VIP!-->
+            <!--</li>-->
+        </ul>
+
+    </section>
+
+    <div class="flex-column container">
+
+
+        <section class="header">
+            <div class="flex-column">
+                <span style="font-size: .14rem;margin-top:.5rem;opacity: 0.8">总收益</span>
+                <div class="flex-row" style="align-items: flex-end;height:.3rem;margin-top:.1rem;">
+                    <span style="font-size: .25rem;font-weight: bold;color:#fff;">89798.00</span>
+                    <span style="font-size: .12rem;line-height: .33rem;margin-left:.04rem;">元</span>
+                </div>
+                <div class="flex-row" style="position:relative;width:100%;margin-top:.1rem;">
+                    <span class="tixian-btn">马上提现</span>
+                    <span class="tixianjilu">提现记录>></span>
+                </div>
+
+            </div>
+            <span style="position:absolute;left:.1rem;bottom:.1rem;font-size: .14rem;">可提现：8789.00元</span>
+        </section>
+        <section class="body">
+            <div class="flex-row" style="justify-content: space-around;height:.6rem;border-bottom:1px solid #e9e9e9;background-color: #fff">
+                <div class="flex-row" style="width:49%;color:#dd5757">
+                    <span>今日收益：</span>
+                    <span>979.00元</span>
+                </div>
+                <span class="c-line"></span>
+                <div class="flex-row" style="width:49%;color:#aaa;">
+                    <span>昨日收益：</span>
+                    <span>543.00元</span>
+                </div>
+            </div>
+            <div class="flex-row item-container" style="margin-top:.2rem;">
+                <span style="margin-left:.1rem;">今日邀请人数</span>
+                <div class="item-right flex-row" style="color:#dd5757">
+                    <span>377人</span>
+                    <svg class="arrow">
+                        <use xlink:href="#arrow"></use>
+                    </svg>
+                </div>
+            </div>
+            <div class="flex-row item-container">
+                <span style="margin-left:.1rem;">今日开通会员数</span>
+                <div class="item-right flex-row" style="color:#dd5757">
+                    <span>377人</span>
+                    <svg class="arrow">
+                        <use xlink:href="#arrow"></use>
+                    </svg>
+                </div>
+            </div>
+            <div class="flex-row item-container" style="margin-top:.2rem;">
+                <span style="margin-left:.1rem;">历史邀请人数</span>
+                <div class="item-right flex-row">
+                    <span>377人</span>
+                    <svg class="arrow">
+                        <use xlink:href="#arrow"></use>
+                    </svg>
+                </div>
+            </div>
+            <div class="flex-row item-container">
+                <span style="margin-left:.1rem;">历史开通会员数</span>
+                <div class="item-right flex-row">
+                    <span>377人</span>
+                    <svg class="arrow">
+                        <use xlink:href="#arrow"></use>
+                    </svg>
+                </div>
+            </div>
+        </section>
+        <section class="footer">
+            <p style="color:#dd5757">奖励丰厚：</p>
+            <p style="color:#888;font-size: .14rem;">
+                每邀请一个新用户开通会员，您将获得最高<span style="color:#dd5757">99元</span>奖励（付费金额 x 50% = 奖励金额）
+            </p>
+            <p style="margin-top:.1rem;color:#dd5757">
+                邀请方法：
+            </p>
+            <p style="color:#888;font-size: .14rem;">
+                1. 图片邀请：<span style="color:#00a0e9;font-weight: bold">点击此处</span>获得邀请海报并分享给朋友，朋友通过二维码关注并开通会员。
+            </p>
+            <p style="color:#888;font-size: .14rem;">
+                2. 文章邀请：<span style="color:#00a0e9;font-weight: bold">点击此处</span>分享文章给朋友，朋友通过文章底部的"一键换成我的名片"按钮关注并开通会员。
+            </p>
+        </section>
+
+    </div>
+
+</body>
+</html>
