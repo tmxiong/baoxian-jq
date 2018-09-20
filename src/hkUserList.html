@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" class="pixel-ratio-2 retina ios ios-9 ios-9-1 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <script type="text/javascript">
+        document.documentElement.setAttribute('style', 'font-size:' + document.documentElement.clientWidth / 375 * 100 + 'px !important');
+    </script>
+    <title>用户列表</title>
+    <link rel="stylesheet" href="public/css/weui.min.css">
+    <!--<link rel="stylesheet" href="public/css/jquery-weui.min.css">-->
+    <style>
+        body, html {
+            -webkit-tap-highlight-color: transparent;
+            width:100%;
+            background-color: #e3e3e3;
+        }
+        div{
+            font-size: .16rem;
+        }
+        html{
+            -ms-text-size-adjust:100%;
+            -webkit-text-size-adjust:100%;
+        }
+        body{
+            line-height:1.6;
+            font-family:-apple-system-font, "Helvetica Neue", sans-serif;
+        }
+        *{
+            margin:0;
+            padding:0;
+        }
+        a img{
+            border:0;
+        }
+        a{
+            text-decoration:none;
+            -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+        }
+        .flex-row{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: row;
+        }
+        .flex-column{
+            display: flex;
+            justify-content: center;
+            align-items:  center;
+            flex-direction: column;
+        }
+        textarea{
+            outline:none;
+            resize:none;
+            border:none;
+        }
+        textarea::placeholder, textarea::-webkit-input-placeholder{
+            color:#ccc;
+            font-size:.15rem;
+        }
+
+        .container{
+            width:100%;
+            background-color: #ebebeb;
+            margin:0 auto;
+            justify-content: flex-start;
+        }
+        .find-btn{
+            width:.6rem;
+            height:.3rem;
+            background-color: #00a0e9;
+            color:#fff;
+            border-radius: .05rem;
+            text-align: center;
+            line-height:.3rem;
+            position:absolute;
+            right:.1rem;
+        }
+        .input-time{
+            font-size:.16rem;border:none;
+            border-bottom:1px solid #e9e9e9;
+            padding-left:.05rem;color:#888
+        }
+
+        .list-content{
+            width:100%;
+            height:.6rem;
+            background-color: #fff;
+            border-bottom:1px solid #e9e9e9;
+            justify-content: flex-start;
+        }
+        .list-icon{
+            width:.4rem;
+            height:.4rem;
+            border-radius: .2rem;
+            margin-left:.1rem;
+            margin-right:.1rem;
+
+        }
+        .guanzhu, .kaitong {
+            font-size: .14rem;
+            color:#888
+        }
+        .kaitong{
+            margin-left:.1rem;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+        <svg  id="msg-temp" viewBox="0 0 1024 1024" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>对话模板</title>
+            <path d="M256.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C320.070562 395.713341 291.281147 365.794928 256.282249 365.794928L256.282249 365.794928 256.282249 365.794928 256.282249 365.794928zM512 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C575.788313 395.713341 547.563396 365.794928 512 365.794928L512 365.794928 512 365.794928 512 365.794928zM768.282249 365.794928c-35.563396 0-63.788313 29.353914-63.788313 66.046307 0 36.127894 28.789416 66.046307 63.788313 66.046307 35.563396 0 63.788313-29.353914 63.788313-66.046307C832.070562 395.713341 803.281147 365.794928 768.282249 365.794928L768.282249 365.794928 768.282249 365.794928 768.282249 365.794928zM895.858875 32.176406 128.141125 32.176406C57.578831 32.176406 0 91.448732 0 164.833517l0 499.016538c0 73.384785 58.707828 141.124587 130.963616 141.124587l195.316428 0c33.869901 36.127894 174.994487 182.332966 174.994487 182.332966 6.209482 6.77398 16.370452 6.77398 22.579934 0 0 0 103.303197-116.851158 170.478501-182.332966l199.832415 0c72.255788 0 130.963616-67.739802 130.963616-141.124587L1025.128997 164.833517C1024 91.448732 966.985667 32.176406 895.858875 32.176406L895.858875 32.176406 895.858875 32.176406 895.858875 32.176406zM960.211687 662.15656c0 36.127894-30.482911 74.513782-66.610805 74.513782l-196.445424 0c-23.708931 0-45.159868 24.273429-45.159868 24.273429L513.693495 903.197354l-137.737596-141.689085c0 0-25.966924-24.273429-48.546858-24.273429L130.963616 737.23484c-36.127894 0-66.610805-38.385888-66.610805-74.513782L64.352811 168.220507c0-36.127894 28.789416-66.046307 63.788313-66.046307l768.282249 0c35.563396 0 63.788313 29.353914 63.788313 66.046307L960.211687 662.15656 960.211687 662.15656 960.211687 662.15656 960.211687 662.15656zM960.211687 662.15656" p-id="3204"></path>
+        </svg>
+
+    </svg>
+
+    <script src="http://statics.yunxinsky.com/jquery-3.0.0.min.js"></script>
+
+    <script>
+        window.onload = function () {
+            initTime();
+            initBtn();
+        };
+
+        function initTime() {
+            var y = new Date().getFullYear();
+            var m = new Date().getMonth() + 1;
+            m = "0" + m;
+            m = m.slice(-2);
+            var max = y + "-" + m;
+            var min = y - 20 + "-" + m;
+
+            $(".input-time").val(max).attr({'Max':max,'Min':min});
+        }
+
+        function initBtn() {
+            $(".find-btn").click(function(){
+                var time = $('.input-time').val();
+
+            })
+        }
+
+    </script>
+
+    <div class="flex-column container">
+        <section style="width:100%;position:fixed;">
+            <div class="flex-row" style="justify-content: flex-start;width:100%;height:.4rem;background-color: #fff;position:relative">
+                <span style="margin-left:.1rem;color:#111">时间：</span>
+                <input class="input-time" type="month" max="2018-09" value="">
+                <span style="margin-left:.1rem;color:#888">至今</span>
+                <span class="find-btn">查询</span>
+            </div>
+            <div class="flex-row" style="width:100%;background-color: #fff;justify-content: flex-start;height:.3rem;border-bottom:1px solid #e9e9e9">
+                <span style="font-size:.14rem;margin-left:.1rem;">总人数：</span>
+                <span style="color:#888;font-size: .14rem;">990</span>
+            </div>
+        </section>
+        <section style="width:100%;margin-top:.7rem;">
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row list-content">
+                <img class="list-icon" src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1537447406&di=952fde80dae4d77b14e36f363d8fd1a5&src=http://img5q.duitang.com/uploads/item/201504/14/20150414H2239_ft8mR.jpeg"/>
+                <div>
+                    <div>冷浪漫</div>
+                    <div class="flex-row">
+                        <span class="guanzhu">关注：2018-08-08</span>
+                        <span class="kaitong">开通：2018-09-09</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>

@@ -7,8 +7,8 @@
         document.documentElement.setAttribute('style', 'font-size:' + document.documentElement.clientWidth / 375 * 100 + 'px !important');
     </script>
     <title>我的奖励</title>
-    <link rel="stylesheet" href="public/css/weui.min.css">
-    <link rel="stylesheet" href="public/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="http://statics.yunxinsky.com/weui.min.css">
+    <link rel="stylesheet" href="http://statics.yunxinsky.com/jquery-weui.min.css">
     <style>
         body, html {
             -webkit-tap-highlight-color: transparent;
@@ -77,9 +77,8 @@
         .header{
             background-color: #49a9e9;
             width:100%;
-            height:2rem;
+            height:2.1rem;
             color:#eee;
-            position:relative;
         }
         .tixian-btn{
             width:1.0rem;
@@ -94,10 +93,8 @@
             font-size:.14rem;
         }
         .tixianjilu{
-            position:absolute;
-            right:.2rem;
+            margin-right:.1rem;
             font-size: .14rem;
-            bottom: 0;
             opacity: .8;
         }
         .body{
@@ -159,25 +156,41 @@
 
     </svg>
 
-    <script src="public/js/jquery-2.1.4.js"></script>
-    <script src="public/js/jquery-weui.min.js"></script>
-    <script src="public/js/clipboard.min.js"></script>
-    <!--<script src="public/js/fastclick.js"></script>-->
-    <script>
-        $(function() {
-            //FastClick.attach(document.body);
-        });
-    </script>
-    <script>
-        var surname = ['熊','季','王','李','张','刘','陈','杨','周','黄','赵','吴','孙','徐','林','胡','朱','郭','梁','马','高','何','郑','罗','宋','谢','叶','韩','任','潘']; //30
-        var name = "***";
-        var phoneStart = new Array("150", "131", "158", "133", "159", "137", "138", "170", "187","188", "189");
-        var vipType = ['99元','79元','49元','99元'];
-        var count = 1; // 滚动次数
+<script src="http://statics.yunxinsky.com/jquery-2.1.4.js"></script>
+<script src="http://statics.yunxinsky.com/jquery-weui.min.js"></script>
+<!--<script src="http://statics.yunxinsky.com/fastclick.js"></script>-->
+<script>
+    $(function() {
+        //FastClick.attach(document.body);
+    });
+</script>
+<script>
+    var surname = ['熊','季','王','李','张','刘','陈','杨','周','黄','赵','吴','孙','徐','林','胡','朱','郭','梁','马','高','何','郑','罗','宋','谢','叶','韩','任','潘']; //30
+    var name = "***";
+    var phoneStart = new Array("150", "131", "158", "133", "159", "137", "138", "170", "187","188", "189");
+    var vipType = ['99元','79元','49元','99元'];
+    var count = 1; // 滚动次数
 
         window.onload = function () {
             initNoticeAnim();
+            initBtn();
         };
+
+
+
+        function initBtn() {
+            $(".tixian-btn").click(function(){
+                var money = $('.yue').text();
+                money = parseInt(money);
+                if(money > 100) {
+                    window.location.href='tixian.html'
+                }else {
+                    alert('提现金额需大于100')
+                }
+            })
+        }
+
+
 
         function getRandom(start,end){
             return Math.floor(Math.random()*end + start);
@@ -279,18 +292,21 @@
 
         <section class="header">
             <div class="flex-column">
-                <span style="font-size: .14rem;margin-top:.5rem;opacity: 0.8">总收益</span>
+                <span style="font-size: .14rem;margin-top:.5rem;opacity: 0.8;color:#fff">总收益</span>
                 <div class="flex-row" style="align-items: flex-end;height:.3rem;margin-top:.1rem;">
-                    <span style="font-size: .25rem;font-weight: bold;color:#fff;">89798.00</span>
+                    <span class="yue" style="font-size: .25rem;font-weight: bold;color:#fff;">89798.00</span>
                     <span style="font-size: .12rem;line-height: .33rem;margin-left:.04rem;">元</span>
                 </div>
-                <div class="flex-row" style="position:relative;width:100%;margin-top:.1rem;">
+                <div class="flex-column" style="position:relative;width:100%;margin-top:.1rem;">
                     <span class="tixian-btn">马上提现</span>
-                    <span class="tixianjilu">提现记录>></span>
+                    <span style="font-size: .12rem;margin-top:.1rem;color:#ddd">满100元可提现</span>
                 </div>
-
             </div>
-            <span style="position:absolute;left:.1rem;bottom:.1rem;font-size: .14rem;">可提现：8789.00元</span>
+            <div class="flex-row" style="width:100%; justify-content: space-between;">
+                <span style="margin-left:.1rem;font-size: .14rem;">可提现：8789.00元</span>
+                <span class="tixianjilu">提现记录>></span>
+            </div>
+
         </section>
         <section class="body">
             <div class="flex-row" style="justify-content: space-around;height:.6rem;border-bottom:1px solid #e9e9e9;background-color: #fff">
